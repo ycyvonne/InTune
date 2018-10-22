@@ -1,0 +1,15 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "export NODE_ENV=development && node index.js",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^4.12.6",
+    "cors": "^2.8.4"
+  }
+}
