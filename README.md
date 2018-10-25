@@ -1,4 +1,4 @@
-# Streamline
+# InTune
 
 ## Setting up environment for the first time
 * For Mac users:
