@@ -8,5 +8,5 @@ const serverBaseURL = `http://${config.server.host}:${config.server.port}`;
  * @returns {JSON} username in JSON format
  */
 export function getUsername() {
-    return get(`${serverBaseURL}/user/name`).then(res => res.json());
+    return get(`${serverBaseURL}/user/name`).then(res => res);
 }
