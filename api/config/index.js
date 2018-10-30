@@ -18,9 +18,9 @@ module.exports = (() => {
 				port: 8080
 			},
 
-			soundcloud: {
-				client_id: secrets.soundcloud.client_id,
-				client_secret: secrets.soundcloud.client_secret,
+			spotify: {
+				client_id: secrets.spotify.client_id,
+				client_secret: secrets.spotify.client_secret,
 				redirect_uri: 'http://localhost:8888/callback'
 			},
 
