@@ -11,3 +11,11 @@ export function getUsername(cb) {
          .catch(error => console.error("Error in getUsername: " + error));
    };
 }
+
+export function login() {
+    return (dispatch, prevState) => {
+        api.login()
+            .then(response => dispatch({ name: response, type: "LOGIN" }))
+            .catch(error => console.error("Error in login: " + error));
+    };
+}
