@@ -10,7 +10,3 @@ const serverBaseURL = `http://${config.server.host}:${config.server.port}`;
 export function getUsername() {
     return get(`${serverBaseURL}/user/name`).then(res => res);
 }
-
-export function login() {
-    return get(`${serverBaseURL}/login`).then(res => res);
-}

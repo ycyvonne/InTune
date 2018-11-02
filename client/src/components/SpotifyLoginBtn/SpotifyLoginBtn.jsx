@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getAuthenticationURL } from '../../utils/loginCallback';
 
 class SpotifyLoginBtn extends Component {
     constructor(props) {
@@ -9,7 +10,7 @@ class SpotifyLoginBtn extends Component {
     }
 
     handleLogin(e) {
-        this.props.login();
+        window.location.href = getAuthenticationURL();
     }
 
     render() {

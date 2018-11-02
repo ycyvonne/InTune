@@ -5,11 +5,6 @@ function UserReducer(state = {}, action) {
                 ...state,
                 name: action.name
             };
-        case 'LOGIN':
-            return {
-                ...state,
-                name: action.name
-            }
         default:
             return state;
     }
