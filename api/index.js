@@ -7,8 +7,8 @@ const server = http.createServer(app);
 const cors = require('cors');
 
 app.use(cors({
-    credentials: true,
-    origin: true
+	credentials: true,
+	origin: true
 }));
 
 const config = require('./config');
@@ -19,6 +19,9 @@ require('./models');
 // Set up router endpoints
 const userRouter = require('./routes/user');
 app.use('/user', userRouter);
+
+const utils = require('./utils')
+var stateKey = 'spotify_auth_state';
 
 server.listen(config.server.port, () => {
 	console.log('Listening on port ' + config.server.port);
