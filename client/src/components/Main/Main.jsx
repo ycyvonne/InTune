@@ -7,11 +7,10 @@ class Main extends Component {
       return (
          <div>
             <Nav />
-
             {/*Alternate pages beneath navbar, based on current route*/}
             <Switch>
                <Route exact path='/' render={() => <SpotifyLoginBtn {...this.props} />} />
-               <Route path='/test' render={() => <MyComponent {...this.props} />} />
+               <Route path='/callback' render={() => <MyComponent {...this.props} />} />
             </Switch>
          </div>
       )

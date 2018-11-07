@@ -5,6 +5,8 @@ function UserReducer(state = {}, action) {
                 ...state,
                 name: action.name
             };
+        case 'AUTHORIZE':
+            return Object.assign({}, state, action.authorize);
         default:
             return state;
     }
