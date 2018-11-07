@@ -5,13 +5,15 @@ const http = require('http');
 const app = express();
 const server = http.createServer(app);
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const config = require('./config');
 
 app.use(cors({
 	credentials: true,
 	origin: true
 }));
 
-const config = require('./config');
+app.use(bodyParser.json())
 
 // Connect to database
 require('./models');
@@ -19,9 +21,6 @@ require('./models');
 // Set up router endpoints
 const userRouter = require('./routes/user');
 app.use('/user', userRouter);
-
-const utils = require('./utils')
-var stateKey = 'spotify_auth_state';
 
 server.listen(config.server.port, () => {
 	console.log('Listening on port ' + config.server.port);
