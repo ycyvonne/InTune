@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
-class MyComponent extends Component {
+class TempProfile extends Component {
     constructor(props) {
         super(props);
         this.props = props;
         this.state = {};
         this.props.getUsername();
         
-        this.authorize = this.authorize.bind(this);
 
-        if (!this.props.user.access_token && !this.props.user.refresh_token) {
+        this.authorize = this.authorize.bind(this);
+        if (!this.props.user.spotifyData || !this.props.user.spotifyData.fetched) {
             this.authorize();
         }
     }
@@ -21,20 +21,17 @@ class MyComponent extends Component {
 
     render() {
         var isValid = true;
-        if (this.props.user.error == 'invalid_token') {
+        if (!this.props.user.spotifyData || this.props.user.spotifyData.error == 'invalid_token') {
             isValid = false;
         }
-
-        // TODO: if isValid render profile component
-        //       else redirect to main
         return (
             <div>
                 {isValid && <div>
                     <h3>User logged in</h3>
-                    <div>Name: {this.props.user.display_name}</div>  
-                    <div>Email: {this.props.user.email}</div>
+                    <div>Name: {this.props.user.spotifyData.display_name}</div>  
+                    <div>Email: {this.props.user.spotifyData.email}</div>
                     <code>
-                        {JSON.stringify(this.props.user)}
+                        {JSON.stringify(this.props.user.spotifyData)}
                     </code>
                 </div>}
             </div>
@@ -42,4 +39,4 @@ class MyComponent extends Component {
     }
 }
 
-export default MyComponent;
+export default TempProfile;

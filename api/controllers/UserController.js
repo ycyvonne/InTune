@@ -23,6 +23,9 @@ function getAccessToken(req, res) {
 	if (sessionId) {
 		returnTokenPromise = new Promise(function(resolve, reject) {
 			var lookup = sessions.lookupSession(sessionId);
+			if (!lookup || !lookup.access_token) {
+				reject('no corresponding access token found.');
+			}
 			resolve(lookup.access_token);
 		});
 	}

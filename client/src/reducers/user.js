@@ -6,7 +6,16 @@ function UserReducer(state = {}, action) {
                 name: action.name
             };
         case 'AUTHORIZE':
-            return Object.assign({}, state, action.authorize);
+            var spotifyData = {};
+            if (!action.authorize.error) {
+                spotifyData = Object.assign({}, action.authorize, {
+                    fetched: true
+                });
+            }
+
+            return Object.assign({}, state, {
+                spotifyData: spotifyData
+            });
         default:
             return state;
     }
