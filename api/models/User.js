@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 
 // User Schema Definition
 var userSchema = new mongoose.Schema({
-	name: String
+	name: String,
+	id: Number
 });
 
 // User Schema Methods
@@ -18,9 +19,10 @@ var userSchema = new mongoose.Schema({
  *     .then(user => console.log(user))
  *     .catch(error => console.error(error));
  */
-userSchema.statics.create = function(name) {
+userSchema.statics.create = function(name, id) {
 	var user = new this({
-		name: name
+		name: name,
+		id: id
 	});
 
 	return new Promise((resolve, reject) => {
