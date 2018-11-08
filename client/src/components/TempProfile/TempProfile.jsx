@@ -4,7 +4,9 @@ class TempProfile extends Component {
     constructor(props) {
         super(props);
         this.props = props;
-        this.state = {};
+        this.state = {
+            authorize: false
+        };
         this.props.getUsername();
         
 
@@ -15,13 +17,19 @@ class TempProfile extends Component {
     }
 
     authorize() {
-        var code = RegExp(/code=([^&]*)/).exec(window.location.href)[1];
-        this.props.authorize(code);
+        var regex = RegExp(/code=([^&]*)/).exec(window.location.href);
+        if (regex) {
+            var code = regex[1];
+            this.props.authorize(code);
+            this.setState({
+                authorize: true
+            });
+        }
     }
 
     render() {
         var isValid = true;
-        if (!this.props.user.spotifyData || this.props.user.spotifyData.error == 'invalid_token') {
+        if (!this.state.authorize || !this.props.user.spotifyData || this.props.user.spotifyData.error == 'invalid_token') {
             isValid = false;
         }
         return (
