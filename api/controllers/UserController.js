@@ -18,12 +18,12 @@ function getName(req, res) {
 function getAccessToken(req, res) {
 	var code = req.body.code;
 	var returnTokenPromise;
-
 	const sessionId = req.cookies.session;
+
 	if (sessionId) {
 		returnTokenPromise = new Promise(function(resolve, reject) {
-			var lookup = lookupSession(sessionId);
-			return lookup.access_token;
+			var lookup = sessions.lookupSession(sessionId);
+			resolve(lookup.access_token);
 		});
 	}
 	else {
@@ -31,7 +31,7 @@ function getAccessToken(req, res) {
 			.getAccessToken(code)
 			.then(function(tokens) {
 				const id = sessions.generateID();
-				sessions.setTokens(id, tokens);
+				sessions.setSessionStateById(id, tokens);
 				res.cookie('session', id);
 				return tokens.access_token;
 			});

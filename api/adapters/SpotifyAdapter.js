@@ -24,7 +24,7 @@ function getAccessToken(code) {
             if (!error && response.statusCode === 200) {
                 var access_token = body.access_token,
                     refresh_token = body.refresh_token;
-
+                
                 resolve({
                     access_token: access_token,
                     refresh_token: refresh_token

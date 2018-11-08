@@ -1,21 +1,25 @@
 const sessions = {};
 
-/** returns a random string ID */
+/** 
+ * returns a random string ID 
+ * */
 function generateID() {
     return '' + Math.random();
 }
 
-/** return the session state for the ID */
+/** 
+ * return the session state for the ID 
+ * */
 function lookupSession(sessionId) {
     return sessions[sessionId];
 }
 
-function setTokens(id, tokens) {
-    sessions[id] = tokens;
+function setSessionStateById(id, state) {
+    sessions[id] = state;
 }
 
 module.exports = {
-    setTokens,
     generateID,
-    lookupSession
+    lookupSession,
+    setSessionStateById
 }

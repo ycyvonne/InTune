@@ -6,7 +6,10 @@ import axios from 'axios';
  * @returns {Promise}
  */
 export function get(url) {
-    return axios.get(url)
+    var config = {
+        withCredentials: true
+    }
+    return axios.get(url, config)
         .then(response => response.data)
         .catch((error) => Promise.reject(`GET ${url} failed: ${error}`));
 }
@@ -18,7 +21,10 @@ export function get(url) {
  * @returns {Promise}
  */
 export function post(url, requestBody) {
-    return axios.post(url, requestBody)
+    var config = {
+        withCredentials: true
+    }
+    return axios.post(url, requestBody, config)
         .then(response => response.data)
         .catch((error) => Promise.reject(`POST ${url} failed: ${error}`));
 }
