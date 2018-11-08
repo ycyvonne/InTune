@@ -17,7 +17,6 @@ class SpotifyLoginBtn extends Component {
         return (
             <div className="container">
                 <div id="login">
-                    <h1>This is an example of the Authorization Code flow</h1>
                     <button onClick={this.handleLogin}>Log in with Spotify</button>
                 </div>
             </div>
