@@ -20,27 +20,18 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 /**
- * check if the 'session' cookie is set. if so,
- * set the user state on the request. otherwise
- * return an error. this function is called 'middleware',
- * i.e. it is run before accessing a particular route
- * to ensure the session cookie is set before continuing
+ * Middleware for authenticated routes (requires a valid session)
  */
-const protectedRoute = ((req, res, next) => {
-	const session = res.cookie('session');
-	if (session) {
-	  req.user = sessions.lookupSession(sessionId);
+function protectedRoute(req, res, next){
+	const sessionId = req.cookies.session;
+	if (sessionId) {
+	  req.tokens = sessions.lookupSession(sessionId);
 	}
-	if (!session || !req.user) {
+	if (!sessionId || !req.tokens) {
 	  return next(new Error('Unauthorized'));
 	}
 	next();
-});
-  
-
-// app.use(cookieParser('this-is-a-secret-token'));
-// app.use(session());
-// app.use(session({ secret: 'this-is-a-secret-token', cookie: { maxAge: 60000 }}));
+}
 
 // Connect to database
 require('./models');
@@ -48,6 +39,11 @@ require('./models');
 // Set up router endpoints
 const userRouter = require('./routes/user');
 app.use('/user', userRouter);
+
+/** a route that requires a valid session to access */
+app.get('/test', protectedRoute, (req, res) => {
+	res.status(200).json({ msg: 'hihi' });
+})
 
 server.listen(config.server.port, () => {
 	console.log('Listening on port ' + config.server.port);
