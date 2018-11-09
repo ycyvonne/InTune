@@ -1,6 +1,7 @@
 .profile-wrapper {
   display: flex;
   justify-content: center;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=Profile.css.map */

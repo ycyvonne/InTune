@@ -10,6 +10,6 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scss": "sass --watch client/src/components/Profile/Profile.scss client/src/components/Profile/Profile.css"
+    "scss": "sass --watch client/src/components/Profile/Profile.scss:client/src/components/Profile/Profile.css client/src/components/ProfileColumn1/ProfileColumn1.scss:client/src/components/ProfileColumn1/ProfileColumn1.css client/src/components/ProfileColumn2/ProfileColumn2.scss:client/src/components/ProfileColumn2/ProfileColumn2.css"
   }
 }
