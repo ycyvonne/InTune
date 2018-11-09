@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { ProfileColumn1, ProfileColumn2 } from "../";
+import "./Profile.css";
 
-class TempProfile extends Component {
+class Profile extends Component {
   constructor(props) {
     super(props);
     this.props = props;
@@ -30,7 +31,7 @@ class TempProfile extends Component {
       isValid = false;
     }
     return (
-      <div>
+      <div className="profile-wrapper">
         <ProfileColumn1 />
         <ProfileColumn2 />
       </div>
@@ -51,4 +52,4 @@ class TempProfile extends Component {
 </div> */
 }
 
-export default TempProfile;
+export default Profile;

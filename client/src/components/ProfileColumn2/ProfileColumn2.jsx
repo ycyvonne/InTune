@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import "./ProfileColumn2.css";
 
 class ProfileColumn2 extends Component {
   render() {
-    return <div>Profile Column2 here</div>;
+    return <div className="profile-column2-wrapper">Profile Column2 here</div>;
   }
 }
 
