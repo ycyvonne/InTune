@@ -1,5 +1,64 @@
 .profile-column1-wrapper {
-  color: purple;
+  color: #b2b7bf;
+  margin: 5%;
+}
+
+.profile-details-wrapper {
+  margin: 2% 0 2% 0;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-music-type-wrapper form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 200px;
+}
+
+.intune-subtitle {
+  font-size: 10pt;
+}
+
+.profile-heading {
+  font-size: 40pt;
+  color: #555773;
+}
+
+.profile-subheading {
+  font-size: 10pt;
+  margin: 2% 0 2% 0;
+}
+
+.profile-picture-wrapper {
+  margin-right: 5%;
+}
+
+input {
+  margin: 2% 0 2% 0;
+  line-height: 3em;
+  border: 2px solid #e9ecf2;
+}
+
+.person-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 5% 0% 5% 0;
+  font-size: 0.8em;
+  font-weight: 300;
+}
+
+.profile-picture {
+  border: 2px solid #e9ecf2;
+  object-fit: cover;
+  width: 192px;
+  height: 192px;
+  max-height: 192px;
+  max-width: 100%;
 }
 
 /*# sourceMappingURL=ProfileColumn1.css.map */

@@ -14,6 +14,11 @@ class Profile extends Component {
     }
   }
 
+  componentDidMount() {
+    const canvasColor = "rgb(248, 251, 252)";
+    document.body.style.backgroundColor = canvasColor;
+  }
+
   authorize() {
     var regex = RegExp(/code=([^&]*)/).exec(window.location.href);
     if (regex) {
@@ -32,8 +37,8 @@ class Profile extends Component {
     }
     return (
       <div className="profile-wrapper">
-        <ProfileColumn1 />
-        <ProfileColumn2 />
+        <ProfileColumn1 {...this.props} />
+        <ProfileColumn2 {...this.props} />
       </div>
     );
   }

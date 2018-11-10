@@ -1,3 +1,69 @@
 .profile-column1-wrapper {
-  color: purple;
+  color: rgb(178, 183, 191);
+  margin: 5%;
+}
+
+.profile-details-wrapper {
+  margin: 2% 0 2% 0;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-music-type-wrapper {
+  // margin: 2% 0 2% 0;
+}
+
+.profile-music-type-wrapper form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  justify-content: space-between;
+  height: 200px;
+}
+
+.intune-subtitle {
+  font-size: 10pt;
+}
+
+.profile-heading {
+  font-size: 40pt;
+  color: rgb(85, 87, 115);
+}
+
+.profile-subheading {
+  font-size: 10pt;
+  // top, right, bottom, left
+  margin: 2% 0 2% 0;
+}
+
+.profile-picture-wrapper {
+  // margin: 2% 0 2% 0;
+  margin-right: 5%;
+}
+
+input {
+  margin: 2% 0 2% 0;
+  line-height: 3em;
+  border: 2px solid rgb(233, 236, 242);
+}
+
+.person-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 5% 0% 5% 0;
+  font-size: 0.8em;
+  font-weight: 300;
+}
+
+.profile-picture {
+  border: 2px solid rgb(233, 236, 242);
+  object-fit: cover;
+  width: 192px;
+  height: 192px;
+  max-height: 192px;
+  max-width: 100%;
 }
