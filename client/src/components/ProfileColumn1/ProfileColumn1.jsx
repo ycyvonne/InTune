@@ -16,7 +16,9 @@ class ProfileColumn1 extends Component {
   render() {
     return (
       <div className="profile-column1-wrapper">
-        <div className="intune-subtitle"> ------ INTUNE</div>
+        <div className="intune-subtitle">
+          <span>------</span> INTUNE
+        </div>
         <div className="profile-heading">Profile</div>
         <div className="profile-subheading">
           We will match you with concerts and friends based on your info.

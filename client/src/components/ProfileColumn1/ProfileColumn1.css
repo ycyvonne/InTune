@@ -7,6 +7,10 @@
   font-size: 10pt;
 }
 
+.intune-subtitle span {
+  color: #664dda;
+}
+
 .profile-heading {
   font-size: 40pt;
   color: #555773;
@@ -39,7 +43,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  padding: 5% 0% 5% 0;
+  padding: 2% 0 2% 0;
 }
 
 .profile-picture {

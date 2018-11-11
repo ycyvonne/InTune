@@ -1,24 +1,37 @@
+$body-font-color: rgb(178, 183, 191);
+$theme-color-1: rgb(102, 77, 218);
+$theme-color-2: rgb(85, 87, 115);
+$small-font: 10pt;
+$medium-font: 14pt;
+$heading-font: 40pt;
+$default-margin: 2% 0 2% 0;
+$default-border: 2px solid rgb(233, 236, 242);
+
 .profile-column1-wrapper {
-  color: rgb(178, 183, 191);
+  color: $body-font-color;
   margin: 5%;
 }
 
 .intune-subtitle {
-  font-size: 10pt;
+  font-size: $small-font;
+}
+
+.intune-subtitle span {
+  color: $theme-color-1;
 }
 
 .profile-heading {
-  font-size: 40pt;
-  color: rgb(85, 87, 115);
+  font-size: $heading-font;
+  color: $theme-color-2;
 }
 
 .profile-subheading {
-  font-size: 10pt;
-  margin: 2% 0 2% 0;
+  font-size: $small-font;
+  margin: $default-margin;
 }
 
 .profile-details-wrapper {
-  margin: 2% 0 2% 0;
+  margin: $default-margin;
   display: flex;
   justify-content: center;
 }
@@ -39,11 +52,11 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  padding: 5% 0% 5% 0;
+  padding: $default-margin;
 }
 
 .profile-picture {
-  border: 2px solid rgb(233, 236, 242);
+  border: $default-border;
   object-fit: cover;
   width: 192px;
   height: 192px;
@@ -57,7 +70,7 @@
 }
 
 #profile-music-form input {
-  margin: 2% 0 2% 0;
-  font-size: 14pt;
-  border: 2px solid rgb(233, 236, 242);
+  margin: $default-margin;
+  font-size: $medium-font;
+  border: $default-border;
 }
