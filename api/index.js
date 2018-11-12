@@ -40,6 +40,9 @@ require('./models');
 const userRouter = require('./routes/user');
 app.use('/user', userRouter);
 
+const concertRouter = require('./routes/concert');
+app.use('/concert',concertRouter);
+
 /** a route that requires a valid session to access */
 app.get('/test', protectedRoute, (req, res) => {
 	res.status(200).json({ msg: 'hihi' });

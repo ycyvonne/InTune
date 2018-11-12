@@ -2,6 +2,7 @@
 
 const User = require('../models/User'); // eslint-disable-line
 const SpotifyAdapter = require('../adapters/SpotifyAdapter');
+const SongkickAdapter = require('../adapters/SongkickAdapter');
 const sessions = require('../sessions');
 
 function index(req, res) {
@@ -10,6 +11,12 @@ function index(req, res) {
 
 function getName(req, res) {
 	res.json('Joe Bruin');
+}
+
+function testConcert(req, res){
+	SongkickAdapter.getEventsByMetroArea({})
+		.then(stuff => res.send(stuff))
+		.catch(err => res.send(err));
 }
 
 // calls 2 spotify endpoints
@@ -53,5 +60,6 @@ function getAccessToken(req, res) {
 module.exports = {
 	index,
 	getName,
-	getAccessToken
+	getAccessToken,
+	testConcert
 };
