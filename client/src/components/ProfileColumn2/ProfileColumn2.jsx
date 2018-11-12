@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./ProfileColumn2.css";
+import "./ProfileColumn2.scss";
 
 class ProfileColumn2 extends Component {
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ProfileColumn1, ProfileColumn2 } from "../";
-import "./Profile.css";
+import "./Profile.scss";
 
 class Profile extends Component {
   constructor(props) {

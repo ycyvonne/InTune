@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./ProfileColumn1.css";
+import "./ProfileColumn1.scss";
 
 class ProfileColumn1 extends Component {
   constructor(props) {

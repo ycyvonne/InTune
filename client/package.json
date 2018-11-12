@@ -19,8 +19,6 @@
     "request": "~2.83.0"
   },
   "devDependencies": {
-    "node-sass": "^4.10.0",
-    "sass-loader": "^7.1.0",
     "autoprefixer": "7.1.0",
     "babel-core": "6.24.1",
     "babel-eslint": "7.2.3",
@@ -44,16 +42,18 @@
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.28.0",
     "jest": "20.0.3",
+    "node-sass": "^4.10.0",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.0.0",
     "postcss-loader": "2.0.5",
     "promise": "7.1.1",
     "react-dev-utils": "^2.0.0",
     "react-error-overlay": "^1.0.5",
+    "sass-loader": "^7.1.0",
     "style-loader": "0.17.0",
     "sw-precache-webpack-plugin": "0.9.1",
     "url-loader": "0.5.8",
-    "webpack": "2.5.1",
+    "webpack": "^2.5.1",
     "webpack-dev-server": "2.4.5",
     "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "2.0.3"
