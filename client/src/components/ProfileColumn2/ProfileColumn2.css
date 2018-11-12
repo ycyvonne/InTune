@@ -1,5 +1,5 @@
 .profile-column2-wrapper {
-  color: yellow;
+  color: gray;
 }
 
 .profile-title {
@@ -17,7 +17,7 @@
 }
 
 .profile-col-2  {
-  margin: -129% 140% 2% 140%;
+  margin: -90% 140% 2% 140%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
