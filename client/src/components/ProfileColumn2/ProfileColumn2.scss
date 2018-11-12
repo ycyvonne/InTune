@@ -8,14 +8,16 @@ $default-margin: 2% 0 2% 0;
 $default-border: 2px solid rgb(233, 236, 242);
 
 .profile-wrapper {
-  color: gray;
+  color: $body-font-color;
 }
 
 .profile-title {
-  color: gray;
   font-size: 8pt;
   justify-content: left;
   flex-direction: column;
   font-weight: 100;
+  margin: $default-margin;
+  font-size: $medium-font;
+  border: $default-border;
 }
 

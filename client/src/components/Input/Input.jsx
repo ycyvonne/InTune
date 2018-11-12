@@ -11,6 +11,7 @@ class Input extends Component {
         <div>{this.props.title}</div>
         <input
           id={this.props.customId}
+          className={this.props.customClass}
           type={this.props.customType}
           onChange={e => this.props.customOnChange(e)}
         />

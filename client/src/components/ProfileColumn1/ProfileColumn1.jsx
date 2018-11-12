@@ -16,7 +16,8 @@ class ProfileColumn1 extends Component {
           heading="Profile"
           subheading="We will match you with concerts and friends based on your info."
         />
-        <div className="profile-details-wrapper">
+
+        <div className="profile-details-wrapper column">
           <div className="profile-picture-wrapper">
             <div className="profile-picture-heading">PROFILE PICTURE</div>
             <div className="person-card">
@@ -36,7 +37,8 @@ class ProfileColumn1 extends Component {
               />
             </div>
           </div>
-          <div className="profile-music-type-wrapper">
+
+          <div className="profile-music-type-wrapper column">
             <div className="profile-picture-heading">
               PICK YOUR FAVORITE MUSIC TYPE
             </div>

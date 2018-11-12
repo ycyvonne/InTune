@@ -1,47 +1,32 @@
 import React, { Component } from "react";
+import { Input } from "../";
 import "./ProfileColumn2.scss";
 
 class ProfileColumn2 extends Component {
   render() {
     return (
-
-      <div className="profile-wrapper">
-
+      <div className="profile-wrapper column">
         <div className="column">
-          <div>
-            <div className="profile-title">FULL NAME </div>
-            <input type="text" />
-          </div>
-          <div>
-            <div className="profile-title">USERNAME </div>
-            <input type="text" />
-          </div>
-          <div>
-            <div className="profile-title">SPOTIFY ACCOUNT </div>
-            <input type="text" />
-          </div>
-          <div>
-            <div className="profile-title">FAVOURITE ARTIST </div>
-            <input type="text" />
-          </div>
+          <Input title="FULL NAME" customClass="profile-title" type="text" />
+          <Input title="USERNAME" customClass="profile-title" type="text" />
+          <Input
+            title="SPOTIFY ACCOUNT"
+            customClass="profile-title"
+            type="text"
+          />
+          <Input
+            title="FAVORITE ARTIST"
+            customClass="profile-title"
+            type="text"
+          />
         </div>
         <div className="column">
-          <div>
-            <div className="profile-title">EMAIL </div>
-            <input type="text" />
-          </div>
-          <div>
-            <div className="profile-title">PASSWORD </div>
-            <input type="text" />
-          </div>
-          <div>
-            <div className="profile-title">LOCATION </div>
-            <input type="text" />
-          </div>
+          <Input title="EMAIL" customClass="profile-title" type="text" />
+          <Input title="PASSWORD" customClass="profile-title" type="text" />
+          <Input title="LOCATION" customClass="profile-title" type="text" />
         </div>
       </div>
     );
-
   }
 }
 

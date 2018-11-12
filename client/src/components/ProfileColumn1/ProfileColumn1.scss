@@ -6,6 +6,7 @@ $medium-font: 14pt;
 $heading-font: 40pt;
 $default-margin: 2% 0 2% 0;
 $default-border: 2px solid rgb(233, 236, 242);
+$profile-picture-dimension: 192px;
 
 .profile-column1-wrapper {
   color: $body-font-color;
@@ -13,7 +14,6 @@ $default-border: 2px solid rgb(233, 236, 242);
 }
 
 .profile-details-wrapper {
-  margin: $default-margin;
   display: flex;
   justify-content: center;
 }
@@ -23,10 +23,6 @@ $default-border: 2px solid rgb(233, 236, 242);
   flex-direction: column;
   justify-content: space-between;
   height: 200px;
-}
-
-.profile-picture-wrapper {
-  margin-right: 5%;
 }
 
 .person-card {
@@ -39,9 +35,9 @@ $default-border: 2px solid rgb(233, 236, 242);
 .profile-picture {
   border: $default-border;
   object-fit: cover;
-  width: 192px;
-  height: 192px;
-  max-height: 192px;
+  width: $profile-picture-dimension;
+  height: $profile-picture-dimension;
+  max-height: $profile-picture-dimension;
   max-width: 100%;
   cursor: pointer;
 }
@@ -54,12 +50,6 @@ $default-border: 2px solid rgb(233, 236, 242);
 
 #profile-image-input {
   display: none;
-}
-
-#profile-music-form input {
-  margin: $default-margin;
-  font-size: $medium-font;
-  border: $default-border;
 }
 
 .overlay {
