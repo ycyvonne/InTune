@@ -13,7 +13,6 @@ function getEventsByMetroArea(metro_area) {
     // use the access token to access the Spotify Web API
     return new Promise(function(resolve, reject) {
         request.get(options, function(error, response, body) {
-            console.log(apiUrl);
             resolve(body);
         });
     });
