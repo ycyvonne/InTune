@@ -1,4 +1,7 @@
 'use strict';
+
+const secrets = require('./secrets');
+
 module.exports = (() => {
 	switch (process.env.NODE_ENV) {
 	case 'development':
@@ -13,6 +16,20 @@ module.exports = (() => {
 			server: {
 				host: 'localhost',
 				port: 8080
+			},
+
+			spotify: {
+				client_id: secrets.spotify.client_id,
+				client_secret: secrets.spotify.client_secret,
+				redirect_uri: 'http://localhost:3000/callback',
+				url: {
+					request_token: 'https://accounts.spotify.com/api/token',
+					web_api: 'https://api.spotify.com/v1/me'
+				}
+			},
+
+			songkick: {
+				key: secrets.songkick.key
 			}
 		};
 	}
