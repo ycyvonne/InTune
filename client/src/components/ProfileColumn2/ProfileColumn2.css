@@ -2,4 +2,26 @@
   color: yellow;
 }
 
+.profile-title {
+  color: gray;
+  font-size: 8pt;
+  justify-content: left;
+  flex-direction: column;
+  font-weight: 100;
+}
+
+.text-field input {
+  margin: 2% 0 2% 0;
+  font-size: 14pt;
+  border: 2px solid rgb(233, 236, 242);
+}
+
+.profile-col-2  {
+  margin: -129% 140% 2% 140%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+ 
+}
+
 /*# sourceMappingURL=ProfileColumn2.css.map */
