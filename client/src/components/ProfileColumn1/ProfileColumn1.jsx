@@ -2,22 +2,28 @@ import React, { Component } from "react";
 import "./ProfileColumn1.scss";
 
 class ProfileColumn1 extends Component {
-  constructor(props) {
-    super(props);
-    this.props = props;
-    this.state = { selectedProfileImage: "/img/default-profile-picture.png" };
-    this.handleFileChange = this.handleFileChange.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   console.log("ProfileColumn1");
+  //   console.log(props);
+  //   this.props = props;
+  //   // console.log(this.props.user.spotifyData);
+  //   this.state = { selectedProfileImage: "/img/default-profile-picture.png" };
+  //   this.handleFileChange = this.handleFileChange.bind(this);
+  // }
   handleFileChange(event) {
     this.setState({
       selectedProfileImage: URL.createObjectURL(event.target.files[0])
     });
   }
   render() {
+    var profilePictureSrc = this.props.user.spotifyData.images[0].url;
+    console.log(profilePictureSrc);
     return (
       <div className="profile-column1-wrapper">
         <div className="intune-subtitle">
           <span>------</span> INTUNE
+          {/* {JSON.stringify(this.props.user.spotifyData)} */}
         </div>
         <div className="profile-heading">Profile</div>
         <div className="profile-subheading">
@@ -28,10 +34,7 @@ class ProfileColumn1 extends Component {
             <div className="profile-picture-heading">PROFILE PICTURE</div>
             <div className="person-card">
               <label htmlFor="profile-image-input">
-                <img
-                  className="profile-picture"
-                  src={this.state.selectedProfileImage}
-                />
+                <img className="profile-picture" src={profilePictureSrc} />
               </label>
               <input
                 id="profile-image-input"

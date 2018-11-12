@@ -35,11 +35,15 @@ class Profile extends Component {
     ) {
       isValid = false;
     }
+    console.log("from profile");
+    console.log(this.props.user.spotifyData);
     return (
-      <div className="profile-wrapper">
-        <ProfileColumn1 {...this.props} />
-        <ProfileColumn2 {...this.props} />
-      </div>
+      isValid && (
+        <div className="profile-wrapper">
+          <ProfileColumn1 {...this.props} />
+          <ProfileColumn2 {...this.props} />
+        </div>
+      )
     );
   }
 }
