@@ -6,24 +6,7 @@ $medium-font: 14pt;
 $heading-font: 40pt;
 $default-margin: 2% 0 2% 0;
 $default-border: 2px solid rgb(233, 236, 242);
-$profile-picture-dimension: 192px;
-
-.profile-column1-wrapper {
-  color: $body-font-color;
-  margin: 5%;
-}
-
-.profile-details-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.profile-music-type-wrapper form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 200px;
-}
+$profile-picture-dimension: 250px;
 
 .person-card {
   display: flex;
@@ -42,12 +25,6 @@ $profile-picture-dimension: 192px;
   cursor: pointer;
 }
 
-.profile-picture:hover {
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
-  cursor: pointer;
-}
-
 #profile-image-input {
   display: none;
 }
@@ -63,6 +40,7 @@ $profile-picture-dimension: 192px;
   opacity: 0;
   transition: 0.5s ease;
   background-color: rgba(0, 0, 0, 0.5);
+  padding: 0px;
 }
 
 .profile-container {

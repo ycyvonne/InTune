@@ -14,6 +14,7 @@ class Input extends Component {
           className={this.props.customClass}
           type={this.props.customType}
           onChange={e => this.props.customOnChange(e)}
+          value={this.props.defaultInput}
         />
       </div>
     );

@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { ProfileColumn1, ProfileColumn2 } from "../";
+import {
+  Header,
+  ProfilePicture,
+  ProfileDetails,
+  FavoriteList,
+  Button
+} from "../";
 import "./Profile.scss";
 
 class Profile extends Component {
@@ -7,7 +13,7 @@ class Profile extends Component {
     super(props);
     this.props = props;
     this.state = {};
-
+    console.log("whatf");
     this.authorize = this.authorize.bind(this);
     if (!this.props.user.spotifyData || !this.props.user.spotifyData.fetched) {
       this.authorize();
@@ -29,29 +35,25 @@ class Profile extends Component {
       this.props.user.spotifyData.error == "invalid_token"
     ) {
       isValid = false;
+    } else {
+      var spotifyData = this.props.user.spotifyData;
+      var subheading = "Hi " + spotifyData.display_name.split(" ")[0] + "!";
     }
     return (
       isValid && (
         <div className="profile-wrapper">
-          <ProfileColumn1 {...this.props} />
-          <ProfileColumn2 {...this.props} />
+          <Header subtitle="INTUNE" heading="Profile" subheading={subheading} />
+          <div className="cols">
+            <ProfilePicture {...this.props} />
+            <ProfileDetails {...this.props} />
+            <FavoriteList topic="ARTISTS" />
+            <FavoriteList topic="GENRES" />
+          </div>
+          <Button customClass="save-button" text="SAVE" />
         </div>
       )
     );
   }
-}
-
-{
-  /* <div>
-{isValid && <div>
-    <h3>User logged in</h3>
-    <div>Name: {this.props.user.spotifyData.display_name}</div>  
-    <div>Email: {this.props.user.spotifyData.email}</div>
-    <code>
-        {JSON.stringify(this.props.user.spotifyData)}
-    </code>
-</div>}
-</div> */
 }
 
 export default Profile;
