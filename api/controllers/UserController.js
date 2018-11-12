@@ -13,12 +13,6 @@ function getName(req, res) {
 	res.json('Joe Bruin');
 }
 
-function testConcert(req, res){
-	SongkickAdapter.getEventsByMetroArea({})
-		.then(stuff => res.send(stuff))
-		.catch(err => res.send(err));
-}
-
 // calls 2 spotify endpoints
 // POST to /api/token for access token
 // GET from spotify web api /v1/me for user info
