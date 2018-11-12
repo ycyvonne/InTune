@@ -13,8 +13,8 @@ services:
     links:
       - db_mongo
   web_client:
-    build: ./client
-    ports:
-      - "3000:3000"
-    links:
-      - api
+   build: ./client
+   ports:
+     - "3000:3000"
+   links:
+     - api
