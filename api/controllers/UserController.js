@@ -54,6 +54,5 @@ function getAccessToken(req, res) {
 module.exports = {
 	index,
 	getName,
-	getAccessToken,
-	testConcert
+	getAccessToken
 };
