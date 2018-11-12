@@ -14,11 +14,6 @@ class Profile extends Component {
     }
   }
 
-  componentDidMount() {
-    const canvasColor = "rgb(248, 251, 252)";
-    document.body.style.backgroundColor = canvasColor;
-  }
-
   authorize() {
     var regex = RegExp(/code=([^&]*)/).exec(window.location.href);
     if (regex) {
@@ -35,8 +30,6 @@ class Profile extends Component {
     ) {
       isValid = false;
     }
-    console.log("from profile");
-    console.log(this.props.user.spotifyData);
     return (
       isValid && (
         <div className="profile-wrapper">

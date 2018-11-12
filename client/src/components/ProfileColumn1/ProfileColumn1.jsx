@@ -1,45 +1,38 @@
 import React, { Component } from "react";
+import { Input, Header } from "../";
 import "./ProfileColumn1.scss";
 
 class ProfileColumn1 extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   console.log("ProfileColumn1");
-  //   console.log(props);
-  //   this.props = props;
-  //   // console.log(this.props.user.spotifyData);
-  //   this.state = { selectedProfileImage: "/img/default-profile-picture.png" };
-  //   this.handleFileChange = this.handleFileChange.bind(this);
-  // }
   handleFileChange(event) {
-    this.setState({
-      selectedProfileImage: URL.createObjectURL(event.target.files[0])
-    });
+    console.log(URL.createObjectURL(event.target.files[0]));
+    // TODO: update profile picture on frotend and send to backend
   }
   render() {
     var profilePictureSrc = this.props.user.spotifyData.images[0].url;
-    console.log(profilePictureSrc);
     return (
       <div className="profile-column1-wrapper">
-        <div className="intune-subtitle">
-          <span>------</span> INTUNE
-          {/* {JSON.stringify(this.props.user.spotifyData)} */}
-        </div>
-        <div className="profile-heading">Profile</div>
-        <div className="profile-subheading">
-          We will match you with concerts and friends based on your info.
-        </div>
+        <Header
+          subtitle="INTUNE"
+          heading="Profile"
+          subheading="We will match you with concerts and friends based on your info."
+        />
         <div className="profile-details-wrapper">
           <div className="profile-picture-wrapper">
             <div className="profile-picture-heading">PROFILE PICTURE</div>
             <div className="person-card">
-              <label htmlFor="profile-image-input">
+              <label
+                className="profile-container"
+                htmlFor="profile-image-input"
+              >
                 <img className="profile-picture" src={profilePictureSrc} />
+                <div className="overlay">
+                  <div>Upload!</div>
+                </div>
               </label>
-              <input
-                id="profile-image-input"
-                type="file"
-                onChange={this.handleFileChange}
+              <Input
+                customId="profile-image-input"
+                customType="file"
+                customOnChange={event => this.handleFileChange(event)}
               />
             </div>
           </div>
@@ -48,11 +41,11 @@ class ProfileColumn1 extends Component {
               PICK YOUR FAVORITE MUSIC TYPE
             </div>
             <form id="profile-music-form">
-              <input type="text" />
-              <input type="text" />
-              <input type="text" />
-              <input type="text" />
-              <input type="text" />
+              <Input customType="text" />
+              <Input customType="text" />
+              <Input customType="text" />
+              <Input customType="text" />
+              <Input customType="text" />
             </form>
           </div>
         </div>
