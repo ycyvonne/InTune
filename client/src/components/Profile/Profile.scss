@@ -3,16 +3,14 @@ $theme-color-1: rgb(102, 77, 218);
 $medium-font: 14pt;
 $default-margin: 2% 0 2% 0;
 $default-border: 2px solid rgb(233, 236, 242);
-
-body {
-  background: rgb(248, 251, 252);
-}
+$profile-background: rgb(248, 251, 252);
 
 .profile-wrapper {
+  background: $profile-background;
+  height: 100vh;
   font-weight: bold;
   font-family: "Roboto", sans-serif;
   color: $body-font-color;
-  margin: 50px;
 }
 
 .profile-content-wrapper {

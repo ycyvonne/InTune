@@ -1,0 +1,26 @@
+$small-font: 10pt;
+$medium-font: 16pt;
+$subheading-font: 50px;
+$heading-font: 100pt;
+$overlay-x: 350px;
+$overlay-y: 100px;
+
+.home-wrapper {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  line-height: 68px;
+  height: 100vh;
+}
+
+.home-splash {
+  background: url("/img/welcome-background.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 80vh;
+  position: relative;
+  text-align: center;
+  color: white;
+}
