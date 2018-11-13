@@ -2,6 +2,7 @@
 
 const User = require('../models/User'); // eslint-disable-line
 const SpotifyAdapter = require('../adapters/SpotifyAdapter');
+const SongkickAdapter = require('../adapters/SongkickAdapter');
 const sessions = require('../sessions');
 
 function index(req, res) {

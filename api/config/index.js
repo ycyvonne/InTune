@@ -29,6 +29,10 @@ module.exports = (() => {
 			},
 
 			songkick: {
+				// hardcode for LA metro area (id: 17835)
+				url: {
+					base: 'https://api.songkick.com/api/3.0/events.json?location=sk:17835&apikey=' 
+				},
 				key: secrets.songkick.key
 			}
 		};
