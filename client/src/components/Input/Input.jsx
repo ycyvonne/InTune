@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Input.scss";
 
 class Input extends Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class Input extends Component {
   render() {
     return (
       <div>
-        <div>{this.props.title}</div>
+        <div id="title">{this.props.title}</div>
         <input
           id={this.props.customId}
           className={this.props.customClass}

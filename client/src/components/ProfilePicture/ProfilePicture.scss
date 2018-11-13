@@ -29,7 +29,7 @@ $profile-picture-dimension: 250px;
   display: none;
 }
 
-.overlay {
+#overlay {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -47,11 +47,11 @@ $profile-picture-dimension: 250px;
   position: relative;
 }
 
-.profile-container:hover .overlay {
+.profile-container:hover #overlay {
   opacity: 1;
 }
 
-.overlay div {
+#overlay div {
   color: white;
   font-size: 20px;
   position: absolute;

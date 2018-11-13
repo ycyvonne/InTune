@@ -13,7 +13,7 @@ class ProfilePicture extends Component {
               className="profile-picture"
               src={this.props.user.spotifyData.images[0].url}
             />
-            <div className="overlay">
+            <div id="overlay">
               <div>Upload!</div>
             </div>
           </label>
