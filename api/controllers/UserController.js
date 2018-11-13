@@ -9,7 +9,14 @@ function index(req, res) {
 }
 
 function create(req, res) {
-	User.create("Joe Bruin")
+	// TODO
+	console.log(JSON.stringify(req.body));
+	var code = req.body.code;
+	console.log("got code " + code);
+
+	// need to check for duplicates
+
+	User.create(code)
 		.then(user => res.send(JSON.stringify(user)))
 		.catch(err => res.send(err));
 }
@@ -38,42 +45,47 @@ function deleteAll(req, res) {
 		.catch(err => res.send(err));
 }
 
-// calls 2 spotify endpoints
-// POST to /api/token for access token
-// GET from spotify web api /v1/me for user info
-function getAccessToken(req, res) {
-	var code = req.body.code;
-	var returnTokenPromise;
+/**
+ * Return a user ID from a Spotify access code.
+ * @param {*} req
+ * @param {*} res
+ */
+function getUserIdBySpotifyCode(req, res) {
+	var code = req.params.code;
+	var tokenPromise;
 	const sessionId = req.cookies.session;
 
+	// Check cookies for the access token
 	if (sessionId) {
-		returnTokenPromise = new Promise(function(resolve, reject) {
+		tokenPromise = new Promise((resolve, reject) => {
 			var lookup = sessions.lookupSession(sessionId);
 			if (!lookup || !lookup.access_token) {
-				reject('no corresponding access token found.');
+				reject('no corresponding access token found');
 			}
 			resolve(lookup.access_token);
 		});
 	}
 	else {
-		returnTokenPromise = SpotifyAdapter
+		console.log('Resolving access token with code ' + code);
+		tokenPromise = SpotifyAdapter
 			.getAccessToken(code)
-			.then(function(tokens) {
+			.then(token => {
 				const id = sessions.generateID();
-				sessions.setSessionStateById(id, tokens);
+				sessions.setSessionStateById(id, token);
 				res.cookie('session', id);
-				return tokens.access_token;
+				return token.access_token;
 			});
 	}
 
-	returnTokenPromise
-		.then(SpotifyAdapter.getUserInfo)
-		.then(function(spotifyData) {
-			res.json(spotifyData);
+	// Get the user object
+	tokenPromise.then(SpotifyAdapter.getUserInfo)
+		.then(data => {
+			console.log('user info: ' + JSON.stringify(data));
+			var sid = data.id;
+			return User.findBySpotifyId(sid);
 		})
-		.catch(function(error) {
-			res.json({'error': error})
-		});
+		.then(user => res.send({id: user._id}))
+		.catch(err => res.send(err));
 }
 
 module.exports = {
@@ -83,5 +95,5 @@ module.exports = {
 	getUser,
 	deleteUser,
 	deleteAll,
-  getAccessToken
+	getUserIdBySpotifyCode
 };

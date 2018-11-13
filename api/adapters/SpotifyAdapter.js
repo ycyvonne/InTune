@@ -3,7 +3,6 @@
 const request = require('request');
 const config = require('../config');
 
-
 function getAccessToken(code) {
     var authOptions = {
 		method: 'POST',
@@ -31,7 +30,7 @@ function getAccessToken(code) {
                 });
             }
             else {
-                reject('invalid_token');
+                reject(new Error('could not fetch access token with code=' + response.statusCode + ', body=' + JSON.stringify(response)));
             }
         });
     });
