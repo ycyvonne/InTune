@@ -12,3 +12,5 @@ export { default as Icon } from "./Icon/Icon";
 export { default as Home } from "./Home/Home";
 export { default as Splash } from "./Splash/Splash";
 export { default as Card } from "./Card/Card";
+export { default as ConcertsPage } from "./ConcertsPage/ConcertsPage";
+export { default as Concert } from "./Concert/Concert";

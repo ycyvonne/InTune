@@ -3,27 +3,30 @@
  * to bind the action creators and datastore to properties in the component
  */
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import * as actionCreators from '../actions/actionCreators';
-import Main from './Main/Main';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import * as actionCreators from "../actions/actionCreators";
+import Main from "./Main/Main";
 
 // These are the properties we'll automatically pass to Main
 function mapStateToProps(state) {
-    console.log("Redux Store: " + JSON.stringify(state));
-    return {
-        user: state.user
-    };
+  console.log("Redux Store: " + JSON.stringify(state));
+  return {
+    user: state.user,
+    concerts: state.concerts
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actionCreators, dispatch);
+  return bindActionCreators(actionCreators, dispatch);
 }
 
-const App = withRouter(connect(
+const App = withRouter(
+  connect(
     mapStateToProps,
     mapDispatchToProps
-)(Main));
+  )(Main)
+);
 
 export default App;
