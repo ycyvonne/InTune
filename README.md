@@ -143,3 +143,5 @@ Tests can be found in the folder `client/src/client_test`
 
 Our test scenarios include 
 ```
+#Testing 
+Tests can be found in the folder `client/src/client_test` 
