@@ -49,7 +49,7 @@ function getAccessToken(code, session) {
                     });
                 }
                 else {
-                    reject(new Error('could not fetch access token with code=' + response.statusCode + ', body=' + JSON.stringify(response)));
+                    reject('Could not fetch access token: ' + JSON.stringify(response));
                 }
             });
         });
