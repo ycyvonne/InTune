@@ -2,14 +2,41 @@
 
 const User = require('../models/User'); // eslint-disable-line
 const SpotifyAdapter = require('../adapters/SpotifyAdapter');
+const SongkickAdapter = require('../adapters/SongkickAdapter');
 const sessions = require('../sessions');
 
 function index(req, res) {
 	res.json('/ endpoint hit');
 }
 
-function getName(req, res) {
-	res.json('Joe Bruin');
+function create(req, res) {
+	User.create("Joe Bruin")
+		.then(user => res.send(JSON.stringify(user)))
+		.catch(err => res.send(err));
+}
+
+function getUsers(req, res) {
+	User.findAll()
+		.then(users => res.send(JSON.stringify(users)))
+		.catch(err => res.send(err));
+}
+
+function getUser(req, res) {
+	User.findById(req.params.id)
+		.then(user => res.send(JSON.stringify(user)))
+		.catch(err => res.send(err));
+}
+
+function deleteUser(req, res) {
+	User.deleteById(req.params.id)
+		.then(user => res.send(JSON.stringify(user)))
+		.catch(err => res.send(err));
+}
+
+function deleteAll(req, res) {
+	User.deleteAll()
+		.then(users => res.send(JSON.stringify(users)))
+		.catch(err => res.send(err));
 }
 
 // calls 2 spotify endpoints
@@ -52,6 +79,10 @@ function getAccessToken(req, res) {
 
 module.exports = {
 	index,
-	getName,
-	getAccessToken
+	create,
+	getUsers,
+	getUser,
+	deleteUser,
+	deleteAll,
+  getAccessToken
 };

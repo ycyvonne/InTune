@@ -101,5 +101,40 @@ It is often slow to do front-end development in a Docker container and wait for 
   **Do _NOT_ force push to other people's branches or shared branches**
 
 ## Documentation
+* We are using [jsdoc](https://www.npmjs.com/package/jsdoc) to document code.
 
-- We are using [documentation.js](https://github.com/documentationjs/documentation) to document code.
+Example documentation with express routing:
+
+```
+/** Express router providing user related routes
+ * @module routers/users
+ * @requires express
+ */
+
+/**
+ * express module
+ * @const
+ */
+const express = require('express');
+
+/**
+ * Express router to mount user related functions on.
+ * @type {object}
+ * @const
+ * @namespace usersRouter
+ */
+const router = express.Router();
+
+/**
+ * Route serving login form.
+ * @name get/login
+ * @function
+ * @memberof module:routers/users~usersRouter
+ * @inner
+ * @param {string} path - Express path
+ * @param {callback} middleware - Express middleware.
+ */
+router.get('/login', function(req, res, next) {
+  res.render('login', {title: 'Login', message: 'You must login'});
+});
+```
