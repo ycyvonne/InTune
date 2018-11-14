@@ -57,17 +57,35 @@ function login(req, res) {
 
 			info.access_token = tokenInfo.access_token;
 			info.refresh_token = tokenInfo.refresh_token;
-			sessionId = tokenInfo.sessionId;
+			sessionId = tokenInfo.session;
 
 			return SpotifyAdapter.getUserInfo(info.access_token);
 		})
 		.then(data => {
-			info.id = data.id;
-			console.log("Cookies set to " + JSON.stringify(info));
-			sessions.setSessionStateById(sessionId, info);
 			return User.findBySpotifyId(data.id);
 		})
-		.then(user => res.status(200).send('User successfully logged in.'))
+		.then(user => {
+			info.id = user.id;
+			console.log("Cookies set to " + JSON.stringify(info));
+			sessions.setSessionStateById(sessionId, info);
+			res.cookie('session', sessionId);
+			res.status(200).send('User successfully logged in.');
+		})
+		.catch(err => res.send(err));
+}
+
+function getMe(req, res) {
+	var lookup = sessions.lookupSession(req.cookies.session);
+	if (!req.cookies.session || !lookup) {
+		return res.status(401).send('User not logged in.');
+	}
+
+	console.log('Got state ' + JSON.stringify(lookup));
+	User.findById(lookup.id)
+		.then(user => {
+			console.log("Found a user " + JSON.stringify(user));
+			res.send(JSON.stringify(user));
+		})
 		.catch(err => res.send(err));
 }
 
@@ -78,7 +96,7 @@ function getTopTracks(req, res) {
 		})
 		.then(data => {
 			res.send(data);
-		})
+		});
 }
 
 module.exports = {
@@ -89,5 +107,6 @@ module.exports = {
 	deleteUser,
 	deleteAll,
 	login,
+	getMe,
 	getTopTracks
 };
