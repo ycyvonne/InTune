@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "export NODE_ENV=development && node index.js",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "test": "jest"
   },
   "dependencies": {
     "cookie-parser": "1.3.2",
@@ -15,5 +16,9 @@
     "mongoose": "^4.12.6",
     "querystring": "~0.2.0",
     "request": "~2.83.0"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "node-mocks-http": "^1.7.3"
   }
 }
