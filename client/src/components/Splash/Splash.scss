@@ -1,0 +1,51 @@
+$small-font: 10pt;
+$medium-font: 16pt;
+$subheading-font: 50px;
+$heading-font: 100pt;
+$overlay-x: 350px;
+$overlay-y: 100px;
+
+.splash-wrapper {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 80vh;
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text-overlay div {
+  white-space: nowrap;
+}
+
+.splash-subheading {
+  position: absolute;
+  bottom: $overlay-y;
+  right: $overlay-x;
+  font-size: $subheading-font;
+  letter-spacing: 0.4px;
+}
+
+.splash-heading {
+  font-size: $heading-font;
+  letter-spacing: 5.95px;
+}
+
+.splash-subtitle {
+  position: absolute;
+  top: $overlay-y;
+  left: $overlay-x;
+  font-weight: 300;
+  font-size: $small-font;
+  font-family: Helvetica, sans-serif;
+  letter-spacing: 4.07px;
+}
