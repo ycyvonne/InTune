@@ -14,10 +14,49 @@ function create(req, res) {
 
 	// need to check for duplicates
 
-	User.create(code)
-		.then(user => res.send(JSON.stringify(user)))
+	var sessionInfo = {};
+	var sessionId;
+	var profile = {};
+	var spotId;
+	SpotifyAdapter.getAccessToken(code)
+		.then(token => {
+			sessionInfo.access_token = token.access_token;
+			sessionInfo.refresh_token = token.refresh_token;
+			sessionId = token.session;
+			return SpotifyAdapter.getUserInfo(sessionInfo.access_token);
+		})
+		.then(userData => {
+			spotId = userData.id;
+			return User.findBySpotifyId(userData.id);
+		})
+		.then(possUser => {
+			if (possUser != null) {
+				return res.status(403).send('Error: User already exists');
+			}
+			return User.create(spotId);
+		})
+		.then(user => {
+			sessionInfo.id = user._id;
+			return SpotifyAdapter.getUserTopArtists(sessionInfo.access_token);
+		})
+		.then(artists => {
+			profile.artists = artists;
+			return SpotifyAdapter.getUserTopTracks(sessionInfo.access_token);
+		})
+		.then(tracks => {
+			profile.tracks = tracks;
+			profile.genres = [];
+
+			return User.updateMusicProfile(sessionInfo.id, profile);
+		})
+		.then(user => {
+			sessions.setSessionStateById(sessionId, sessionInfo);
+			res.cookie('session', sessionId);
+			res.send(JSON.stringify(user));
+		})
 		.catch(err => {
-			res.status(500).send(JSON.stringify(err));
+			console.log("we got some kind of error " + err.message);
+			res.status(500).send(err)
 		});
 }
 
@@ -68,7 +107,7 @@ function login(req, res) {
 			info.id = user.id;
 			sessions.setSessionStateById(sessionId, info);
 			res.cookie('session', sessionId);
-			res.status(200).send('User successfully logged in.');
+			res.send('User successfully logged in.');
 		})
 		.catch(err => res.send(err));
 }

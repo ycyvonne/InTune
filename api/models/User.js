@@ -12,52 +12,51 @@ var MusicProfile = new mongoose.Schema({
 });
 
 var userSchema = new mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
 	spotifyId: String,
 	musicProfile: MusicProfile
 });
-
 
 // User Schema Methods
 
 /**
  * Creates and saves a User object in the database
- * @param {string} code
+ * @param {string} spotifyId
  * @returns {User} newly saved User object
  * @example
- * User.create("Joe Bruin")
+ * User.create(id)
  *     .then(user => console.log(user))
  *     .catch(error => console.error(error));
  */
-userSchema.statics.create = function(code) {
-	var userData = {};
-	var accessToken;
+userSchema.statics.create = function(sid) {
+	var user = new this({
+		spotifyId: sid,
+		musicProfile: {
+			artists: [],
+			tracks: [],
+			genres: []
+		}
+	});
 
-	return SpotifyAdapter.getAccessToken(code)
-		.then(token => {
-			accessToken = token.access_token;
-			return SpotifyAdapter.getUserInfo(accessToken);
+	return new Promise((resolve, reject) => {
+		user.save((err, newUser) => {
+			if (err) {
+				reject(err);
+			}
+			else {
+				resolve(newUser);
+			}
 		})
+	})
+};
+
+userSchema.statics.updateMusicProfile = function(id, profile) {
+	return this.findById(id)
 		.then(user => {
-			userData.id = user.id;
-			return SpotifyAdapter.getUserTopArtists(accessToken);
-		})
-		.then(artists => {
-			userData.artists = artists;
-			return SpotifyAdapter.getUserTopTracks(accessToken);
-		})
-		.then(tracks => {
-			userData.tracks = tracks;
-
-			var user = new this({
-				_id: mongoose.Types.ObjectId(),
-				spotifyId: userData.id,
-				musicProfile: {
-					artists: userData.artists,
-					tracks: userData.tracks,
-					genres: []
-				}
-			});
+			user.musicProfile = {
+				tracks: profile.tracks,
+				artists: profile.artists,
+				genres: profile.genres
+			}
 
 			return new Promise((resolve, reject) => {
 				user.save((err, newUser) => {
@@ -86,7 +85,7 @@ userSchema.statics.findById = function(id) {
 					resolve(user[0]);
 				}
 				else {
-					reject('User with id ' + id + ' not found.');
+					resolve(null);
 				}
 			}
 		});
@@ -110,7 +109,7 @@ userSchema.statics.findBySpotifyId = function(spotId) {
 					resolve(user[0]);
 				}
 				else {
-					reject('User with Spotify id ' + spotId + ' not found.');
+					resolve(null);
 				}
 			}
 		})
