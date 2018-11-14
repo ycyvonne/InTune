@@ -7,8 +7,7 @@
   2. `brew install docker`
   3. `brew install docker-compose`
   4. `brew install node`
-  5. `npm install -g sass`
-  6. Navigate to the root of this project directory and run `./scripts/setup.sh`
+  5. Navigate to the root of this project directory and run `./scripts/setup.sh`
 - For windows users:
   1. Go to https://docs.docker.com/docker-for-windows/install/ to install Docker.
   2. Go to https://docs.docker.com/compose/install/#install-compose to install Docker Compose.
@@ -24,8 +23,7 @@ This workflow is for if you want to run the entire application using Docker.
 1. Navigate to the project directory
 2. Make sure your Docker Daemon is running. For Mac, you'll see the whale icon on the top right corner which is the daemon, so make sure that is running.
 3. Run `docker-compose up --build` when you've made changes to the code. Or omit the `--build` flag if you have made no changes.
-4. Run `npm run scss` in a second terminal to run the sass watcher. Sass watches for changes with scss files in the React components. Only make changes in the .scss files, these will be compiled automatically (by this command) to .css files in the component folders.
-5. Go to http://localhost:3000/
+4. Go to http://localhost:3000/
 
 ## React.js Development Workflow
 

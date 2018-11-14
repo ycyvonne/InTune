@@ -1,5 +1,45 @@
+$body-font-color: rgb(178, 183, 191);
+$theme-color-1: rgb(102, 77, 218);
+$medium-font: 14pt;
+$default-margin: 2% 0 2% 0;
+$default-border: 2px solid rgb(233, 236, 242);
+
+body {
+  background: rgb(248, 251, 252);
+}
+
 .profile-wrapper {
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  color: $body-font-color;
+  margin: 50px;
+}
+
+.profile-content-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.profile-content-wrapper div {
+  padding: 0 15px 0 15px;
+}
+
+input {
+  line-height: 2em;
+  margin: $default-margin;
+  font-size: $medium-font;
+  border: $default-border;
+}
+
+.save-button {
+  padding: 10px;
+  font-size: 15pt;
+  color: white;
+  background: $theme-color-1;
+  border-radius: 25px / 17px;
+  width: 200px;
+  margin: 20px auto;
   display: flex;
   justify-content: center;
-  font-weight: bold;
 }
