@@ -1,10 +1,10 @@
-version: '3'
+version: "3"
 services:
   db_mongo:
     image: mongo
     ports:
       - "27017:27017"
-    logging: 
+    logging:
       driver: "none"
   api:
     build: ./api
