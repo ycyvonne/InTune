@@ -10,9 +10,7 @@ function index(req, res) {
 
 function create(req, res) {
 	// TODO
-	console.log(JSON.stringify(req.body));
 	var code = req.body.code;
-	console.log("got code " + code);
 
 	// need to check for duplicates
 
@@ -34,7 +32,7 @@ function getUser(req, res) {
 }
 
 function deleteUser(req, res) {
-	User.deleteById(req.params.id)
+	User.deleteById(req.body.id)
 		.then(user => res.send(JSON.stringify(user)))
 		.catch(err => res.send(err));
 }
@@ -52,35 +50,16 @@ function deleteAll(req, res) {
  */
 function getUserIdBySpotifyCode(req, res) {
 	var code = req.params.code;
-	var tokenPromise;
-	const sessionId = req.cookies.session;
-
-	// Check cookies for the access token
-	if (sessionId) {
-		tokenPromise = new Promise((resolve, reject) => {
-			var lookup = sessions.lookupSession(sessionId);
-			if (!lookup || !lookup.access_token) {
-				reject('no corresponding access token found');
-			}
-			resolve(lookup.access_token);
-		});
-	}
-	else {
-		console.log('Resolving access token with code ' + code);
-		tokenPromise = SpotifyAdapter
-			.getAccessToken(code)
-			.then(token => {
-				const id = sessions.generateID();
-				sessions.setSessionStateById(id, token);
-				res.cookie('session', id);
-				return token.access_token;
-			});
-	}
+	const session = req.cookies.session;
 
 	// Get the user object
-	tokenPromise.then(SpotifyAdapter.getUserInfo)
+	SpotifyAdapter.getAccessToken(code, session)
+		.then(tokenInfo => {
+			console.log('Got tokens ' + JSON.stringify(tokenInfo));
+			res.cookie('session', tokenInfo.session);
+			return SpotifyAdapter.getUserInfo(tokenInfo.access_token);
+		})
 		.then(data => {
-			console.log('user info: ' + JSON.stringify(data));
 			var sid = data.id;
 			return User.findBySpotifyId(sid);
 		})
