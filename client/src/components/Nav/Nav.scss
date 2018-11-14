@@ -1,0 +1,30 @@
+$nav-padding: 10px;
+$nav-height: 50px;
+
+.navbar {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    background: white;
+    top: 0;
+    width: 100%;
+    height: $nav-height;
+    padding: $nav-padding;
+}
+
+.navbar-left {
+    display: flex;
+}
+
+.navbar-middle {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+
+}
+
+.navbar-right {
+    position: absolute;
+    right: $nav-padding;
+}
