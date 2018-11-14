@@ -4,6 +4,7 @@ $subheading-font: 50px;
 $heading-font: 100pt;
 $overlay-x: 350px;
 $overlay-y: 100px;
+$default-margin: 10px 0;
 
 .home-wrapper {
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -15,12 +16,12 @@ $overlay-y: 100px;
 
 .home-splash {
   background: url("/img/welcome-background.png") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 80vh;
-  position: relative;
-  text-align: center;
-  color: white;
+}
+
+.cards-container {
+  display: flex;
+}
+
+.cards-container div {
+  margin: $default-margin;
 }

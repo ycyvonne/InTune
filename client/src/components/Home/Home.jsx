@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { SpotifyLoginBtn, Splash } from "../";
+import { SpotifyLoginBtn, Splash, Card } from "../";
 import "./Home.scss";
 
 class Home extends Component {
@@ -13,7 +13,20 @@ class Home extends Component {
           heading="InTune"
           subtitle="MATCH YOU WITH YOUR MUSIC TASTE"
         />
-        <div>Other content</div>
+        {/* <div className="cards-container">
+          <Card
+            imgUrl="/img/concerts-card.png"
+            text="Match you with concerts"
+          />
+          <Card
+            imgUrl="/img/friends-card.png"
+            text="Friends with same music taste"
+          />
+          <Card
+            imgUrl="/img/artists-card.png"
+            text="Meet your favorite artist"
+          />
+        </div> */}
       </div>
     );
   }
