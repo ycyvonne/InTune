@@ -12,6 +12,8 @@ router.post('/delete', userController.deleteUser);
 router.get('/all/delete', userController.deleteAll);
 router.post('/login', userController.login);
 router.get('/me', userController.getMe);
+router.get('/me/top-tracks', userController.getTopTracks);
+router.get('/me/top-artists', userController.getTopArtists);
 router.get('/:id', userController.getUser);
 
 

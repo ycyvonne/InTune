@@ -5,10 +5,18 @@ const SpotifyAdapter = require('../adapters/SpotifyAdapter');
 const sessions = require('../sessions');
 
 // User Schema Definition
+var MusicProfile = new mongoose.Schema({
+	artists: [String],
+	tracks: [String],
+	genres: [String]
+});
+
 var userSchema = new mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
-	spotifyId: String
+	spotifyId: String,
+	musicProfile: MusicProfile
 });
+
 
 // User Schema Methods
 
@@ -22,15 +30,34 @@ var userSchema = new mongoose.Schema({
  *     .catch(error => console.error(error));
  */
 userSchema.statics.create = function(code) {
-	// Get spotify id
+	var userData = {};
+	var accessToken;
 
 	return SpotifyAdapter.getAccessToken(code)
-		.then(token => SpotifyAdapter.getUserInfo(token.access_token))
-		.then(data => {
+		.then(token => {
+			accessToken = token.access_token;
+			return SpotifyAdapter.getUserInfo(accessToken);
+		})
+		.then(user => {
+			userData.id = user.id;
+			return SpotifyAdapter.getUserTopArtists(accessToken);
+		})
+		.then(artists => {
+			userData.artists = artists;
+			return SpotifyAdapter.getUserTopTracks(accessToken);
+		})
+		.then(tracks => {
+			userData.tracks = tracks;
+
 			var user = new this({
 				_id: mongoose.Types.ObjectId(),
-				spotifyId: data.id
-			})
+				spotifyId: userData.id,
+				musicProfile: {
+					artists: userData.artists,
+					tracks: userData.tracks,
+					genres: []
+				}
+			});
 
 			return new Promise((resolve, reject) => {
 				user.save((err, newUser) => {

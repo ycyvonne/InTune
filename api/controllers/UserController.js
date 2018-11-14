@@ -16,7 +16,9 @@ function create(req, res) {
 
 	User.create(code)
 		.then(user => res.send(JSON.stringify(user)))
-		.catch(err => res.send(err));
+		.catch(err => {
+			res.status(500).send(JSON.stringify(err));
+		});
 }
 
 function getUsers(req, res) {
@@ -53,8 +55,6 @@ function login(req, res) {
 	// Get the user object
 	SpotifyAdapter.getAccessToken(code, session)
 		.then(tokenInfo => {
-			console.log('Got tokens ' + JSON.stringify(tokenInfo));
-
 			info.access_token = tokenInfo.access_token;
 			info.refresh_token = tokenInfo.refresh_token;
 			sessionId = tokenInfo.session;
@@ -66,7 +66,6 @@ function login(req, res) {
 		})
 		.then(user => {
 			info.id = user.id;
-			console.log("Cookies set to " + JSON.stringify(info));
 			sessions.setSessionStateById(sessionId, info);
 			res.cookie('session', sessionId);
 			res.status(200).send('User successfully logged in.');
@@ -80,23 +79,37 @@ function getMe(req, res) {
 		return res.status(401).send('User not logged in.');
 	}
 
-	console.log('Got state ' + JSON.stringify(lookup));
 	User.findById(lookup.id)
 		.then(user => {
-			console.log("Found a user " + JSON.stringify(user));
 			res.send(JSON.stringify(user));
 		})
 		.catch(err => res.send(err));
 }
 
 function getTopTracks(req, res) {
-	SpotifyAdapter.getAccessToken(null, req.cookies.session)
-		.then(token => {
-			return SpotifyAdapter.getUserTopTracks(token.access_token);
+	var state = sessions.lookupSession(req.cookies.session);
+	if (!state) {
+		return res.status(401).send('User not logged in.');
+	}
+
+	SpotifyAdapter.getUserTopTracks(state.access_token)
+		.then(tracks => {
+			res.send(tracks);
 		})
-		.then(data => {
-			res.send(data);
-		});
+		.catch(err => res.send(err));
+}
+
+function getTopArtists(req, res) {
+	var state = sessions.lookupSession(req.cookies.session);
+	if (!state) {
+		return res.status(401).send('User not logged in.');
+	}
+
+	SpotifyAdapter.getUserTopArtists(state.access_token)
+		.then(artists => {
+			res.send(artists);
+		})
+		.catch(err => res.send(err));
 }
 
 module.exports = {
@@ -108,5 +121,6 @@ module.exports = {
 	deleteAll,
 	login,
 	getMe,
-	getTopTracks
+	getTopTracks,
+	getTopArtists
 };

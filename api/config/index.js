@@ -24,7 +24,9 @@ module.exports = (() => {
 				redirect_uri: 'http://localhost:3000/callback',
 				url: {
 					request_token: 'https://accounts.spotify.com/api/token',
-					web_api: 'https://api.spotify.com/v1/me'
+					web_api: 'https://api.spotify.com/v1/me',
+					topArtists: '/top/artists',
+					topTracks: '/top/tracks'	
 				}
 			},
 

@@ -42,7 +42,6 @@ function getAccessToken(code, session) {
                     const id = sessions.generateID();
                     sessions.setSessionStateById(id, {access_token: access_token, refresh_token: refresh_token});
 
-                    console.log('Created id ' + id);
                     resolve({
                         access_token: access_token,
                         refresh_token: refresh_token,
@@ -67,12 +66,67 @@ function getUserInfo(access_token) {
     // use the access token to access the Spotify Web API
     return new Promise(function(resolve, reject) {
         request.get(options, function(error, response, body) {
-            resolve(body);
+            if (!error) {
+                resolve(body);
+            }
+            else {
+                reject("Could not fetch user data: " + response.statusCode + ", " + JSON.stringify(response));
+            }
         });
     });
 }
 
+function getTop(access_token, endpoint) {
+    var apiUrl = config.spotify.url.web_api + endpoint;
+    var options = {
+        url: apiUrl,
+        headers: {'Authorization': 'Bearer ' + access_token},
+        json: true
+    }
+
+    console.log('hitting spotify endpoint ' + apiUrl);
+
+    // use the access token to access the Spotify Web API
+    return new Promise(function(resolve, reject) {
+        request.get(options, function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var values = [];
+                body.items.forEach(value => {
+                    values.push(value.id);
+                });
+
+                resolve(values);
+            }
+            else {
+                reject('Could not fetch top items: ' + response.statusCode + ', ' + JSON.stringify(response));
+            }
+        });
+    });
+}
+
+/**
+ * Query SpotifyAPI for a user's top songs
+ * @name getUserTopTracks
+ * @param {string} access_token - Access Token
+ * @returns {Promise} - A promise which resolves to a JSON object containing Spotify Track objects
+ */
+function getUserTopTracks(access_token) {
+    return getTop(access_token, config.spotify.url.topTracks);
+}
+
+/**
+ * Query SpotifyAPI for a user's top artists
+ * @name getUserTopTracks
+ * @param {string} access_token - Access Token
+ * @returns {Promise} - A promise which resolves to a JSON object containing Spotify Artist objects
+ */
+function getUserTopArtists(access_token) {
+    return getTop(access_token, config.spotify.url.topArtists);
+}
+
 module.exports = {
     getAccessToken,
-    getUserInfo
+    getUserInfo,
+    getUserTopTracks,
+    getUserTopArtists
 };
