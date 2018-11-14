@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Nav, Profile, SpotifyLoginBtn } from "../";
+import { Nav, Profile, Login } from "../";
 import { Route, Switch } from "react-router-dom";
+import MatchPage from "../MatchPage/MatchPage";
 
 class Main extends Component {
   render() {
@@ -12,7 +13,7 @@ class Main extends Component {
           <Route
             exact
             path="/"
-            render={() => <SpotifyLoginBtn {...this.props} />}
+            render={() => <MatchPage />}
           />
           <Route path="/callback" render={() => <Profile {...this.props} />} />
         </Switch>
