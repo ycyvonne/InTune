@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Nav, Profile, Login } from "../";
+import { Nav, Profile, MatchPage } from "../";
 import { Route, Switch } from "react-router-dom";
-import MatchPage from "../MatchPage/MatchPage";
+// import MatchPage from "../MatchPage/MatchPage";
+import './Main.scss'
 
 class Main extends Component {
   render() {

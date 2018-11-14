@@ -8,4 +8,5 @@ export { default as ProfilePicture } from "./ProfilePicture/ProfilePicture";
 export { default as ProfileDetails } from "./ProfileDetails/ProfileDetails";
 export { default as FavoriteList } from "./FavoriteList/FavoriteList";
 export { default as Button } from "./Button/Button";
-export { default as Login } from "./MatchPage/MatchPage";
+export { default as MatchPage } from "./MatchPage/MatchPage";
+export { default as Icon } from "./Icon/Icon";
