@@ -9,8 +9,8 @@ router.get('/', userController.index);
 router.post('/create', userController.create);
 router.get('/all', userController.getUsers);
 router.get('/:id', userController.getUser);
-router.get('/delete/:id', userController.deleteUser);
+router.post('/delete', userController.deleteUser);
 router.get('/all/delete', userController.deleteAll);
-router.get('/getIdFromSpotify/:code', userController.getUserIdBySpotifyCode);
+router.post('/login', userController.login);
 
 module.exports = router;

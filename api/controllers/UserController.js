@@ -43,28 +43,42 @@ function deleteAll(req, res) {
 		.catch(err => res.send(err));
 }
 
-/**
- * Return a user ID from a Spotify access code.
- * @param {*} req
- * @param {*} res
- */
-function getUserIdBySpotifyCode(req, res) {
-	var code = req.params.code;
+function login(req, res) {
+	var code = req.body.code;
 	const session = req.cookies.session;
+
+	var info = {}
+	var sessionId;
 
 	// Get the user object
 	SpotifyAdapter.getAccessToken(code, session)
 		.then(tokenInfo => {
 			console.log('Got tokens ' + JSON.stringify(tokenInfo));
-			res.cookie('session', tokenInfo.session);
-			return SpotifyAdapter.getUserInfo(tokenInfo.access_token);
+
+			info.access_token = tokenInfo.access_token;
+			info.refresh_token = tokenInfo.refresh_token;
+			sessionId = tokenInfo.sessionId;
+
+			return SpotifyAdapter.getUserInfo(info.access_token);
 		})
 		.then(data => {
-			var sid = data.id;
-			return User.findBySpotifyId(sid);
+			info.id = data.id;
+			console.log("Cookies set to " + JSON.stringify(info));
+			sessions.setSessionStateById(sessionId, info);
+			return User.findBySpotifyId(data.id);
 		})
-		.then(user => res.send({id: user._id}))
+		.then(user => res.status(200).send('User successfully logged in.'))
 		.catch(err => res.send(err));
+}
+
+function getTopTracks(req, res) {
+	SpotifyAdapter.getAccessToken(null, req.cookies.session)
+		.then(token => {
+			return SpotifyAdapter.getUserTopTracks(token.access_token);
+		})
+		.then(data => {
+			res.send(data);
+		})
 }
 
 module.exports = {
@@ -74,5 +88,6 @@ module.exports = {
 	getUser,
 	deleteUser,
 	deleteAll,
-	getUserIdBySpotifyCode
+	login,
+	getTopTracks
 };
