@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getAuthenticationURL } from '../../utils/loginCallback';
+import './SpotifyLoginBtn.scss'
 
 class SpotifyLoginBtn extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class SpotifyLoginBtn extends Component {
         return (
             <div className="container">
                 <div id="login">
-                    <button onClick={this.handleLogin}>Log in with Spotify</button>
+                    <button onClick={this.handleLogin} className="btn-dark">Log in with Spotify</button>
                 </div>
             </div>
         )

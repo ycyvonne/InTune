@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Nav, Profile, SpotifyLoginBtn } from "../";
 import { Route, Switch } from "react-router-dom";
+import './Main.scss'
 
 class Main extends Component {
   render() {
@@ -9,11 +10,6 @@ class Main extends Component {
         <Nav />
         {/*Alternate pages beneath navbar, based on current route*/}
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => <SpotifyLoginBtn {...this.props} />}
-          />
           <Route path="/callback" render={() => <Profile {...this.props} />} />
         </Switch>
       </div>
