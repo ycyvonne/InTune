@@ -1,4 +1,16 @@
-.card-wrapper .text-overlay {
+.card-wrapper  {
   position: relative;
-  bottom: 8px;
+  padding-left: 50px;
+}
+
+.text-overlay{
+margin-top: 60px;
+font-family: Georgia, 'Times New Roman', Times, serif;
+font-size: 30pt;
+color: white;
+text-shadow:  1px 1px gray;
+letter-spacing: -2px; 
+top: 60%;
+line-height: 40px;
+text-align: left;
 }

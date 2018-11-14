@@ -6,6 +6,16 @@ $overlay-x: 350px;
 $overlay-y: 100px;
 $default-margin: 10px 0;
 
+.mask {   
+  width: 1024px;
+  margin-top:10px;
+  margin-left: auto; 
+  margin-right: auto;
+  text-align: justify;
+  -ms-text-justify: distribute-all-lines;
+  text-justify: distribute-all-lines;
+}
+
 .home-wrapper {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-weight: 700;
@@ -25,3 +35,4 @@ $default-margin: 10px 0;
 .cards-container div {
   margin: $default-margin;
 }
+
