@@ -138,3 +138,5 @@ router.get('/login', function(req, res, next) {
   res.render('login', {title: 'Login', message: 'You must login'});
 });
 ```
+#Testing 
+Tests can be found in the folder `client/src/client_test` 
