@@ -137,14 +137,13 @@ const router = express.Router();
 router.get('/login', function(req, res, next) {
   res.render('login', {title: 'Login', message: 'You must login'});
 });
-
-#Testing 
-Tests can be found in the folder `client/src/client_test` 
-
-Our test scenarios include 
 ```
-#Testing 
-Tests can be found in the folder `client/src/client_test` 
 
-Our test scenarios include 
-```
+## Testing
+Used Jest & Enzyme for front end , used Jest & Mocha for back end
+
+#### [Front End Tests](api/tests)
+Our Front End tests
+
+#### [Back End Tests](client/src/tests)
+Our Back End tests
