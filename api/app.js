@@ -3,12 +3,10 @@
 const express = require('express');
 const http = require('http');
 const app = express();
-const server = http.createServer(app);
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const config = require('./config');
 const sessions = require('./sessions');
 
 app.use(cors({
@@ -36,6 +34,10 @@ function protectedRoute(req, res, next){
 // Connect to database
 require('./models');
 
+app.get('/', (req, res) => {
+	res.status(200).json({ msg: 'hihi' });
+})
+
 // Set up router endpoints
 const userRouter = require('./routes/user');
 app.use('/user', userRouter);
@@ -48,6 +50,4 @@ app.get('/test', protectedRoute, (req, res) => {
 	res.status(200).json({ msg: 'hihi' });
 })
 
-server.listen(config.server.port, () => {
-	console.log('Listening on port ' + config.server.port);
-});
+module.exports = app;
