@@ -146,7 +146,7 @@ We have created test scenarios for both our front end and our back end. Front en
 ### [Front End Tests](client/src/tests)
 
 #### Test Scenario 1  - Front End Maintains State
-  [Test the action creation module](client/src/tests/actionCreator.test.js) :
+  [Test the action creation module](client/src/tests/actionCreators.test.js) :
   * when `authorize(code)` is called  it should create a function for dispatching an 
   action of type `AUTHORIZE` to the Redux user reducer
 
@@ -158,12 +158,12 @@ We have created test scenarios for both our front end and our back end. Front en
   * When an action of type `AUTHORIZE` with an error is dispatched to the user reducer, the user controller should not updated the Redux state 
 
 #### Test Scenario 2 - Front End React Pages Should Render Properly
-  [Test the Profile page](client/src/tests/profile.test.js):
+  [Test the Profile page](client/src/tests/components/Profile.test.js):
   * If the profile page’s user prop has `SpotifyData` with an error it should not render
 
   * If the profile page’s user prop has `SpotifyData` that is valid (has field fetched: true) it should render 
 
-  [Test the Home page](client/src/tests/home.test.js):
+  [Test the Home page](client/src/tests/components/Home.test.js):
   * The Home page should be able to render when provided with props
 
 
@@ -178,7 +178,7 @@ We have created test scenarios for both our front end and our back end. Front en
 
 * When comparing user profiles, if a profile is null, then the score of their similarity should be 0
 
-#### Test Scenario 4 - [Test Express Routing & Adapter Responses](api/tests/spec.js)
+#### Test Scenario 4 - [Integration Test for Express Routing & Adapter Responses](api/tests/spec.js)
   Root path: 
   * The root path should be considered a valid path and respond with 200 
 
