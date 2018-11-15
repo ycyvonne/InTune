@@ -1,2 +1,40 @@
+$small-font: 10pt;
+$sm-md-font: 12pt;
+$large-font: 20pt;
+
 .concert-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image-wrapper {
+  flex-basis: 30%;
+}
+
+.details-wrapper {
+  flex-basis: 60%;
+}
+
+.details-wrapper .location {
+  color: #000;
+  font-family: "Helvetica";
+  font-size: $small-font;
+  letter-spacing: 0.8px;
+  line-height: 20px;
+}
+
+.details-wrapper .title {
+  color: #000;
+  font-family: Georgia;
+  font-size: $large-font;
+  font-weight: 700;
+  letter-spacing: 1.07px;
+  line-height: 55px;
+}
+
+.details-wrapper .description {
+  color: rgba(0, 0, 0, 100);
+  font-family: "Helvetica";
+  font-size: $sm-md-font;
+  line-height: 24px;
 }
