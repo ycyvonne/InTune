@@ -125,6 +125,17 @@ router.get('/me/top-artists', userController.getTopArtists);
 router.get('/me/matches', userController.getMatches);
 
 /**
+ * Route to get a specific user's Spotify profile
+ * @name /get-spotify-profile
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @param {string} req.body.code - The Spotify code of the user's profile to get
+ * @returns {JSON} - A json object containing a queried user's info
+ */
+router.post('/get-spotify-profile', userController.getSpotifyProfile);
+
+/**
  * Route to get a specific user
  * @name /:id
  * @function
