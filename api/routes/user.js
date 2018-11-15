@@ -1,6 +1,6 @@
 'use strict';
 
-/** Express router providing user related routes
+/** Server side Express router providing user related routes
  * @module routes/user
  * @requires express
  */

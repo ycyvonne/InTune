@@ -1,6 +1,7 @@
 /** Actions
  * @module reducers
  * @requires actions
+ * @description Client side reducer to state/store updates
  */
 
 

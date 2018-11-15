@@ -1,6 +1,6 @@
 'use strict';
 
-/** Spotify adapter providing interface to interact with external spotify API
+/** Server side Spotify adapter providing interface to interact with external spotify API
  * @module adapters/spotify
  * @requires request
  */

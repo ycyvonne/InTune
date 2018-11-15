@@ -1,6 +1,6 @@
 'use strict';
 
-/** Songkick adapter providing interface to interact with external songkick API
+/** Server side Songkick adapter providing interface to interact with external songkick API
  * @module adapters/songkick
  * @requires request
  */

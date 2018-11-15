@@ -1,5 +1,5 @@
 'use strict';
-/** Express router providing concert related routes
+/** Server side Express router providing concert related routes
  * @module routes/concert
  * @requires express
  */
