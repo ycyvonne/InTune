@@ -1,9 +1,34 @@
 'use strict';
 
+/** Spotify adapter providing interface to interact with external spotify API
+ * @module adapters/spotify
+ * @requires request
+ */
+
+ /**
+ * Spotify object
+ * @type {object}
+ * @const
+ * @namespace SpotifyAdapter
+ */
+
+/**
+ * request module
+ * @const
+ */
 const request = require('request');
 const config = require('../config');
 const sessions = require('../sessions');
 
+/**
+ * Query Spotify's authentication API to retrieve a user's access token to make additional requests to Spotify's Web API
+ * @name getAccessToken
+ * @function
+ * @memberof module:adapters/spotify~SpotifyAdapter
+ * @param {string} code - unique code
+ * @param {string} session - session ID to look up this session
+ * @returns {Promise} - A promise which resolves to a JSON object containing relevant tokens
+ */
 function getAccessToken(code, session) {
     var lookup = sessions.lookupSession(session);
     if (session && lookup && lookup.access_token && lookup.refresh_token) {
@@ -56,6 +81,14 @@ function getAccessToken(code, session) {
     }
 }
 
+/**
+ * Queries the Spotify Web API to retrieve a user's info
+ * @name getUserInfo
+ * @function
+ * @memberof module:adapters/spotify~SpotifyAdapter
+ * @param {string} access_token - User Access Token
+ * @returns {Promise} - A promise which resolves to a JSON object containing user info
+ */
 function getUserInfo(access_token) {
     var options = {
         url: config.spotify.url.web_api,
@@ -105,9 +138,11 @@ function getTop(access_token, endpoint) {
 }
 
 /**
- * Query SpotifyAPI for a user's top songs
+ * Query Spotify Web API for a user's top songs
  * @name getUserTopTracks
- * @param {string} access_token - Access Token
+ * @function
+ * @memberof module:adapters/spotify~SpotifyAdapter
+ * @param {string} access_token - User Access Token
  * @returns {Promise} - A promise which resolves to a JSON object containing Spotify Track objects
  */
 function getUserTopTracks(access_token) {
@@ -115,9 +150,11 @@ function getUserTopTracks(access_token) {
 }
 
 /**
- * Query SpotifyAPI for a user's top artists
+ * Query Spotify Web API for a user's top artists
  * @name getUserTopTracks
- * @param {string} access_token - Access Token
+ * @function
+ * @memberof module:adapters/spotify~SpotifyAdapter
+ * @param {string} access_token - User Access Token
  * @returns {Promise} - A promise which resolves to a JSON object containing Spotify Artist objects
  */
 function getUserTopArtists(access_token) {
