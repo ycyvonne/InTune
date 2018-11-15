@@ -5,13 +5,6 @@
  * @requires request
  */
 
- /**
- * Spotify object
- * @type {object}
- * @const
- * @namespace SpotifyAdapter
- */
-
 /**
  * request module
  * @const
@@ -24,7 +17,7 @@ const sessions = require('../sessions');
  * Query Spotify's authentication API to retrieve a user's access token to make additional requests to Spotify's Web API
  * @name getAccessToken
  * @function
- * @memberof module:adapters/spotify~SpotifyAdapter
+ * @memberof module:adapters/spotify
  * @param {string} code - unique code
  * @param {string} session - session ID to look up this session
  * @returns {Promise} - A promise which resolves to a JSON object containing relevant tokens
@@ -85,7 +78,7 @@ function getAccessToken(code, session) {
  * Queries the Spotify Web API to retrieve a user's info
  * @name getUserInfo
  * @function
- * @memberof module:adapters/spotify~SpotifyAdapter
+ * @memberof module:adapters/spotify
  * @param {string} access_token - User Access Token
  * @returns {Promise} - A promise which resolves to a JSON object containing user info
  */
@@ -141,7 +134,7 @@ function getTop(access_token, endpoint) {
  * Query Spotify Web API for a user's top songs
  * @name getUserTopTracks
  * @function
- * @memberof module:adapters/spotify~SpotifyAdapter
+ * @memberof module:adapters/spotify
  * @param {string} access_token - User Access Token
  * @returns {Promise} - A promise which resolves to a JSON object containing Spotify Track objects
  */
@@ -153,7 +146,7 @@ function getUserTopTracks(access_token) {
  * Query Spotify Web API for a user's top artists
  * @name getUserTopTracks
  * @function
- * @memberof module:adapters/spotify~SpotifyAdapter
+ * @memberof module:adapters/spotify
  * @param {string} access_token - User Access Token
  * @returns {Promise} - A promise which resolves to a JSON object containing Spotify Artist objects
  */

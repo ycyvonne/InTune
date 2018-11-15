@@ -6,13 +6,6 @@
  */
 
  /**
- * Songkick object
- * @type {object}
- * @const
- * @namespace SongkickAdapter
- */
-
- /**
  * request module
  * @const
  */
@@ -24,7 +17,7 @@ const config = require('../config');
  * 
  * @name getAccessToken
  * @function
- * @memberof module:adapters/songkick~SongkickAdapter
+ * @memberof module:adapters/songkick
  * @param {string} metro_area - metro area code
  * @returns {Promise} - A promise which resolves to a JSON object containing a list of events
  */
