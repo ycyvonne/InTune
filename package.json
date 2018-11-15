@@ -11,7 +11,7 @@
     "node-sass": "^4.10.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/jsdoc api/routes/user.js api/routes/concert.js api/adapters/SongkickAdapter.js api/adapters/SpotifyAdapter.js"
+    "test": "./node_modules/.bin/jsdoc api/routes/user.js api/routes/concert.js api/adapters/SongkickAdapter.js api/adapters/SpotifyAdapter.js client/src/actions/actionCreators.js client/src/reducers/user.js client/src/api.js"
   },
   "dependencies": {
     "sass-loader": "^7.1.0"
