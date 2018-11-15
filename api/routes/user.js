@@ -23,7 +23,7 @@ const userController = require('../controllers/UserController');
 
 /**
  * Route serving root index
- * @name /user
+ * @name /
  * @function
  * @memberof module:routes/user~userRouter
  */
@@ -31,7 +31,7 @@ router.get('/', userController.index);
 
 /**
  * Route for user creation
- * @name /user/create
+ * @name /create
  * @function
  * @memberof module:routes/user~userRouter
  * @inner
@@ -42,7 +42,7 @@ router.post('/create', userController.create);
 
 /**
  * Route to get all users
- * @name /user/all
+ * @name /all
  * @function
  * @memberof module:routes/user~userRouter
  * @returns {JSON} - A json object containing an array of users
@@ -51,7 +51,7 @@ router.get('/all', userController.getUsers);
 
 /**
  * Route for user deletion
- * @name /user/delete
+ * @name /delete
  * @function
  * @memberof module:routes/user~userRouter
  * @inner
@@ -62,7 +62,7 @@ router.post('/delete', userController.deleteUser);
 
 /**
  * Route for all user deletion
- * @name /user/all/delete
+ * @name /all/delete
  * @function
  * @memberof module:routes/user~userRouter
  * @returns {JSON} - A json object containing an array of deleted users
@@ -71,7 +71,7 @@ router.get('/all/delete', userController.deleteAll);
 
 /**
  * Route for user login
- * @name /user/login
+ * @name /login
  * @function
  * @memberof module:routes/user~userRouter
  * @inner
@@ -83,7 +83,7 @@ router.post('/login', userController.login);
 
 /**
  * Route to get user info
- * @name /user/me
+ * @name /me
  * @function
  * @memberof module:routes/user~userRouter
  * @inner
@@ -94,7 +94,7 @@ router.get('/me', userController.getMe);
 
 /**
  * Route to get user's top-tracks
- * @name /user/me/top-tracks
+ * @name /me/top-tracks
  * @function
  * @memberof module:routes/user~userRouter
  * @inner
@@ -105,7 +105,7 @@ router.get('/me/top-tracks', userController.getTopTracks);
 
 /**
  * Route to get user's top-artists
- * @name /user/me/top-artists
+ * @name /me/top-artists
  * @function
  * @memberof module:routes/user~userRouter
  * @inner
@@ -116,7 +116,7 @@ router.get('/me/top-artists', userController.getTopArtists);
 
 /**
  * Route to get matches for this user
- * @name /user/me/matches
+ * @name /me/matches
  * @function
  * @memberof module:routes/user~userRouter
  * @inner
@@ -126,7 +126,7 @@ router.get('/me/matches', userController.getMatches);
 
 /**
  * Route to get a specific user
- * @name /user/:id
+ * @name /:id
  * @function
  * @memberof module:routes/user~userRouter
  * @inner

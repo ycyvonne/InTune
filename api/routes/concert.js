@@ -20,7 +20,7 @@ let concertRouter = express.Router();
 
 /**
  * Route to get concert events
- * @name /concert
+ * @name /
  * @function
  * @memberof module:routes/concert~concertRouter
  * @inner
