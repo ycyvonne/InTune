@@ -173,7 +173,7 @@ function getMatches(req, res) {
 
 			var userIds = [];
 			users.forEach(value => {
-				userIds.push(value._id);
+				if (String(value._id).valueOf() !== String(user._id).valueOf()) userIds.push(value._id);
 			})
 			res.send(userIds);
 		})
