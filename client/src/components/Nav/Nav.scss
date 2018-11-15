@@ -2,31 +2,38 @@ $nav-padding: 10px;
 $nav-height: 50px;
 
 .navbar {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    background: white;
-    top: 0;
-    width: 100%;
-    height: $nav-height;
-    padding: $nav-padding;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  background: white;
+  top: 0;
+  width: 100%;
+  height: $nav-height;
+  padding: $nav-padding;
+  z-index: 1000;
 }
 
 .navbar-left {
-    display: flex;
+  display: flex;
 }
 
 .navbar-middle {
-    position: absolute;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
-    letter-spacing: 4px;
-    font-family: Arial, Helvetica, sans-serif;
-
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  letter-spacing: 4px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .navbar-right {
-    position: absolute;
-    right: $nav-padding;
+  position: absolute;
+  right: $nav-padding;
+}
+
+// Since .navbar is fixed, it's taken out of the viewport
+// Using insivisble margin so it doesn't initially overlap with body
+.invisible-margin {
+  width: 100%;
+  height: 50px;
 }
