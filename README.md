@@ -140,10 +140,58 @@ router.get('/login', function(req, res, next) {
 ```
 
 ## Testing
-Used Jest & Enzyme for front end , used Jest & Mocha for back end
+We have created test scenarios for both our front end and our back end. Front end tests are focused on testing logic related to maintaining the Redux state and testing the logic for rendering our pages. Back end tests are focused on testing that our matching heuristic behaves in a logical way and that our Express routes work properly and can handle errors as expected. We tested both front end and back end with Jest, used Jest with Enzyme for testing React components and Jest with Mocha for testing our Express routes. 
 
-#### [Front End Tests](api/tests)
-Our Front End tests
 
-#### [Back End Tests](client/src/tests)
-Our Back End tests
+### [Front End Tests](client/src/tests)
+
+#### Test Scenario 1  - Front End Maintains State
+  [Test the action creation module](client/src/tests/actionCreator.test.js) :
+  * when `authorize(code)` is called  it should create a function for dispatching an 
+  action of type `AUTHORIZE` to the Redux user reducer
+
+  [Test the user reducer module](client/src/tests/userReducer.test.js):
+  * When not given a state / given an empty state it should not update the Redux state
+
+  * When an action of type `AUTHORIZE` with no errors is dispatched to the user reducer, the user controller should update the user.SpotifyData prop with the action’s contents and with field `fetched: true`
+  
+  * When an action of type `AUTHORIZE` with an error is dispatched to the user reducer, the user controller should not updated the Redux state 
+
+#### Test Scenario 2 - Front End React Pages Should Render Properly
+  [Test the Profile page](client/src/tests/profile.test.js):
+  * If the profile page’s user prop has `SpotifyData` with an error it should not render
+
+  * If the profile page’s user prop has `SpotifyData` that is valid (has field fetched: true) it should render 
+
+  [Test the Home page](client/src/tests/home.test.js):
+  * The Home page should be able to render when provided with props
+
+
+### [Back End Tests](api/tests)
+
+#### Test Scenario 3 - [Test Matching Heuristic](api/tests/match.test.js)
+* If the user profiles given to the matching heuristic have no similarities (no genres, artists, or songs in common) then the score given to their similarity should be 0
+
+* When comparing user profiles, a pair of profiles that have more similarities should receive a higher score than a pair of profiles that have fewer similarities.
+
+* When comparing user profiles, if a profile is empty (i.e. doesn’t contain any music interest), then the score of their similarity should be 0
+
+* When comparing user profiles, if a profile is null, then the score of their similarity should be 0
+
+#### Test Scenario 4 - [Test Express Routing & Adapter Responses](api/tests/spec.js)
+  Root path: 
+  * The root path should be considered a valid path and respond with 200 
+
+  User Routes:
+  * `/user` should be considered a valid path and respond with 200
+
+  * When the `/user/token` route tries to get a token and it is not valid, `SpotifyAdapter `should be able to handle invalid_token error and return the error 
+
+  Concert Routes:
+  * `/concert` should be considered a valid path and respond with 200
+
+  * `/concert` should be able to retrieve a list of Songkick events for a given metro area using the `SongkickAdapter`client/src/tests/ and the adapter function should return a response with status ‘ok’ and a list of Songkick events
+
+
+
+
