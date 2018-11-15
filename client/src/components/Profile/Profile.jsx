@@ -13,7 +13,6 @@ class Profile extends Component {
     super(props);
     this.props = props;
     this.state = {};
-    console.log("whatf");
     this.authorize = this.authorize.bind(this);
     if (!this.props.user.spotifyData || !this.props.user.spotifyData.fetched) {
       this.authorize();

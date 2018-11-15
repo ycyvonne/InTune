@@ -115,8 +115,18 @@ router.get('/me/top-tracks', userController.getTopTracks);
 router.get('/me/top-artists', userController.getTopArtists);
 
 /**
+ * Route to get matches for this user
+ * @name /user/me/matches
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @returns {JSON} - A json object containing a list of matches sorted by similarity
+ */
+router.get('/me/matches', userController.getMatches);
+
+/**
  * Route to get a specific user
- * @name /user/me/top-artists
+ * @name /user/:id
  * @function
  * @memberof module:routes/user~userRouter
  * @inner
