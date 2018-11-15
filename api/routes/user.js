@@ -15,6 +15,7 @@ router.get('/me', userController.getMe);
 router.get('/me/top-tracks', userController.getTopTracks);
 router.get('/me/top-artists', userController.getTopArtists);
 router.get('/me/matches', userController.getMatches);
+router.post('/get-spotify-profile', userController.getSpotifyProfile);
 router.get('/:id', userController.getUser);
 
 

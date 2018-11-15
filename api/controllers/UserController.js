@@ -179,6 +179,24 @@ function getMatches(req, res) {
 		})
 }
 
+function getSpotifyProfile(req, res) {
+	var code = req.body.code;
+
+	SpotifyAdapter.getAccessToken(code, req.cookies.session)
+		.then(token => {
+			var id = token.session;
+			res.cookie('session', id);
+			return SpotifyAdapter.getUserInfo(token.access_token);
+		})
+		.then(userData => {
+			res.send(userData);
+		})
+		.catch(err => {
+			console.log("we got some kind of error " + err.message);
+			res.status(500).send(err)
+		});
+}
+
 module.exports = {
 	index,
 	create,
@@ -190,5 +208,6 @@ module.exports = {
 	getMe,
 	getTopTracks,
 	getTopArtists,
-	getMatches
+	getMatches,
+	getSpotifyProfile
 };
