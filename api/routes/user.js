@@ -6,11 +6,15 @@ let router = express.Router();
 const userController = require('../controllers/UserController');
 
 router.get('/', userController.index);
-router.get('/create', userController.create);
+router.post('/create', userController.create);
 router.get('/all', userController.getUsers);
-router.get('/:id', userController.getUser);
-router.get('/delete/:id', userController.deleteUser);
+router.post('/delete', userController.deleteUser);
 router.get('/all/delete', userController.deleteAll);
-router.post('/token', userController.getAccessToken);
+router.post('/login', userController.login);
+router.get('/me', userController.getMe);
+router.get('/me/top-tracks', userController.getTopTracks);
+router.get('/me/top-artists', userController.getTopArtists);
+router.get('/:id', userController.getUser);
+
 
 module.exports = router;

@@ -2,39 +2,58 @@
 
 const request = require('request');
 const config = require('../config');
+const sessions = require('../sessions');
 
-
-function getAccessToken(code) {
-    var authOptions = {
-		method: 'POST',
-		url: config.spotify.url.request_token,
-		form: {
-			code: code,
-			redirect_uri: config.spotify.redirect_uri,
-			grant_type: 'authorization_code'
-		},
-		headers: {
-			'Authorization': 'Basic ' + (new Buffer(config.spotify.client_id + ':' + config.spotify.client_secret).toString('base64'))
-		},
-		json: true
-    };
-    
-    return new Promise(function(resolve, reject) {
-        request.post(authOptions, function(error, response, body) {
-            if (!error && response.statusCode === 200) {
-                var access_token = body.access_token,
-                    refresh_token = body.refresh_token;
-                
+function getAccessToken(code, session) {
+    var lookup = sessions.lookupSession(session);
+    if (session && lookup && lookup.access_token && lookup.refresh_token) {
+        // Check the cache first
+        return new Promise((resolve, reject) => {
                 resolve({
-                    access_token: access_token,
-                    refresh_token: refresh_token
+                    access_token: lookup.access_token,
+                    refresh_token: lookup.refresh_token,
+                    session: session
                 });
-            }
-            else {
-                reject('invalid_token');
-            }
         });
-    });
+    }
+    else {
+        // Get new token, update cache
+        var authOptions = {
+            method: 'POST',
+            url: config.spotify.url.request_token,
+            form: {
+                code: code,
+                redirect_uri: config.spotify.redirect_uri,
+                grant_type: 'authorization_code'
+            },
+            headers: {
+                'Authorization': 'Basic ' + (new Buffer(config.spotify.client_id + ':' + config.spotify.client_secret).toString('base64'))
+            },
+            json: true
+        };
+        
+        return new Promise(function(resolve, reject) {
+            request.post(authOptions, function(error, response, body) {
+                if (!error && response.statusCode === 200) {
+                    var access_token = body.access_token,
+                        refresh_token = body.refresh_token;
+                    
+                    // Update cache
+                    const id = sessions.generateID();
+                    sessions.setSessionStateById(id, {access_token: access_token, refresh_token: refresh_token});
+
+                    resolve({
+                        access_token: access_token,
+                        refresh_token: refresh_token,
+                        session: id
+                    });
+                }
+                else {
+                    reject('Could not fetch access token: ' + JSON.stringify(response));
+                }
+            });
+        });
+    }
 }
 
 function getUserInfo(access_token) {
@@ -47,12 +66,67 @@ function getUserInfo(access_token) {
     // use the access token to access the Spotify Web API
     return new Promise(function(resolve, reject) {
         request.get(options, function(error, response, body) {
-            resolve(body);
+            if (!error) {
+                resolve(body);
+            }
+            else {
+                reject("Could not fetch user data: " + response.statusCode + ", " + JSON.stringify(response));
+            }
         });
     });
 }
 
+function getTop(access_token, endpoint) {
+    var apiUrl = config.spotify.url.web_api + endpoint;
+    var options = {
+        url: apiUrl,
+        headers: {'Authorization': 'Bearer ' + access_token},
+        json: true
+    }
+
+    console.log('hitting spotify endpoint ' + apiUrl);
+
+    // use the access token to access the Spotify Web API
+    return new Promise(function(resolve, reject) {
+        request.get(options, function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var values = [];
+                body.items.forEach(value => {
+                    values.push(value.id);
+                });
+
+                resolve(values);
+            }
+            else {
+                reject('Could not fetch top items: ' + response.statusCode + ', ' + JSON.stringify(response));
+            }
+        });
+    });
+}
+
+/**
+ * Query SpotifyAPI for a user's top songs
+ * @name getUserTopTracks
+ * @param {string} access_token - Access Token
+ * @returns {Promise} - A promise which resolves to a JSON object containing Spotify Track objects
+ */
+function getUserTopTracks(access_token) {
+    return getTop(access_token, config.spotify.url.topTracks);
+}
+
+/**
+ * Query SpotifyAPI for a user's top artists
+ * @name getUserTopTracks
+ * @param {string} access_token - Access Token
+ * @returns {Promise} - A promise which resolves to a JSON object containing Spotify Artist objects
+ */
+function getUserTopArtists(access_token) {
+    return getTop(access_token, config.spotify.url.topArtists);
+}
+
 module.exports = {
     getAccessToken,
-    getUserInfo
+    getUserInfo,
+    getUserTopTracks,
+    getUserTopArtists
 };
