@@ -152,6 +152,33 @@ function getTopArtists(req, res) {
 		.catch(err => res.send(err));
 }
 
+function getMatches(req, res) {
+	var state = sessions.lookupSession(req.cookies.session);
+	if (!state) {
+		return res.status(401).send('User not logged in.');
+	}
+
+	var matches = [];
+	var user;
+	User.findById(state.id)
+		.then(_user => {
+			user = _user;
+			return User.findAll();
+		})
+		.then(users => {
+			var mp = user.musicProfile;
+			users.sort((a, b) => {
+				return getScore(mp, b) - getScore(mp, a);
+			});
+
+			var userIds = [];
+			users.forEach(value => {
+				if (String(value._id).valueOf() !== String(user._id).valueOf()) userIds.push(value._id);
+			})
+			res.send(userIds);
+		})
+}
+
 module.exports = {
 	index,
 	create,
@@ -162,5 +189,6 @@ module.exports = {
 	login,
 	getMe,
 	getTopTracks,
-	getTopArtists
+	getTopArtists,
+	getMatches
 };
