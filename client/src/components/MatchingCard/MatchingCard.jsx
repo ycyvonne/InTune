@@ -15,10 +15,11 @@ class MatchingCard extends Component {
             <div className="card-wrapper">
                 <div className="card-container">
                     <div className="card-frame">
-                        <img className="photoBox" src="https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fgojoebruin.com%2Fwp-content%2Fuploads%2Fgetty-images%2F2017%2F09%2F514616054-ucla-v-usc.jpg.jpg&w=850&h=560&c=sc" alt="joe bruins"></img>
+                        {/* <img className="photoBox" src="https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fgojoebruin.com%2Fwp-content%2Fuploads%2Fgetty-images%2F2017%2F09%2F514616054-ucla-v-usc.jpg.jpg&w=850&h=560&c=sc" alt="joe bruins"></img> */}
+                        <img className="photoBox" src={this.props.imgUrl} alt="PhotoBox"></img>
                         <div className="descriptionBox ftb-inner-margin">
-                            <div className="name">John Bruin</div>
-                            <div className="descriptionText"> Here is the description.</div>
+                            <div className="name">{this.props.text} </div>
+                            <div className="descriptionText"> {this.props.text} </div>
                         </div>
                         <div className="selectionBox">
 
@@ -33,15 +34,8 @@ class MatchingCard extends Component {
                     </div>
                 </div>
 
-
-
-
-
-
-
-
-                <img src={this.props.imgUrl} />
-                <div className="text-overlay">{this.props.text}</div>
+                {/* <img src={this.props.imgUrl} />
+                <div className="text-overlay">{this.props.text}</div> */}
             </div >
 
         );
