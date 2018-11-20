@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Nav, Profile, Home, Concerts } from "../";
+import { Nav, Profile, Home, ConcertPage } from "../";
 import { Route, Switch } from "react-router-dom";
 import "./Main.scss";
-import ConcertsPage from "../ConcertsPage/ConcertsPage";
 
 class Main extends Component {
   render() {
@@ -14,8 +13,8 @@ class Main extends Component {
           <Route exact path="/" render={() => <Home {...this.props} />} />
           <Route path="/callback" render={() => <Profile {...this.props} />} />
           <Route
-            path="/concert-discovery"
-            render={() => <ConcertsPage {...this.props} />}
+            path="/concerts"
+            render={() => <ConcertPage {...this.props} />}
           />
         </Switch>
       </div>

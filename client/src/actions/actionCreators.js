@@ -33,7 +33,7 @@ export function authorize(code) {
   };
 }
 
-// Calls getConcerts  exposed from api
+// ** TODO: jsdoc
 export function getConcerts(cb) {
   return (dispatch, prevState) => {
     api

@@ -1,24 +1,33 @@
 $small-font: 10pt;
 $sm-md-font: 12pt;
 $large-font: 20pt;
+$small-margin: 5px;
+
+a {
+  text-decoration: none;
+}
 
 .concert-wrapper {
   display: flex;
   flex-wrap: wrap;
 }
 
+.concert-wrapper > div {
+  margin: $small-font;
+}
+
 .image-wrapper {
-  flex-basis: 30%;
+  flex-basis: 40%;
 }
 
 .details-wrapper {
-  flex-basis: 60%;
+  flex-basis: 50%;
 }
 
 .details-wrapper .location {
   color: #000;
   font-family: "Helvetica";
-  font-size: $small-font;
+  font-size: $sm-md-font;
   letter-spacing: 0.8px;
   line-height: 20px;
 }
