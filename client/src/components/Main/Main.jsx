@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Nav, Profile, MatchPage } from "../";
 import { Route, Switch } from "react-router-dom";
 // import MatchPage from "../MatchPage/MatchPage";
+import MatchingCard from "../MatchingCard/MatchingCard";
 import './Main.scss'
 
 class Main extends Component {
@@ -14,7 +15,7 @@ class Main extends Component {
           <Route
             exact
             path="/"
-            render={() => <MatchPage />}
+            render={() => <MatchingCard />}
           />
           <Route path="/callback" render={() => <Profile {...this.props} />} />
         </Switch>

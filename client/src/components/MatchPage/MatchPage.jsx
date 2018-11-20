@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-import {
-    Header,
-    ProfilePicture,
-    ProfileDetails,
-    FavoriteList,
-    Button
-} from "..";
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { Icon } from "..";
 import "./MatchPage.scss";
 import "../ProfilePicture/ProfilePicture.scss";
 
@@ -14,7 +9,22 @@ class MatchPage extends Component {
         return (
             <div className="title-text">
                 <div>Friends match your music taste!</div>
-            </div>
+                <a class="icon-cog" >
+                    <i class="icon-cog" ></i>
+                    <Icon icon={faCheckCircle} />
+                </a>
+
+
+
+
+
+
+
+
+
+
+            </div >
+
 
         )
     }

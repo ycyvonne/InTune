@@ -10,3 +10,6 @@ export { default as FavoriteList } from "./FavoriteList/FavoriteList";
 export { default as Button } from "./Button/Button";
 export { default as MatchPage } from "./MatchPage/MatchPage";
 export { default as Icon } from "./Icon/Icon";
+export { default as MatchingCard } from "./MatchingCard/MatchingCard";
+export { default as GreenIcon } from "./GreenIcon/GreenIcon";
+export { default as RedIcon } from "./RedIcon/RedIcon";

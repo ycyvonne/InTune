@@ -18,5 +18,40 @@ background-color: rgb(255, 255, 255);
     margin: 50px;
     margin-left: 300px;
   }
+  .icon-cog {
+    color: lightgreen;
+  }
 
+  .card-container {
+    border: 1px solid rgb(24, 39, 37);
+    width: 500px;
+    height: 700px;
+    margin: 0 auto;
+    margin-top: 56px;
+    border-radius: 25px;
+    box-sizing: border-box;
+    box-shadow: -8px 9px 16px -3px gray;
+   }
+
+   .card-background {
+    height: 600px;
+    margin: 20px 20px 0 20px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 8%;
+    border-bottom-right-radius: 8%;
+    background-color: #bbb;
+   }
+
+   .card-frame {
+    z-index: 1;
+    position: relative;
+    height: 108%;
+    max-width: 97%;
+    left: 1%;
+    top: 0.5%;
+    left: 1.2%;
+    display: flex;
+    flex-direction: column;
+   }
 
