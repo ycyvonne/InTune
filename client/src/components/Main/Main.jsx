@@ -16,7 +16,7 @@ class Main extends Component {
           <Route
             exact
             path="/"
-            render={() => <MatchingCard />}
+            render={() => <MatchPage />}
           />
           <Route path="/callback" render={() => <Profile {...this.props} />} />
         </Switch>
