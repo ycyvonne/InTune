@@ -6,7 +6,7 @@ class GreenIcon extends Component {
   render() {
     return (
       <div className="icon-wrapper" onClick={this.props.onClick}>
-        <FontAwesomeIcon icon={this.props.icon} />
+        <FontAwesomeIcon GreenIcon={this.props.icon} />
       </div>
     )
   }

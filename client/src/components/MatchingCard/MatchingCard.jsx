@@ -23,8 +23,8 @@ class MatchingCard extends Component {
                         <div className="selectionBox">
 
                             {/* <i class="fa faCheckCircle" style="color:green"> <Icon icon={faCheckCircle} /></i> */}
-                            <GreenIcon icon={faCheckCircle} />
-                            <RedIcon icon={faTimesCircle} />
+                            <Icon icon={faCheckCircle} />
+                            <Icon icon={faTimesCircle} />
                             {/* <div className="descriptionText"> Here is the description.</div> */}
                         </div>
 
