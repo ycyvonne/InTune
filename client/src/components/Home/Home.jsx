@@ -6,7 +6,6 @@ class Home extends Component {
   render() {
     return (
       <div className="home-wrapper">
-        <SpotifyLoginBtn {...this.props} />
         <Splash
           customClass="home-splash"
           subheading="Welcome to"
@@ -14,7 +13,6 @@ class Home extends Component {
           subtitle="MATCH YOU WITH YOUR MUSIC TASTE"
         />
         <div className="mask">
-
           <div className="cards-container">
             <Card
               imgUrl="/img/concerts-card.png"
@@ -35,11 +33,8 @@ class Home extends Component {
               Meet your favorite artist"
             />
           </div>
-
-
         </div>
-
-      </div >
+      </div>
     );
   }
 }
