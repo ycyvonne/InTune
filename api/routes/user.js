@@ -12,6 +12,7 @@ router.post('/delete', userController.deleteUser);
 router.get('/all/delete', userController.deleteAll);
 router.post('/login', userController.login);
 router.get('/me', userController.getMe);
+router.post('/me/update', userController.updateProfile);
 router.get('/me/top-tracks', userController.getTopTracks);
 router.get('/me/top-artists', userController.getTopArtists);
 router.get('/me/matches', userController.getMatches);

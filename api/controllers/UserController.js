@@ -17,7 +17,10 @@ function create(req, res) {
 
 	var sessionInfo = {};
 	var sessionId;
+
+	var musicProfile = {};
 	var profile = {};
+
 	var spotId;
 	SpotifyAdapter.getAccessToken(code)
 		.then(token => {
@@ -28,6 +31,13 @@ function create(req, res) {
 		})
 		.then(userData => {
 			spotId = userData.id;
+
+			// Update profile
+			profile.name = userData.display_name;
+			profile.email = userData.email;
+			profile.img = userData.images[0].url;
+			profile.spotifyUrl = userData.external_urls.spotify;
+
 			return User.findBySpotifyId(userData.id);
 		})
 		.then(possUser => {
@@ -38,22 +48,25 @@ function create(req, res) {
 		})
 		.then(user => {
 			sessionInfo.id = user._id;
+			User.updateProfile(user._id, profile);
+		})
+		.then(user => {
 			return SpotifyAdapter.getUserTopArtists(sessionInfo.access_token);
 		})
 		.then(artists => {
-			profile.artists = artists;
+			musicProfile.artists = artists;
 			return SpotifyAdapter.getUserTopTracks(sessionInfo.access_token);
 		})
 		.then(tracks => {
-			profile.tracks = tracks;
-			profile.genres = [];
+			musicProfile.tracks = tracks;
+			musicProfile.genres = [];
 
-			return User.updateMusicProfile(sessionInfo.id, profile);
+			return User.updateMusicProfile(sessionInfo.id, musicProfile);
 		})
 		.then(user => {
 			sessions.setSessionStateById(sessionId, sessionInfo);
 			res.cookie('session', sessionId);
-			res.send(JSON.stringify(user));
+			res.send(getUserReturnString(user));
 		})
 		.catch(err => {
 			console.log("we got some kind of error " + err.message);
@@ -69,7 +82,7 @@ function getUsers(req, res) {
 
 function getUser(req, res) {
 	User.findById(req.params.id)
-		.then(user => res.send(JSON.stringify(user)))
+		.then(user => res.send(getUserReturnString))
 		.catch(err => res.send(err));
 }
 
@@ -108,9 +121,35 @@ function login(req, res) {
 			info.id = user.id;
 			sessions.setSessionStateById(sessionId, info);
 			res.cookie('session', sessionId);
-			res.send('User successfully logged in.');
+			res.send(getUserReturnString(user));
 		})
 		.catch(err => res.send(err));
+}
+
+function updateProfile(req, res) {
+	var state = sessions.lookupSession(req.cookies.session);
+	if (!state) {
+		return res.status(401).send('User not logged in.');
+	}
+
+	User.findById(state.id)
+		.then(user => {
+			var profile = {
+				name: req.body.name,
+				email: req.body.email,
+				img: req.body.img,
+				spotifyUrl: req.body.spotifyUrl
+			}
+
+			return User.updateProfile(user._id, profile);
+		})
+		.then(newUser => {
+			return res.send(getUserReturnString(newUser));
+		})
+		.catch(err => {
+			console.log("error: " + err.message);
+			res.send(err)
+		});
 }
 
 function getMe(req, res) {
@@ -121,9 +160,12 @@ function getMe(req, res) {
 
 	User.findById(lookup.id)
 		.then(user => {
-			res.send(JSON.stringify(user));
+			res.send(getUserReturnString(user));
 		})
-		.catch(err => res.send(err));
+		.catch(err => {
+			console.log("error: " + err.message);
+			res.send(err)
+		});
 }
 
 function getTopTracks(req, res) {
@@ -197,6 +239,16 @@ function getSpotifyProfile(req, res) {
 		});
 }
 
+function getUserReturnString(user) {
+	return JSON.stringify({
+		id: user._id,
+		name: user.name,
+		img: user.img,
+		spotifyUrl: user.spotifyUrl,
+		email: user.email
+	});
+}
+
 module.exports = {
 	index,
 	create,
@@ -205,6 +257,7 @@ module.exports = {
 	deleteUser,
 	deleteAll,
 	login,
+	updateProfile,
 	getMe,
 	getTopTracks,
 	getTopArtists,
