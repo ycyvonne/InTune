@@ -1,8 +1,11 @@
 import * as api from '../api';
 
-/**
- * @description Calls the API method to get username and update store
+/** Actions
+ * @module actions
+ * @requires api
+ * @description Client side action dispatcher for global state/store changes
  */
+
 export function getUsername(cb) {
    return (dispatch, prevState) => {
       api.getUsername()
@@ -12,6 +15,12 @@ export function getUsername(cb) {
    };
 }
 
+/**
+ * Action dispatcher for authorization
+ * @name authorize
+ * @function
+ * @memberof module:actions
+ */
 export function authorize(code) {
       return (dispatch, prevState) => {
             api.authorize(code)

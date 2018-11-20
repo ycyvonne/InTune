@@ -18,6 +18,9 @@ module.exports = (() => {
 
     getScore: function(mp1, mp2) {
 
+      if (!mp1 || !mp2)  return 0;
+      if(!Object.keys(mp1).length || !Object.keys(mp2).length) return 0;
+
       var num_genres_same = 0;
       var num_artists_same = 0;
       var num_tracks_same = 0;
