@@ -25,8 +25,9 @@ class ConcertPage extends Component {
       isValid = false;
     } else {
       data = Object.values(this.props.concerts.concertsData);
-      // Remove final `fetch element. How do I not have to do this?
-      data.pop();
+      // TODO: Add pagination
+      // Returns only the first 10.
+      data.splice(10);
     }
     return (
       <div className="concerts-page-wrapper">
