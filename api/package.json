@@ -2,9 +2,9 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "export NODE_ENV=development && node app.js",
+    "dev": "export NODE_ENV=development && node index.js",
     "start": "npm run dev",
     "test": "node node_modules/jest/bin/jest.js"
   },
