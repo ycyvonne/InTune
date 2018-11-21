@@ -10,25 +10,19 @@ class ProfileDetails extends Component {
           title="FULL NAME"
           customClass="profile-title"
           type="text"
-          defaultInput={spotifyData.display_name}
+          defaultInput={spotifyData.name}
         />
         <Input
           title="SPOTIFY ACCOUNT"
           customClass="profile-title"
           type="text"
-          defaultInput={spotifyData.href}
+          defaultInput={spotifyData.spotifyUrl}
         />
         <Input
           title="EMAIL"
           customClass="profile-title"
           type="text"
           defaultInput={spotifyData.email}
-        />
-        <Input
-          title="LOCATION"
-          customClass="profile-title"
-          type="text"
-          defaultInput={spotifyData.country}
         />
       </div>
     );

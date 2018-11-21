@@ -11,7 +11,7 @@ class ProfilePicture extends Component {
           <label className="profile-container" htmlFor="profile-image-input">
             <img
               className="profile-picture"
-              src={this.props.user.spotifyData.images[0].url}
+              src={this.props.user.spotifyData.img}
             />
             <div id="overlay">
               <div>Upload!</div>
