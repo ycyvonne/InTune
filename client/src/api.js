@@ -20,5 +20,5 @@ export function getUsername() {
  * @memberof module:api
  */
 export function authorize(code) {
-    return post(`${serverBaseURL}/user/create`, {code: code}).then(res => res);
+    return post(`${serverBaseURL}/user/login`, {code: code}).then(res => res);
 }

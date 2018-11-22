@@ -2,76 +2,45 @@
 
 const User = require('../models/User'); // eslint-disable-line
 const SpotifyAdapter = require('../adapters/SpotifyAdapter');
-const SongkickAdapter = require('../adapters/SongkickAdapter');
 const sessions = require('../sessions');
 
 function index(req, res) {
 	res.json('/ endpoint hit');
 }
 
-function create(req, res) {
-	// TODO
-	var code = req.body.code;
-
-	// need to check for duplicates
-
-	var sessionInfo = {};
-	var sessionId;
+function _createUser(userData, sessionInfo) {
 
 	var musicProfile = {};
 	var profile = {};
-
 	var spotId;
-	SpotifyAdapter.getAccessToken(code)
-		.then(token => {
-			sessionInfo.access_token = token.access_token;
-			sessionInfo.refresh_token = token.refresh_token;
-			sessionId = token.session;
-			return SpotifyAdapter.getUserInfo(sessionInfo.access_token);
-		})
-		.then(userData => {
-			spotId = userData.id;
 
-			// Update profile
-			profile.name = userData.display_name;
-			profile.email = userData.email;
-			profile.img = userData.images[0].url;
-			profile.spotifyUrl = userData.external_urls.spotify;
+	return new Promise((resolve, reject) => {
+		spotId = userData.id;
 
-			return User.findBySpotifyId(userData.id);
-		})
-		.then(possUser => {
-			if (possUser != null) {
-				return res.status(403).send('Error: User already exists');
-			}
-			return User.create(spotId);
-		})
-		.then(user => {
-			sessionInfo.id = user._id;
-			User.updateProfile(user._id, profile);
-		})
-		.then(user => {
-			return SpotifyAdapter.getUserTopArtists(sessionInfo.access_token);
-		})
-		.then(artists => {
-			musicProfile.artists = artists;
-			return SpotifyAdapter.getUserTopTracks(sessionInfo.access_token);
-		})
-		.then(tracks => {
-			musicProfile.tracks = tracks;
-			musicProfile.genres = [];
+		// Update profile
+		profile.name = userData.display_name;
+		profile.email = userData.email;
+		profile.img = userData.images[0].url;
+		profile.spotifyUrl = userData.external_urls.spotify;
+		resolve(User.create(spotId));
+	})
+	.then(user => {
+		sessionInfo.id = user._id;
+		return User.updateProfile(user._id, profile);
+	})
+	.then(user => {
+		return SpotifyAdapter.getUserTopArtists(sessionInfo.access_token);
+	})
+	.then(artists => {
+		musicProfile.artists = artists;
+		return SpotifyAdapter.getUserTopTracks(sessionInfo.access_token);
+	})
+	.then(tracks => {
+		musicProfile.tracks = tracks;
+		musicProfile.genres = [];
 
-			return User.updateMusicProfile(sessionInfo.id, musicProfile);
-		})
-		.then(user => {
-			sessions.setSessionStateById(sessionId, sessionInfo);
-			res.cookie('session', sessionId);
-			res.send(getUserReturnString(user));
-		})
-		.catch(err => {
-			console.log("we got some kind of error " + err.message);
-			res.status(500).send(err)
-		});
+		return User.updateMusicProfile(sessionInfo.id, musicProfile);
+	});
 }
 
 function getUsers(req, res) {
@@ -105,8 +74,10 @@ function login(req, res) {
 	var info = {}
 	var sessionId;
 
+	var userData;
+
 	// Get the user object
-	SpotifyAdapter.getAccessToken(code, session)
+	var getUserPromise = SpotifyAdapter.getAccessToken(code, session)
 		.then(tokenInfo => {
 			info.access_token = tokenInfo.access_token;
 			info.refresh_token = tokenInfo.refresh_token;
@@ -115,15 +86,27 @@ function login(req, res) {
 			return SpotifyAdapter.getUserInfo(info.access_token);
 		})
 		.then(data => {
+			userData = data;
 			return User.findBySpotifyId(data.id);
 		})
 		.then(user => {
+			if (user) {
+				return user;
+			}
+			else {
+				return _createUser(userData, info);
+			}
+		});
+	
+	getUserPromise
+		.then((user) => {
 			info.id = user.id;
 			sessions.setSessionStateById(sessionId, info);
 			res.cookie('session', sessionId);
 			res.send(getUserReturnString(user));
 		})
 		.catch(err => res.send(err));
+		
 }
 
 function updateProfile(req, res) {
@@ -251,7 +234,6 @@ function getUserReturnString(user) {
 
 module.exports = {
 	index,
-	create,
 	getUsers,
 	getUser,
 	deleteUser,
