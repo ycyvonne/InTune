@@ -76,6 +76,8 @@ function login(req, res) {
 
 	var userData;
 
+	var isNewUser;
+
 	// Get the user object
 	var getUserPromise = SpotifyAdapter.getAccessToken(code, session)
 		.then(tokenInfo => {
@@ -91,9 +93,11 @@ function login(req, res) {
 		})
 		.then(user => {
 			if (user) {
+				isNewUser = false;
 				return user;
 			}
 			else {
+				isNewUser = true;
 				return _createUser(userData, info);
 			}
 		});
@@ -103,7 +107,8 @@ function login(req, res) {
 			info.id = user.id;
 			sessions.setSessionStateById(sessionId, info);
 			res.cookie('session', sessionId);
-			res.send(getUserReturnString(user));
+			console.log('sending...', getUserReturnString(user, isNewUser))
+			res.send(getUserReturnString(user, isNewUser));
 		})
 		.catch(err => res.send(err));
 		
@@ -222,13 +227,14 @@ function getSpotifyProfile(req, res) {
 		});
 }
 
-function getUserReturnString(user) {
+function getUserReturnString(user, isNewUser=false) {
 	return JSON.stringify({
 		id: user._id,
 		name: user.name,
 		img: user.img,
 		spotifyUrl: user.spotifyUrl,
-		email: user.email
+		email: user.email,
+		isNewUser: isNewUser
 	});
 }
 
