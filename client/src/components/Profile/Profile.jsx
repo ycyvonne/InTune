@@ -44,7 +44,9 @@ class Profile extends Component {
         <div className="profile-wrapper">
           <Header subtitle="INTUNE" heading="Profile" subheading={subheading} />
           <div className="profile-content-wrapper">
-            <ProfilePicture {...this.props} />
+            <ProfilePicture
+              imageUrl={this.props.user.spotifyData.images[0].url}
+            />
             <ProfileDetails {...this.props} />
             <FavoriteList topic="ARTISTS" />
             <FavoriteList topic="GENRES" />

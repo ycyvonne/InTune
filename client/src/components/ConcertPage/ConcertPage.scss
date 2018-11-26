@@ -1,0 +1,21 @@
+.concerts-page-wrapper {
+  margin: 100px;
+  height: 100vh;
+}
+
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.concert-list-wrapper > div {
+  margin: 20px;
+}
+
+.header > div {
+  color: #000;
+  font-family: Georgia;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  line-height: 73px;
+}

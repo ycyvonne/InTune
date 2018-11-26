@@ -1,0 +1,49 @@
+$small-font: 10pt;
+$sm-md-font: 12pt;
+$large-font: 20pt;
+$small-margin: 5px;
+
+a {
+  text-decoration: none;
+}
+
+.concert-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.concert-wrapper > div {
+  margin: $small-font;
+}
+
+.image-wrapper {
+  flex-basis: 40%;
+}
+
+.details-wrapper {
+  flex-basis: 50%;
+}
+
+.details-wrapper .location {
+  color: #000;
+  font-family: "Helvetica";
+  font-size: $sm-md-font;
+  letter-spacing: 0.8px;
+  line-height: 20px;
+}
+
+.details-wrapper .title {
+  color: #000;
+  font-family: Georgia;
+  font-size: $large-font;
+  font-weight: 700;
+  letter-spacing: 1.07px;
+  line-height: 31px;
+}
+
+.details-wrapper .description {
+  color: rgba(0, 0, 0, 100);
+  font-family: "Helvetica";
+  font-size: $sm-md-font;
+  line-height: 24px;
+}

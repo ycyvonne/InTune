@@ -1,4 +1,4 @@
-import * as api from '../api';
+import * as api from "../api";
 
 /** Actions
  * @module actions
@@ -7,12 +7,15 @@ import * as api from '../api';
  */
 
 export function getUsername(cb) {
-   return (dispatch, prevState) => {
-      api.getUsername()
-         .then(response => dispatch({ name: response, type: "GET_USER_NAME" }))
-         .then(() => { if (cb) cb(); })
-         .catch(error => console.error("Error in getUsername: " + error));
-   };
+  return (dispatch, prevState) => {
+    api
+      .getUsername()
+      .then(response => dispatch({ name: response, type: "GET_USER_NAME" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.error("Error in getUsername: " + error));
+  };
 }
 
 /**
@@ -22,9 +25,23 @@ export function getUsername(cb) {
  * @memberof module:actions
  */
 export function authorize(code) {
-      return (dispatch, prevState) => {
-            api.authorize(code)
-                  .then(response => dispatch({ authorize: response, type: "AUTHORIZE" }))
-                  .catch(error => console.error("Error in authorize: " + error));
-            };
+  return (dispatch, prevState) => {
+    api
+      .authorize(code)
+      .then(response => dispatch({ authorize: response, type: "AUTHORIZE" }))
+      .catch(error => console.error("Error in authorize: " + error));
+  };
+}
+
+// ** TODO: jsdoc
+export function getConcerts(cb) {
+  return (dispatch, prevState) => {
+    api
+      .getConcerts()
+      .then(response => dispatch({ concerts: response, type: "GET_CONCERTS" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in getConcerts: " + error));
+  };
 }

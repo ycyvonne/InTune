@@ -1,6 +1,6 @@
-import { get, post } from './utils/httpHelper';
+import { get, post } from "./utils/httpHelper";
 
-const config = require('./config');
+const config = require("./config");
 const serverBaseURL = `http://${config.server.host}:${config.server.port}`;
 
 /** API
@@ -8,9 +8,8 @@ const serverBaseURL = `http://${config.server.host}:${config.server.port}`;
  * @description Client side handler for API requests
  */
 
-
 export function getUsername() {
-    return get(`${serverBaseURL}/user/name`).then(res => res);
+  return get(`${serverBaseURL}/user/name`).then(res => res);
 }
 
 /**
@@ -20,5 +19,9 @@ export function getUsername() {
  * @memberof module:api
  */
 export function authorize(code) {
-    return post(`${serverBaseURL}/user/login`, {code: code}).then(res => res);
+  return post(`${serverBaseURL}/user/login`, { code: code }).then(res => res);
+}
+
+export function getConcerts() {
+  return get(`${serverBaseURL}/concerts`).then(res => res);
 }

@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
 /** Server side Express router providing user related routes
  * @module routes/user
  * @requires express
  */
 
- /**
+/**
  * express module
  * @const
  */
-const express = require('express');
+const express = require("express");
 
 /**
  * Express router to mount user related functions on.
@@ -19,7 +19,7 @@ const express = require('express');
  */
 let router = express.Router();
 
-const userController = require('../controllers/UserController');
+const userController = require("../controllers/UserController");
 
 /**
  * Route serving root index
@@ -27,7 +27,7 @@ const userController = require('../controllers/UserController');
  * @function
  * @memberof module:routes/user~userRouter
  */
-router.get('/', userController.index);
+router.get("/", userController.index);
 
 // /**
 //  * Route for user creation
@@ -47,7 +47,7 @@ router.get('/', userController.index);
  * @memberof module:routes/user~userRouter
  * @returns {JSON} - A json object containing an array of users
  */
-router.get('/all', userController.getUsers);
+router.get("/all", userController.getUsers);
 
 /**
  * Route for user deletion
@@ -55,10 +55,10 @@ router.get('/all', userController.getUsers);
  * @function
  * @memberof module:routes/user~userRouter
  * @inner
- * @param {string} req.body.id - user specific id 
+ * @param {string} req.body.id - user specific id
  * @returns {JSON} - A json object containing deleted user
  */
-router.post('/delete', userController.deleteUser);
+router.post("/delete", userController.deleteUser);
 
 /**
  * Route for all user deletion
@@ -67,7 +67,7 @@ router.post('/delete', userController.deleteUser);
  * @memberof module:routes/user~userRouter
  * @returns {JSON} - A json object containing an array of deleted users
  */
-router.get('/all/delete', userController.deleteAll);
+router.get("/all/delete", userController.deleteAll);
 
 /**
  * Route for user login
@@ -79,7 +79,7 @@ router.get('/all/delete', userController.deleteAll);
  * @param {string} req.body.session - The client session ID
  * @returns {string} - A string with success code 'User successfully logged in.'
  */
-router.post('/login', userController.login);
+router.post("/login", userController.login);
 
 /**
  * Route to get user info
@@ -90,10 +90,10 @@ router.post('/login', userController.login);
  * @param {string} req.body.session - The client session ID
  * @returns {JSON} - A json object containing the user info
  */
-router.get('/me', userController.getMe);
+router.get("/me", userController.getMe);
 
 /* Docs TODO */
-router.post('/me/update', userController.updateProfile);
+router.post("/me/update", userController.updateProfile);
 
 /**
  * Route to get user's top-tracks
@@ -104,7 +104,7 @@ router.post('/me/update', userController.updateProfile);
  * @param {string} req.body.session - The client session ID
  * @returns {JSON} - A json object containing a list of a user's top tracks
  */
-router.get('/me/top-tracks', userController.getTopTracks);
+router.get("/me/top-tracks", userController.getTopTracks);
 
 /**
  * Route to get user's top-artists
@@ -115,7 +115,7 @@ router.get('/me/top-tracks', userController.getTopTracks);
  * @param {string} req.body.session - The client session ID
  * @returns {JSON} - A json object containing a list of a user's top artists
  */
-router.get('/me/top-artists', userController.getTopArtists);
+router.get("/me/top-artists", userController.getTopArtists);
 
 /**
  * Route to get matches for this user
@@ -125,7 +125,7 @@ router.get('/me/top-artists', userController.getTopArtists);
  * @inner
  * @returns {JSON} - A json object containing a list of matches sorted by similarity
  */
-router.get('/me/matches', userController.getMatches);
+router.get("/me/matches", userController.getMatches);
 
 /**
  * Route to get a specific user's Spotify profile
@@ -136,7 +136,7 @@ router.get('/me/matches', userController.getMatches);
  * @param {string} req.body.code - The Spotify code of the user's profile to get
  * @returns {JSON} - A json object containing a queried user's info
  */
-router.post('/get-spotify-profile', userController.getSpotifyProfile);
+router.post("/get-spotify-profile", userController.getSpotifyProfile);
 
 /**
  * Route to get a specific user
@@ -147,7 +147,6 @@ router.post('/get-spotify-profile', userController.getSpotifyProfile);
  * @param {string} req.params.id - The ID of the user to get
  * @returns {JSON} - A json object containing a queried user's info
  */
-router.get('/:id', userController.getUser);
-
+router.get("/:id", userController.getUser);
 
 module.exports = router;
