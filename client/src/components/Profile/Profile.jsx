@@ -38,7 +38,7 @@ class Profile extends Component {
       var spotifyData = this.props.user.spotifyData;
       var subheading = "Hi " + spotifyData.name.split(" ")[0] + "!";
     }
-    
+
     return (
       isValid && (
         <div className="profile-wrapper">
