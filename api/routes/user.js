@@ -29,16 +29,16 @@ const userController = require("../controllers/UserController");
  */
 router.get("/", userController.index);
 
-/**
- * Route for user creation
- * @name /create
- * @function
- * @memberof module:routes/user~userRouter
- * @inner
- * @param {string} req.body.code - Code provided to generate access token
- * @returns {JSON} - A json object containing user info
- */
-router.post("/create", userController.create);
+// /**
+//  * Route for user creation
+//  * @name /create
+//  * @function
+//  * @memberof module:routes/user~userRouter
+//  * @inner
+//  * @param {string} req.body.code - Code provided to generate access token
+//  * @returns {JSON} - A json object containing user info
+//  */
+// router.post('/create', userController.create);
 
 /**
  * Route to get all users
@@ -91,6 +91,9 @@ router.post("/login", userController.login);
  * @returns {JSON} - A json object containing the user info
  */
 router.get("/me", userController.getMe);
+
+/* Docs TODO */
+router.post("/me/update", userController.updateProfile);
 
 /**
  * Route to get user's top-tracks

@@ -11,9 +11,26 @@ var MusicProfile = new mongoose.Schema({
 	genres: [String]
 });
 
+var UserProfile = new mongoose.Schema({
+	name: String,
+	img: String,
+	spotifyUrl: String,
+	email: String
+});
+
 var userSchema = new mongoose.Schema({
 	spotifyId: String,
-	musicProfile: MusicProfile
+	musicProfile: MusicProfile,
+	profile: UserProfile,
+	artists: [String],
+	tracks: [String],
+	genres: [String],
+
+	// public
+	name: String,
+	img: String,
+	spotifyUrl: String,
+	email: String
 });
 
 // User Schema Methods
@@ -29,12 +46,7 @@ var userSchema = new mongoose.Schema({
  */
 userSchema.statics.create = function(sid) {
 	var user = new this({
-		spotifyId: sid,
-		musicProfile: {
-			artists: [],
-			tracks: [],
-			genres: []
-		}
+		spotifyId: sid
 	});
 
 	return new Promise((resolve, reject) => {
@@ -52,11 +64,27 @@ userSchema.statics.create = function(sid) {
 userSchema.statics.updateMusicProfile = function(id, profile) {
 	return this.findById(id)
 		.then(user => {
-			user.musicProfile = {
-				tracks: profile.tracks,
-				artists: profile.artists,
-				genres: profile.genres
-			}
+			user.tracks = profile.tracks;
+			user.artists = profile.artists;
+			user.genres = profile.genres;
+
+			return new Promise((resolve, reject) => {
+				user.save((err, newUser) => {
+					if (err) reject(err);
+					else resolve(newUser);
+				});
+			});
+		});
+};
+
+userSchema.statics.updateProfile = function(id, profile) {
+	return this.findById(id)
+		.then(user => {
+
+			user.name = profile.name;
+			user.img = profile.img;
+			user.spotifyUrl = profile.spotifyUrl;
+			user.email = profile.email;
 
 			return new Promise((resolve, reject) => {
 				user.save((err, newUser) => {

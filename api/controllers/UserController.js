@@ -2,63 +2,45 @@
 
 const User = require('../models/User'); // eslint-disable-line
 const SpotifyAdapter = require('../adapters/SpotifyAdapter');
-const SongkickAdapter = require('../adapters/SongkickAdapter');
 const sessions = require('../sessions');
 
 function index(req, res) {
 	res.json('/ endpoint hit');
 }
 
-function create(req, res) {
-	// TODO
-	var code = req.body.code;
+function _createUser(userData, sessionInfo) {
 
-	// need to check for duplicates
-
-	var sessionInfo = {};
-	var sessionId;
+	var musicProfile = {};
 	var profile = {};
 	var spotId;
-	SpotifyAdapter.getAccessToken(code)
-		.then(token => {
-			sessionInfo.access_token = token.access_token;
-			sessionInfo.refresh_token = token.refresh_token;
-			sessionId = token.session;
-			return SpotifyAdapter.getUserInfo(sessionInfo.access_token);
-		})
-		.then(userData => {
-			spotId = userData.id;
-			return User.findBySpotifyId(userData.id);
-		})
-		.then(possUser => {
-			if (possUser != null) {
-				return res.status(403).send('Error: User already exists');
-			}
-			return User.create(spotId);
-		})
-		.then(user => {
-			sessionInfo.id = user._id;
-			return SpotifyAdapter.getUserTopArtists(sessionInfo.access_token);
-		})
-		.then(artists => {
-			profile.artists = artists;
-			return SpotifyAdapter.getUserTopTracks(sessionInfo.access_token);
-		})
-		.then(tracks => {
-			profile.tracks = tracks;
-			profile.genres = [];
 
-			return User.updateMusicProfile(sessionInfo.id, profile);
-		})
-		.then(user => {
-			sessions.setSessionStateById(sessionId, sessionInfo);
-			res.cookie('session', sessionId);
-			res.send(JSON.stringify(user));
-		})
-		.catch(err => {
-			console.log("we got some kind of error " + err.message);
-			res.status(500).send(err)
-		});
+	return new Promise((resolve, reject) => {
+		spotId = userData.id;
+
+		// Update profile
+		profile.name = userData.display_name;
+		profile.email = userData.email;
+		profile.img = userData.images[0].url;
+		profile.spotifyUrl = userData.external_urls.spotify;
+		resolve(User.create(spotId));
+	})
+	.then(user => {
+		sessionInfo.id = user._id;
+		return User.updateProfile(user._id, profile);
+	})
+	.then(user => {
+		return SpotifyAdapter.getUserTopArtists(sessionInfo.access_token);
+	})
+	.then(artists => {
+		musicProfile.artists = artists;
+		return SpotifyAdapter.getUserTopTracks(sessionInfo.access_token);
+	})
+	.then(tracks => {
+		musicProfile.tracks = tracks;
+		musicProfile.genres = [];
+
+		return User.updateMusicProfile(sessionInfo.id, musicProfile);
+	});
 }
 
 function getUsers(req, res) {
@@ -69,7 +51,7 @@ function getUsers(req, res) {
 
 function getUser(req, res) {
 	User.findById(req.params.id)
-		.then(user => res.send(JSON.stringify(user)))
+		.then(user => res.send(getUserReturnString))
 		.catch(err => res.send(err));
 }
 
@@ -92,8 +74,12 @@ function login(req, res) {
 	var info = {}
 	var sessionId;
 
+	var userData;
+
+	var isNewUser;
+
 	// Get the user object
-	SpotifyAdapter.getAccessToken(code, session)
+	var getUserPromise = SpotifyAdapter.getAccessToken(code, session)
 		.then(tokenInfo => {
 			info.access_token = tokenInfo.access_token;
 			info.refresh_token = tokenInfo.refresh_token;
@@ -102,15 +88,56 @@ function login(req, res) {
 			return SpotifyAdapter.getUserInfo(info.access_token);
 		})
 		.then(data => {
+			userData = data;
 			return User.findBySpotifyId(data.id);
 		})
 		.then(user => {
+			if (user) {
+				isNewUser = false;
+				return user;
+			}
+			else {
+				isNewUser = true;
+				return _createUser(userData, info);
+			}
+		});
+	
+	getUserPromise
+		.then((user) => {
 			info.id = user.id;
 			sessions.setSessionStateById(sessionId, info);
 			res.cookie('session', sessionId);
-			res.send('User successfully logged in.');
+			console.log('sending...', getUserReturnString(user, isNewUser))
+			res.send(getUserReturnString(user, isNewUser));
 		})
 		.catch(err => res.send(err));
+		
+}
+
+function updateProfile(req, res) {
+	var state = sessions.lookupSession(req.cookies.session);
+	if (!state) {
+		return res.status(401).send('User not logged in.');
+	}
+
+	User.findById(state.id)
+		.then(user => {
+			var profile = {
+				name: req.body.name,
+				email: req.body.email,
+				img: req.body.img,
+				spotifyUrl: req.body.spotifyUrl
+			}
+
+			return User.updateProfile(user._id, profile);
+		})
+		.then(newUser => {
+			return res.send(getUserReturnString(newUser));
+		})
+		.catch(err => {
+			console.log("error: " + err.message);
+			res.send(err)
+		});
 }
 
 function getMe(req, res) {
@@ -121,9 +148,12 @@ function getMe(req, res) {
 
 	User.findById(lookup.id)
 		.then(user => {
-			res.send(JSON.stringify(user));
+			res.send(getUserReturnString(user));
 		})
-		.catch(err => res.send(err));
+		.catch(err => {
+			console.log("error: " + err.message);
+			res.send(err)
+		});
 }
 
 function getTopTracks(req, res) {
@@ -197,14 +227,25 @@ function getSpotifyProfile(req, res) {
 		});
 }
 
+function getUserReturnString(user, isNewUser=false) {
+	return JSON.stringify({
+		id: user._id,
+		name: user.name,
+		img: user.img,
+		spotifyUrl: user.spotifyUrl,
+		email: user.email,
+		isNewUser: isNewUser
+	});
+}
+
 module.exports = {
 	index,
-	create,
 	getUsers,
 	getUser,
 	deleteUser,
 	deleteAll,
 	login,
+	updateProfile,
 	getMe,
 	getTopTracks,
 	getTopArtists,

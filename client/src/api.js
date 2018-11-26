@@ -8,7 +8,6 @@ const serverBaseURL = `http://${config.server.host}:${config.server.port}`;
  * @description Client side handler for API requests
  */
 
-
 export function getUsername() {
   return get(`${serverBaseURL}/user/name`).then(res => res);
 }
@@ -20,7 +19,7 @@ export function getUsername() {
  * @memberof module:api
  */
 export function authorize(code) {
-  return post(`${serverBaseURL}/user/token`, { code: code }).then(res => res);
+  return post(`${serverBaseURL}/user/login`, { code: code }).then(res => res);
 }
 
 export function getConcerts() {
