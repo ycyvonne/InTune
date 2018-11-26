@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Input } from "../";
 import "./ProfilePicture.scss";
 
+// TODO: After profile page is reconnected to backend
+// Refactor <div className="person-card" /> to use <ImageCard />
+
 class ProfilePicture extends Component {
   render() {
     return (
