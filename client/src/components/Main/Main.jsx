@@ -18,7 +18,7 @@ class Main extends Component {
     }
     return (
       <div>
-        <Nav />
+        <Nav {...this.props} />
         {/*Alternate pages beneath navbar, based on current route*/}
         <Switch>
           <Route exact path="/" render={() => <Home {...this.props} />} />
