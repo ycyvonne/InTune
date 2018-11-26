@@ -1,5 +1,6 @@
 $nav-padding: 10px;
 $nav-height: 50px;
+$profile-picture-dimension: 50px;
 
 .navbar {
   position: fixed;
@@ -36,4 +37,22 @@ $nav-height: 50px;
 .invisible-margin {
   width: 100%;
   height: 50px;
+}
+
+.nav-picture-size {
+  object-fit: cover;
+  width: $profile-picture-dimension;
+  height: $profile-picture-dimension;
+  max-height: $profile-picture-dimension;
+  max-width: 100%;
+}
+
+.nav-greeting {
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-profile-button-wrapper {
+  display: flex;
+  align-items: center;
 }

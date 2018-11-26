@@ -6,7 +6,6 @@ $medium-font: 14pt;
 $heading-font: 40pt;
 $default-margin: 2% 0 2% 0;
 $default-border: 2px solid rgb(233, 236, 242);
-$profile-picture-dimension: 250px;
 
 .person-card {
   display: flex;
@@ -17,11 +16,6 @@ $profile-picture-dimension: 250px;
 
 .profile-picture {
   border: $default-border;
-  object-fit: cover;
-  width: $profile-picture-dimension;
-  height: $profile-picture-dimension;
-  max-height: $profile-picture-dimension;
-  max-width: 100%;
   cursor: pointer;
 }
 

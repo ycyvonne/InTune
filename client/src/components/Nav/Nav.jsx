@@ -2,18 +2,27 @@ import React, { Component } from "react";
 import "./Nav.scss";
 import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { SpotifyLoginBtn, Icon } from "../";
+import ProfilePicture from "../ProfilePicture/ProfilePicture";
 
 class Nav extends Component {
   render() {
     var profileButton;
-    console.log(this.props.user);
     if (
       this.props.user &&
       this.props.user.spotifyData != null &&
       this.props.user.spotifyData.isNewUser != null
     ) {
       // logged in, show profile pic
-      profileButton = <img src={this.props.user.spotifyData.img} />;
+      var name = "Hi " + this.props.user.spotifyData.name.split(" ")[0] + "!";
+      profileButton = (
+        <span className="nav-profile-button-wrapper">
+          <div className="nav-greeting">{name}</div>
+          <ProfilePicture
+            imageUrl={this.props.user.spotifyData.img}
+            customSize="nav-picture-size"
+          />
+        </span>
+      );
     } else {
       // not logged in
       profileButton = <SpotifyLoginBtn />;
