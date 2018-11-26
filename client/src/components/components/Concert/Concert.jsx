@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ImageCard } from "../";
+import { ImageCard } from "../../";
 import "./Concert.scss";
 
 class Concert extends Component {

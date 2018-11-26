@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ConcertList, Header, Loader } from "../";
+import { ConcertList, Header, Loader } from "../../";
 import "./ConcertPage.scss";
 
 class ConcertPage extends Component {

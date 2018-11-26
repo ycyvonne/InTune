@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Splash, Card } from "../";
+import { Splash, Card } from "../../";
 import "./Home.scss";
 
 class Home extends Component {

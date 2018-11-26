@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input } from "../";
+import { Input } from "../../";
 
 class FavoriteList extends Component {
   constructor(props) {

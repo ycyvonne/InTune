@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input } from "../";
+import { Input } from "../../";
 import "./ImageCard.scss";
 
 class ImageCard extends Component {

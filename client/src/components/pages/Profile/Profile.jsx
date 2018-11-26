@@ -5,7 +5,7 @@ import {
   ProfileDetails,
   FavoriteList,
   Button
-} from "../";
+} from "../../";
 import "./Profile.scss";
 
 class Profile extends Component {

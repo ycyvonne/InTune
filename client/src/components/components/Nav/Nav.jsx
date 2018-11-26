@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Nav.scss";
 import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { SpotifyLoginBtn, Icon } from "../";
+import { SpotifyLoginBtn, Icon } from "../../";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 
 class Nav extends Component {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAuthenticationURL } from '../../utils/loginCallback';
+import { getAuthenticationURL } from '../../../utils/loginCallback';
 import './SpotifyLoginBtn.scss'
 
 class SpotifyLoginBtn extends Component {

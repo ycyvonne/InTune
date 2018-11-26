@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input } from "../";
+import { Input } from "../../";
 import "./ProfilePicture.scss";
 
 // TODO: After profile page is reconnected to backend

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Concert } from "../";
+import { Concert } from "../../";
 import "./ConcertList.scss";
 class ConcertList extends Component {
   constructor(props) {

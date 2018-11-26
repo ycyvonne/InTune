@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Nav, Profile, Home, ConcertPage } from "../";
+import { Nav, Profile, Home, ConcertPage } from "../../";
 import { Route, Switch } from "react-router-dom";
 import "./Main.scss";
 
