@@ -7,13 +7,20 @@ import "./ProfilePicture.scss";
 
 class ProfilePicture extends Component {
   render() {
+
     var personCard;
+
+    var imgClasses = `profile-picture ${this.props.customSize}`
+    if (this.props.isCircle) {
+      imgClasses += ' profile-picture-circle';
+    }
+
     if (this.props.isInput) {
       personCard = (
         <div className="person-card">
           <label className="profile-container" htmlFor="profile-image-input">
             <img
-              className={`profile-picture ${this.props.customSize}`}
+              className={imgClasses}
               src={this.props.imageUrl}
             />
             <div id="overlay">
@@ -28,7 +35,7 @@ class ProfilePicture extends Component {
         <div className="person-card">
           <label className="profile-container">
             <img
-              className={`profile-picture ${this.props.customSize}`}
+              className={imgClasses}
               src={this.props.imageUrl}
             />
           </label>

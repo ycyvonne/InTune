@@ -13,14 +13,15 @@ class Nav extends Component {
       this.props.user.spotifyData.isNewUser != null
     ) {
       // logged in, show profile pic
-      var name = "Hi " + this.props.user.spotifyData.name.split(" ")[0] + "!";
+      var name = this.props.user.spotifyData.name.split(" ")[0];
       profileButton = (
         <span className="nav-profile-button-wrapper">
-          <div className="nav-greeting">{name}</div>
           <ProfilePicture
             imageUrl={this.props.user.spotifyData.img}
             customSize="nav-picture-size"
+            isCircle={true}
           />
+          <div className="nav-greeting">{name}</div>
         </span>
       );
     } else {
