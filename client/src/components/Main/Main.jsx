@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Nav, Profile, Home, ConcertPage } from "../";
+import { Nav, ProfilePage, HomePage, ConcertPage } from "../";
 import { Route, Switch } from "react-router-dom";
 import "./Main.scss";
 
@@ -18,17 +18,17 @@ class Main extends Component {
       !this.props.user.spotifyData.isNewUser
     ) {
       // login, not new user
-      callbackComponent = <Home {...this.props} />;
+      callbackComponent = <HomePage {...this.props} />;
     } else {
       // create, new user
-      callbackComponent = <Profile {...this.props} />;
+      callbackComponent = <ProfilePage {...this.props} />;
     }
     return (
       <div>
         <Nav {...this.props} />
         {/*Alternate pages beneath navbar, based on current route*/}
         <Switch>
-          <Route exact path="/" render={() => <Home {...this.props} />} />
+          <Route exact path="/" render={() => <HomePage {...this.props} />} />
           <Route path="/callback" render={() => callbackComponent} />
           <Route
             path="/concerts"

@@ -6,7 +6,7 @@ import {
   FavoriteList,
   Button
 } from "../../";
-import "./Profile.scss";
+import "./ProfilePage.scss";
 
 class Profile extends Component {
   constructor(props) {
