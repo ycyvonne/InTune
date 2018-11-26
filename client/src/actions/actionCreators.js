@@ -19,17 +19,26 @@ export function getUsername(cb) {
 }
 
 /**
- * Action dispatcher for authorization
- * @name authorize
+ * Action dispatcher to create/login user
+ * @name loginUser
  * @function
  * @memberof module:actions
  */
-export function authorize(code) {
+export function loginUser(code) {
   return (dispatch, prevState) => {
     api
       .authorize(code)
-      .then(response => dispatch({ authorize: response, type: "AUTHORIZE" }))
-      .catch(error => console.error("Error in authorize: " + error));
+      .then(response => dispatch({ user: response, type: "LOGIN" }))
+      .catch(error => console.error("Error in loginUser: " + error));
+  };
+}
+
+export function getLoggedInUser() {
+  return (dispatch, prevState) => {
+    api
+      .authorize()
+      .then(response => dispatch({ user: response, type: "GET_LOGGED_IN_USER" }))
+      .catch(error => console.error("Error in getLoggedInUser: " + error));
   };
 }
 

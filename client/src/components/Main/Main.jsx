@@ -4,6 +4,13 @@ import { Route, Switch } from "react-router-dom";
 import "./Main.scss";
 
 class Main extends Component {
+
+  constructor(props) {
+    super(props);
+    this.props = props;
+    this.props.getLoggedInUser();
+  }
+
   render() {
     var callbackComponent;
     if (

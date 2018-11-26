@@ -13,17 +13,17 @@ class Profile extends Component {
     super(props);
     this.props = props;
     this.state = {};
-    this.authorize = this.authorize.bind(this);
+    this.loginUser = this.loginUser.bind(this);
     if (!this.props.user.spotifyData || !this.props.user.spotifyData.fetched) {
-      this.authorize();
+      this.loginUser();
     }
   }
 
-  authorize() {
+  loginUser() {
     var regex = RegExp(/code=([^&]*)/).exec(window.location.href);
     if (regex) {
       var code = regex[1];
-      this.props.authorize(code);
+      this.props.loginUser(code);
     }
   }
 

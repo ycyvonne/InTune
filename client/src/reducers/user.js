@@ -18,10 +18,10 @@ function UserReducer(state = {}, action) {
         ...state,
         name: action.name
       };
-    case "AUTHORIZE":
+    case "LOGIN":
       var spotifyData = {};
-      if (!action.authorize.error) {
-        spotifyData = Object.assign({}, action.authorize, {
+      if (!action.user.error) {
+        spotifyData = Object.assign({}, action.user, {
           fetched: true
         });
       }
@@ -29,6 +29,15 @@ function UserReducer(state = {}, action) {
       return Object.assign({}, state, {
         spotifyData: spotifyData
       });
+    case "GET_LOGGED_IN_USER":
+      // if user is logged in
+      if (action.user.id) {
+        return Object.assign({}, state, {
+          spotifyData: action.user
+        });
+      }
+      // else, don't change anything
+      return state;
     default:
       return state;
   }
