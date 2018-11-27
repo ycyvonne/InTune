@@ -39,7 +39,10 @@ function UserReducer(state = {}, action) {
       // else, don't change anything
       return state;
     case "GET_MATCHES":
-      var matchesData = {};
+      var matchesData = [];
+      for (var i = 0; i < 5; i++) {
+        matchesData.push(action.matches);
+      }
       return Object.assign({}, state, {
         matchesData: matchesData
       });

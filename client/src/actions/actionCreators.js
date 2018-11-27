@@ -59,7 +59,7 @@ export function getConcerts(cb) {
 export function getMatches(cb) {
   return (dispatch, prevState) => {
     api
-      .getMatches()
+      .authorize()
       .then(response => dispatch({ matches: response, type: "GET_MATCHES" }))
       .then(() => {
         if (cb) cb();
