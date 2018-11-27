@@ -1,10 +1,4 @@
-$small-font: 10pt;
-$medium-font: 16pt;
-$subheading-font: 50px;
-$heading-font: 100pt;
-$overlay-x: 350px;
-$overlay-y: 100px;
-$default-margin: 15px 25px;
+@import "../../../styles/vars.scss";
 
 .mask {
   margin-left: auto;
@@ -13,9 +7,8 @@ $default-margin: 15px 25px;
 }
 
 .home-wrapper {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: $body-font;
   font-weight: 700;
-  letter-spacing: 0.4px;
   line-height: 68px;
   height: 100vh;
 }
@@ -26,11 +19,13 @@ $default-margin: 15px 25px;
 }
 
 .cards-container {
+  margin-top: 70px;
+  margin-bottom: 200px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .cards-container div {
-  margin: $default-margin;
+  margin: $default-margin-abs;
 }

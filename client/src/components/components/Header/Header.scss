@@ -1,16 +1,11 @@
-$theme-color-1: rgb(102, 77, 218);
-$theme-color-2: rgb(85, 87, 115);
-$small-font: 10pt;
-$subheading-font: 20pt;
-$heading-font: 40pt;
-$default-margin: 2% 0 2% 0;
+@import "../../../styles/vars.scss";
 
 .header-wrapper {
   text-align: center;
 }
 
 .subtitle {
-  font-size: $small-font;
+  font-size: $small-font-size;
 }
 
 .subtitle span {
@@ -18,10 +13,10 @@ $default-margin: 2% 0 2% 0;
 }
 
 .heading {
-  font-size: $heading-font;
+  font-size: $heading-font-size;
   color: $theme-color-2;
 }
 .subheading {
-  font-size: $subheading-font;
+  font-size: $subheading-font-size;
   margin: $default-margin;
 }
