@@ -4,24 +4,8 @@ const mongoose = require('mongoose');
 const SpotifyAdapter = require('../adapters/SpotifyAdapter');
 const sessions = require('../sessions');
 
-// User Schema Definition
-var MusicProfile = new mongoose.Schema({
-	artists: [String],
-	tracks: [String],
-	genres: [String]
-});
-
-var UserProfile = new mongoose.Schema({
-	name: String,
-	img: String,
-	spotifyUrl: String,
-	email: String
-});
-
 var userSchema = new mongoose.Schema({
 	spotifyId: String,
-	musicProfile: MusicProfile,
-	profile: UserProfile,
 	artists: [String],
 	tracks: [String],
 	genres: [String],
@@ -30,7 +14,8 @@ var userSchema = new mongoose.Schema({
 	name: String,
 	img: String,
 	spotifyUrl: String,
-	email: String
+	email: String,
+	isArtist: Boolean
 });
 
 // User Schema Methods
@@ -85,6 +70,7 @@ userSchema.statics.updateProfile = function(id, profile) {
 			user.img = profile.img;
 			user.spotifyUrl = profile.spotifyUrl;
 			user.email = profile.email;
+			user.isArtist = profile.isArtist;
 
 			return new Promise((resolve, reject) => {
 				user.save((err, newUser) => {
