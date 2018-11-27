@@ -3,6 +3,7 @@
 const User = require('../models/User'); // eslint-disable-line
 const SpotifyAdapter = require('../adapters/SpotifyAdapter');
 const sessions = require('../sessions');
+const util = require('../utils');
 
 function index(req, res) {
 	res.json('/ endpoint hit');
@@ -190,31 +191,70 @@ function getTopArtists(req, res) {
 		.catch(err => res.send(err));
 }
 
+
 function getMatches(req, res) {
 	var state = sessions.lookupSession(req.cookies.session);
 	if (!state) {
 		return res.status(401).send('User not logged in.');
 	}
 
-	var matches = [];
 	var user;
+	var users = [];
+	var artists = [];
 	User.findById(state.id)
 		.then(_user => {
 			user = _user;
 			return User.findAll();
 		})
-		.then(users => {
+		.then(_users => {
+			users = _users;
+			return User.findAll(true);
+		})
+		.then(_artists => {
+			artists = _artists;
+			util.shuffle(artists);
+
 			var mp = user.musicProfile;
 			users.sort((a, b) => {
-				return getScore(mp, b) - getScore(mp, a);
+				return util.getScore(mp, b) - util.getScore(mp, a);
 			});
 
-			var userIds = [];
-			users.forEach(value => {
-				if (String(value._id).valueOf() !== String(user._id).valueOf()) userIds.push(value._id);
-			})
-			res.send(userIds);
+			var matches = [];
+			var idx_artist = 0;
+			var idx_user = 0;
+			while (idx_user < users.length) {
+				if (idx_user != 0 && idx_user % 5 == 0 && idx_artist < artists.length) {
+					var data = artists[idx_artist];
+
+					matches.push({
+						type: "artist",
+						id: data._id,
+						data: getUserData(data)
+					});
+					
+					idx_artist++;
+				}
+				else {
+					var data = users[idx_user];
+
+					if (String(data._id).valueOf() !== String(user._id).valueOf()) {
+						matches.push({
+							type: "user",
+							id: data._id,
+							data: getUserData(data)
+						});
+					}
+
+					idx_user++;
+				}
+			}
+
+			res.send(matches);
 		})
+		.catch(err => {
+			console.log("Error: " + err.message);
+			res.status(500).send('Could not get matches: ' + err);
+		});
 }
 
 function getSpotifyProfile(req, res) {
@@ -235,16 +275,22 @@ function getSpotifyProfile(req, res) {
 		});
 }
 
-function getUserReturnString(user, isNewUser=false) {
-	return JSON.stringify({
+function getUserData(user) {
+	return {
 		id: user._id,
 		name: user.name,
 		img: user.img,
 		spotifyUrl: user.spotifyUrl,
 		email: user.email,
-		isArtist: user.isArtist,
-		isNewUser: isNewUser
-	});
+		isArtist: user.isArtist
+	};
+}
+
+function getUserReturnString(user, isNewUser=false) {
+	var data = getUserData(user);
+	data.isNewUser = isNewUser;
+
+	return JSON.stringify(data);
 }
 
 module.exports = {
