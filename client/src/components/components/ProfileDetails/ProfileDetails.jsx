@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Input } from "../";
+import { Input } from "../../";
 
 class ProfileDetails extends Component {
   render() {

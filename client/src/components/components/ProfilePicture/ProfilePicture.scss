@@ -16,7 +16,12 @@ $default-border: 2px solid rgb(233, 236, 242);
 
 .profile-picture {
   border: $default-border;
+  margin: 5px;
   cursor: pointer;
+}
+
+.profile-picture-circle {
+  border-radius: 50%;
 }
 
 #profile-image-input {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ConcertList, Header, Loader } from "../";
+import { ConcertList, Header, Loader } from "../../";
 import "./ConcertPage.scss";
 
 class ConcertPage extends Component {
@@ -37,6 +37,7 @@ class ConcertPage extends Component {
       var data = Object.values(this.props.concerts.concertsData);
       data.pop();
       this.setState({
+        initConcerts: true,
         concerts: data,
         maxPages: Math.ceil(data.length / this.state.CONCERTS_PER_PAGE) - 1
       });
@@ -80,7 +81,6 @@ class ConcertPage extends Component {
     if (!this.props.concerts.concertsData) {
       isValid = false;
     }
-    console.log(this.state);
     return (
       <div className="concerts-page-wrapper">
         <button onClick={this.goToPrevPage} disabled={!this.prevIsValid()}>
