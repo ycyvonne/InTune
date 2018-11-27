@@ -50,6 +50,12 @@ function getUsers(req, res) {
 		.catch(err => res.send(err));
 }
 
+function getArtists(req, res) {
+	User.findAll(true)
+		.then(users => res.send(JSON.stringify(users)))
+		.catch(err => res.send(err));
+}
+
 function getUser(req, res) {
 	User.findById(req.params.id)
 		.then(user => res.send(getUserReturnString))
@@ -244,6 +250,7 @@ function getUserReturnString(user, isNewUser=false) {
 module.exports = {
 	index,
 	getUsers,
+	getArtists,
 	getUser,
 	deleteUser,
 	deleteAll,

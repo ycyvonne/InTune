@@ -138,9 +138,9 @@ userSchema.statics.findBySpotifyId = function(spotId) {
  *     .then(user => console.log(user))
  *     .catch(error => console.error(error));
  */
-userSchema.statics.findAll = function() {
+userSchema.statics.findAll = function(isArtist=false) {
 	return new Promise((resolve, reject) => {
-		this.find({}, (error, users) => {
+		this.find({isArtist: isArtist}, (error, users) => {
 			if (error) reject(error);
 			else resolve(users);
 		});
