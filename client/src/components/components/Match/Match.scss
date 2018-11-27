@@ -1,0 +1,52 @@
+$medium-font: 12pt;
+$md-lg-font: 16pt;
+$add-button-color: rgb(237, 182, 189);
+$match-picture-dimension: 200px;
+
+.match-wrapper {
+  width: 250px;
+  height: 350px;
+  margin: 0 auto;
+  margin-top: 56px;
+  padding: 5px;
+  border-radius: 25px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 5px rgba(0, 0, 0, 0.1) inset;
+}
+
+.image-wrap {
+  position: relative;
+}
+
+.add-button {
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  color: $add-button-color;
+  font-size: 50px;
+  border: none;
+  background: none;
+}
+
+.match-picture-size {
+  object-fit: cover;
+  width: $match-picture-dimension;
+  height: $match-picture-dimension;
+  max-height: $match-picture-dimension;
+  max-width: 100%;
+}
+
+.match-wrapper .name {
+  font-size: $md-lg-font;
+  line-height: 2;
+  font-weight: 600;
+}
+
+.match-wrapper .bio {
+  font-size: $medium-font;
+  color: gray;
+}
+
+.match-wrapper {
+  text-align: center;
+}

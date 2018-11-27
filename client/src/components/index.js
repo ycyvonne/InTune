@@ -28,6 +28,8 @@ export {
 } from "./components/FavoriteList/FavoriteList";
 export { default as Concert } from "./components/Concert/Concert";
 export { default as ConcertList } from "./components/ConcertList/ConcertList";
+export { default as MatchList } from "./components/MatchList/MatchList";
+export { default as Match } from "./components/Match/Match";
 
 // Pages
 export { default as ProfilePage } from "./pages/ProfilePage/ProfilePage";

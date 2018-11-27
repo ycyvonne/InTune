@@ -11,8 +11,6 @@
  * @memberof module:reducers
  */
 function UserReducer(state = {}, action) {
-  console.log("UserReducer");
-  console.log(action);
   switch (action.type) {
     case "GET_USER_NAME":
       return {

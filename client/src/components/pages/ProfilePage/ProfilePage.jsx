@@ -35,6 +35,7 @@ class Profile extends Component {
     ) {
       isValid = false;
     } else {
+      console.log(this.props);
       var spotifyData = this.props.user.spotifyData;
       var subheading = "Hi " + spotifyData.name.split(" ")[0] + "!";
     }
