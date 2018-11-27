@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Nav, ProfilePage, HomePage, ConcertPage } from "../";
+import { Nav, ProfilePage, HomePage, ConcertPage, MatchPage } from "../";
 import { Route, Switch } from "react-router-dom";
 import "./Main.scss";
 
 class Main extends Component {
-
   constructor(props) {
     super(props);
     this.props = props;
@@ -37,6 +36,7 @@ class Main extends Component {
             path="/concerts"
             render={() => <ConcertPage {...this.props} />}
           />
+          <Route path="/matches" render={() => <MatchPage {...this.props} />} />
         </Switch>
       </div>
     );
