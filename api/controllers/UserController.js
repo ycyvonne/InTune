@@ -107,7 +107,8 @@ function login(req, res) {
 			info.id = user.id;
 			sessions.setSessionStateById(sessionId, info);
 			res.cookie('session', sessionId);
-			console.log('sending...', getUserReturnString(user, isNewUser))
+			console.log('sending...', getUserReturnString(user, isNewUser));
+			console.log('session cookie = ' + sessionId);
 			res.send(getUserReturnString(user, isNewUser));
 		})
 		.catch(err => res.send(err));
@@ -126,7 +127,8 @@ function updateProfile(req, res) {
 				name: req.body.name,
 				email: req.body.email,
 				img: req.body.img,
-				spotifyUrl: req.body.spotifyUrl
+				spotifyUrl: req.body.spotifyUrl,
+				isArtist: req.body.isArtist
 			}
 
 			return User.updateProfile(user._id, profile);
@@ -234,6 +236,7 @@ function getUserReturnString(user, isNewUser=false) {
 		img: user.img,
 		spotifyUrl: user.spotifyUrl,
 		email: user.email,
+		isArtist: user.isArtist,
 		isNewUser: isNewUser
 	});
 }
