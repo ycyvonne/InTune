@@ -42,6 +42,8 @@
 .navbar-left h3{
   font-family: $heading-font;
   font-size: 20px;
+  padding-top: 4px; /*offset text gap*/
+  letter-spacing: 0.3px;
 }
 
 .navbar-middle {

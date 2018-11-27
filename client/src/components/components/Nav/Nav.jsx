@@ -59,7 +59,8 @@ class Nav extends Component {
         <div className="navbar">
           <div className="navbar-inner">
           <div className="navbar-left">
-              <a href="/"><h3>intune</h3></a>
+              <a href="#" className="navbar-link"><Icon icon={faBars} /></a>
+              <a href="/" className="navbar-link"><h3>intune</h3></a>
             </div>
             <div className="navbar-middle">
               <a href="/matches" className="navbar-link"><div className={this.state.isActive["/matches"] ? "active" : ""}>MATCHES</div></a>
