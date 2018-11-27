@@ -22,6 +22,7 @@ function _createUser(userData, sessionInfo) {
 		profile.email = userData.email;
 		profile.img = userData.images[0].url;
 		profile.spotifyUrl = userData.external_urls.spotify;
+		profile.isArtist = false;
 		resolve(User.create(spotId));
 	})
 	.then(user => {
@@ -112,7 +113,6 @@ function login(req, res) {
 			res.send(getUserReturnString(user, isNewUser));
 		})
 		.catch(err => res.send(err));
-		
 }
 
 function updateProfile(req, res) {
