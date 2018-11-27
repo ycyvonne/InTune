@@ -16,6 +16,7 @@
   z-index: 1000;
   font-family: $body-font;
   font-size: 10px;
+  border-bottom: 1px solid $grey-light;
 }
 
 .navbar-inner {
@@ -32,6 +33,10 @@
 
 .navbar-link {
   margin: 0 10px;
+
+  & .active {
+    color: $theme-color-1;
+  }
 }
 
 .navbar-left h3{
@@ -66,9 +71,6 @@
   height: $profile-picture-dimension;
   max-height: $profile-picture-dimension;
   max-width: 100%;
-}
-
-.nav-greeting {
 }
 
 .nav-profile-button-wrapper {

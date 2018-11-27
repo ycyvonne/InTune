@@ -5,6 +5,28 @@ import { SpotifyLoginBtn, Icon } from "../../";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 
 class Nav extends Component {
+
+  constructor(props) {
+    super(props);
+    this.props = props;
+    this.getIsActive = this.getIsActive.bind(this);
+    this.state = {
+      isActive: this.getIsActive()
+    }
+  }
+
+  getIsActive() {
+    var links = ["/matches", "/concerts"];
+    var isActive = {
+      "/matches": false,
+      "/concerts": false
+    }
+    if (links.includes(this.props.path)) {
+      isActive[this.props.path] = true;
+    }
+    return isActive;
+  }
+
   render() {
     var loginDependentComponents;
     if (
@@ -15,17 +37,21 @@ class Nav extends Component {
       // logged in, show profile pic
       loginDependentComponents = (
         <span className="nav-profile-button-wrapper">
-          <Icon icon={faMusic} />
-          <ProfilePicture
-            imageUrl={this.props.user.spotifyData.img}
-            customSize="nav-picture-size"
-            isCircle={true}
-          />
+          <div className="navbar-link">
+            <Icon icon={faMusic} />
+          </div>
+          <div className="navbar-link">
+            <ProfilePicture
+              imageUrl={this.props.user.spotifyData.img}
+              customSize="nav-picture-size"
+              isCircle={true}
+            />
+          </div>
         </span>
       );
     } else {
       // not logged in
-      loginDependentComponents = <SpotifyLoginBtn />;
+      loginDependentComponents = <div className="navbar-link"><SpotifyLoginBtn /></div>;
     }
 
     return (
@@ -33,14 +59,14 @@ class Nav extends Component {
         <div className="navbar">
           <div className="navbar-inner">
           <div className="navbar-left">
-              <h3>intune</h3>
+              <a href="/"><h3>intune</h3></a>
             </div>
             <div className="navbar-middle">
-              <div className="navbar-link">MATCHES</div>
-              <div className="navbar-link">CONCERTS</div>
+              <a href="/matches" className="navbar-link"><div className={this.state.isActive["/matches"] ? "active" : ""}>MATCHES</div></a>
+              <a href="/concerts" className="navbar-link"><div className={this.state.isActive["/concerts"] ? "active" : ""}>CONCERTS</div></a>
             </div>
             <div className="navbar-right">
-              <Icon icon={faSearch} />
+              <div className="navbar-link"><Icon icon={faSearch} /></div>
               {loginDependentComponents}
             </div>
           </div>
