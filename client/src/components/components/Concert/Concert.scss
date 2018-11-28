@@ -1,7 +1,5 @@
-$small-font: 10pt;
-$sm-md-font: 16pt;
-$large-font: 20pt;
-$small-margin: 5px;
+@import "../../../styles/vars.scss";
+
 
 a {
   text-decoration: none;
@@ -39,8 +37,8 @@ a {
 
 .details-wrapper .location {
   color: #000;
-  font-family: Georgia;
-  font-size: $sm-md-font;
+  font-family: $body-font;
+  font-size: $small-font-size;
   letter-spacing: 0.8px;
   line-height: 20px;
   margin: 8px 0px 0px 0px;
@@ -49,7 +47,7 @@ a {
 .details-wrapper .title {
   color: #000;
   font-family: Georgia;
-  font-size: $large-font;
+  font-size: $large-font-size;
   font-weight: 700;
   letter-spacing: 1.07px;
   line-height: 31px;
@@ -57,7 +55,7 @@ a {
 
 .details-wrapper .description {
   color: rgba(0, 0, 0, 100);
-  font-family: Georgia;
-  font-size: $sm-md-font;
+  font-family: $body-font;
+  font-size: $small-font-size;
   line-height: 24px;
 }

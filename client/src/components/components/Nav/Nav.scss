@@ -1,21 +1,48 @@
-$nav-padding: 10px;
-$nav-height: 50px;
-$profile-picture-dimension: 40px;
+@import "../../../styles/vars.scss";
+
+.navbar-wrapper {
+  height: $nav-height;
+}
 
 .navbar {
   position: fixed;
   display: flex;
-  align-items: center;
   background: white;
   top: 0;
   width: 100%;
   height: $nav-height;
   padding: $nav-padding;
   z-index: 1000;
+  font-family: $body-font;
+  font-size: 10px;
+  border-bottom: 1px solid $grey-light;
 }
 
-.navbar-left {
+.navbar-inner {
+  position: relative;
+  width: 80%;
+  left: 10%;
   display: flex;
+  align-items: center;
+  & > * {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.navbar-link {
+  margin: 0 10px;
+
+  & .active {
+    color: $theme-color-1;
+  }
+}
+
+.navbar-left h3{
+  font-family: $heading-font;
+  font-size: 20px;
+  padding-top: 4px; /*offset text gap*/
+  letter-spacing: 0.3px;
 }
 
 .navbar-middle {
@@ -23,8 +50,8 @@ $profile-picture-dimension: 40px;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
-  letter-spacing: 4px;
-  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 2px;
+  font-weight: bolder;
 }
 
 .navbar-right {
@@ -45,11 +72,6 @@ $profile-picture-dimension: 40px;
   height: $profile-picture-dimension;
   max-height: $profile-picture-dimension;
   max-width: 100%;
-}
-
-.nav-greeting {
-  font-size: 15px;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 .nav-profile-button-wrapper {

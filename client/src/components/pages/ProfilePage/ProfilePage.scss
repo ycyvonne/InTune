@@ -1,16 +1,10 @@
-$body-font-color: rgb(178, 183, 191);
-$theme-color-1: rgb(102, 77, 218);
-$medium-font: 14pt;
-$default-margin: 2% 0 2% 0;
-$default-border: 2px solid rgb(233, 236, 242);
-$profile-background: rgb(248, 251, 252);
-$profile-picture-dimension: 250px;
+@import "../../../styles/vars.scss";
 
 .picture-picture-size {
   object-fit: cover;
-  width: $profile-picture-dimension;
-  height: $profile-picture-dimension;
-  max-height: $profile-picture-dimension;
+  width: $profile-picture-bg-dimension;
+  height: $profile-picture-bg-dimension;
+  max-height: $profile-picture-bg-dimension;
   max-width: 100%;
 }
 
@@ -18,7 +12,7 @@ $profile-picture-dimension: 250px;
   background: $profile-background;
   height: 100vh;
   font-weight: bold;
-  font-family: "Roboto", sans-serif;
+  font-family: $body-font;
   color: $body-font-color;
 }
 
@@ -35,7 +29,7 @@ $profile-picture-dimension: 250px;
 input {
   line-height: 2em;
   margin: $default-margin;
-  font-size: $medium-font;
+  font-size: $medium-font-size;
   border: $default-border;
 }
 
