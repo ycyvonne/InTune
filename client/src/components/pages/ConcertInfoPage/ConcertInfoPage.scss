@@ -1,0 +1,97 @@
+.concert-image-wrapper {
+    width: 100%;
+    height: 300px;
+}
+
+.concert-details-wrapper {
+    margin: 50px;
+    height: 100vh;
+}
+
+.concert-details-wrapper > div {
+    margin: 5px;
+}
+
+.concert-info-wrapper {
+    margin: 100px;
+    height: 100vh;
+    font-size: 1.4em;
+    font-weight: 500;
+    color:  #666666;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: left;
+    width: 100px;
+}
+
+.info-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.info-button {
+    color: white;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background: #1c58ec;
+    height: 35px;	
+    font-weight: 700;	
+    font-size: 0.55em;
+    text-align: center;
+    padding: 0px 8px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: 0.15s all ease-in-out;
+
+    &:hover {
+        transform: scale(1.015);
+    }
+
+    &:active {
+        transform: scale(0.985)
+    }
+    
+}
+
+.back-button {
+    width: 100%;
+    color: white;
+    border:none;
+    border-radius: 5px;
+    outline: none;
+    background: #1c58ec;
+    font-size: 1.0em;
+    height: 30px;
+    font-size: 18px;	
+    font-weight: 400;	
+    text-align: center;
+    padding: 0px 8px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: 0.15s all ease-in-out;
+
+    &:hover {
+        transform: scale(1.015);
+    }
+
+    &:active {
+        transform: scale(0.985)
+    }
+}
+
+.section {
+    height: 200px;
+}
+
+.section-content {
+    margin: 8px 0px 5px 0px;
+    font-size: 0.75em;
+    color: black;
+}
+
+.concert-details {
+    column-count: 3;
+}

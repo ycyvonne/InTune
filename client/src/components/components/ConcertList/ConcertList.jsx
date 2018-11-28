@@ -6,6 +6,7 @@ class ConcertList extends Component {
     super(props);
     this.props = props;
   }
+
   render() {
     return (
       <div className="concert-list-wrapper">
@@ -17,6 +18,7 @@ class ConcertList extends Component {
               location={concert.venue.displayName}
               artist={concert.performance[0].displayName}
               link={concert.uri}
+              id={concert.id}
             />
           );
         })}

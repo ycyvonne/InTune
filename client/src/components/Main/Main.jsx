@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Nav, ProfilePage, HomePage, ConcertPage } from "../";
+import { Nav, ProfilePage, HomePage, ConcertPage, ConcertInfoPage } from "../";
 import { Route, Switch } from "react-router-dom";
 import "./Main.scss";
 
@@ -34,6 +34,7 @@ class Main extends Component {
             path="/concerts"
             render={() => <ConcertPage {...this.props} />}
           />
+          <Route path="/concert/:id" render={({match}) => <ConcertInfoPage concertId={match.params.id} {...this.props}/>} />
         </Switch>
       </div>
     );
