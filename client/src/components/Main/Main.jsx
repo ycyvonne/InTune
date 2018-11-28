@@ -9,6 +9,9 @@ class Main extends Component {
     super(props);
     this.props = props;
     this.props.getLoggedInUser();
+    this.state = {
+      currentPath: window.location.pathname
+    }
   }
 
   render() {
@@ -25,7 +28,7 @@ class Main extends Component {
     }
     return (
       <div>
-        <Nav {...this.props} />
+        <Nav {...this.props} path={this.state.currentPath}/>
         {/*Alternate pages beneath navbar, based on current route*/}
         <Switch>
           <Route exact path="/" render={() => <HomePage {...this.props} />} />

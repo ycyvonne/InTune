@@ -1,3 +1,10 @@
+
+@import "../../styles/vars.scss";
+
 * {
     box-sizing: border-box;
+}
+
+body {
+    background: $grey-lightest;
 }

@@ -8,8 +8,8 @@ class Home extends Component {
       <div className="home-wrapper">
         <Splash
           customClass="home-splash"
-          subheading="Welcome to"
-          heading="InTune"
+          subheading=""
+          heading="intune"
           subtitle="MATCH YOU WITH YOUR MUSIC TASTE"
         />
         <div className="mask">
