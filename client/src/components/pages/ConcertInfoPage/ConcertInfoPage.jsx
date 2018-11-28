@@ -72,7 +72,7 @@ class ConcertInfoPage extends Component {
                             </button>
                         </div>
                         <div className = "concert-details-wrapper">
-                            <Header heading={this.state.concert[0].displayName}  />
+                            <div id="concert-header"  >{this.state.concert[0].displayName} </div>
                             <ImageCard
                                 imgUrl="https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/07/28/104618086-6ED1-REQ-TicketScamsAG-072817.1910x1000.jpg"
                                 dimensionClass="concert-image-wrapper"
