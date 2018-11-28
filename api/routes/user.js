@@ -41,13 +41,22 @@ router.get("/", userController.index);
 // router.post('/create', userController.create);
 
 /**
- * Route to get all users
+ * Route to get all normal users
  * @name /all
  * @function
  * @memberof module:routes/user~userRouter
  * @returns {JSON} - A json object containing an array of users
  */
 router.get("/all", userController.getUsers);
+
+/**
+ * Route to get all artists
+ * @name /artists
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @returns {JSON} - A json object containing an array of users
+ */
+router.get("/artists", userController.getArtists);
 
 /**
  * Route for user deletion
