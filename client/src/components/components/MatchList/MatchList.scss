@@ -1,9 +1,4 @@
-$duration: 450ms;
-$tileWidth: 375px;
-$tileHeight: ($tileWidth / (16/9));
-$growFactor: 1.2;
-$moveLeft: -($tileWidth * ($growFactor - 1) / 2);
-$moveRight: $tileWidth * ($growFactor - 1);
+@import "../../../styles/vars.scss";
 
 .match-list-wrapper {
   margin: ($tileHeight / 2) 0;

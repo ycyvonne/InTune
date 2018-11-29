@@ -1,7 +1,4 @@
-$medium-font: 12pt;
-$md-lg-font: 16pt;
-$add-button-color: rgb(237, 182, 189);
-$match-picture-dimension: 262px;
+@import "../../../styles/vars.scss";
 
 .match-wrapper {
   width: 375px;
@@ -37,13 +34,15 @@ $match-picture-dimension: 262px;
 }
 
 .match-wrapper .name {
-  font-size: $md-lg-font;
+  font-size: $medium-font-size;
+  font-family: $subheading-font;
   line-height: 3em;
   font-weight: 600;
 }
 
 .match-wrapper .bio {
-  font-size: $medium-font;
+  font-size: $small-font-size;
+  font-family: $body-font;
   color: gray;
 }
 
