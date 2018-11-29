@@ -8,11 +8,16 @@ class MatchList extends Component {
     this.props = props;
   }
   render() {
+    var matches = this.props.user.matchesData;
     return (
       <div className="match-list-wrapper">
         {this.props.user.matchesData.map(match => {
           // TODO: add key prop when these are real matches
-          return <Match name={match.name} img={match.img} />;
+          return (
+            <div className="tile">
+              <Match name={match.name} img={match.img} />
+            </div>
+          );
         })}
       </div>
     );
