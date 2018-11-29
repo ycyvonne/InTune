@@ -1,5 +1,5 @@
 $duration: 450ms;
-$tileWidth: 250px;
+$tileWidth: 375px;
 $tileHeight: ($tileWidth / (16/9));
 $growFactor: 1.2;
 $moveLeft: -($tileWidth * ($growFactor - 1) / 2);
@@ -8,11 +8,10 @@ $moveRight: $tileWidth * ($growFactor - 1);
 .match-list-wrapper {
   margin: ($tileHeight / 2) 0;
   display: flex;
-  justify-content: center;
 }
 
 .tile {
-  margin-right: 10px;
+  margin: 0 10px;
   cursor: pointer;
   transition: $duration all;
   transform-origin: center left;
