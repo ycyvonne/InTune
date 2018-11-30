@@ -275,6 +275,41 @@ function getSpotifyProfile(req, res) {
 		});
 }
 
+function match(req, res) {
+	var state = sessions.lookupSession(req.cookies.session);
+	if (!state) {
+		return res.status(401).send('User not logged in.');
+	}
+
+	var otherId = req.body.id;
+	if (!otherId) {
+		console.log("bad other id " + otherId);
+		return res.status(400).send("'otherId' field not supplied in request.");
+	}
+
+	console.log("got id " + otherId);
+
+	var matcher;
+
+	console.log("trying to match users");
+
+	User.match(state.id, otherId)
+		.then(newUser => {
+			matcher = newUser;
+			return User.hasMatch(matcher._id, otherId);
+		})
+		.then(isMatch => {
+			res.send({
+				isMatch: isMatch,
+				data: getUserData(matcher)
+			});
+		})
+		.catch(err => {
+			console.log("got error: " + err.message);
+			res.status(500).send("error: " + err);
+		})
+}
+
 function getUserData(user) {
 	return {
 		id: user._id,
@@ -282,7 +317,8 @@ function getUserData(user) {
 		img: user.img,
 		spotifyUrl: user.spotifyUrl,
 		email: user.email,
-		isArtist: user.isArtist
+		isArtist: user.isArtist,
+		matches: user.matches
 	};
 }
 
@@ -306,5 +342,6 @@ module.exports = {
 	getTopTracks,
 	getTopArtists,
 	getMatches,
-	getSpotifyProfile
+	getSpotifyProfile,
+	match
 };
