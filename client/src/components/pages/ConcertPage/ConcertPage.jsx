@@ -38,7 +38,7 @@ class ConcertPage extends Component {
       data.pop();
       this.setState({
         initConcerts: true,
-        concerts: data,
+        concerts: [data],
         maxPages: Math.ceil(data.length / this.state.CONCERTS_PER_PAGE) - 1
       });
     }
