@@ -273,15 +273,58 @@ function getSpotifyProfile(req, res) {
     });
 }
 
+function match(req, res) {
+
+	// do stub for now
+	res.send({
+		isMatch: true,
+		data: {}
+	});
+
+	// var state = sessions.lookupSession(req.cookies.session);
+	// if (!state) {
+	// 	return res.status(401).send('User not logged in.');
+	// }
+
+	// var otherId = req.body.id;
+	// if (!otherId) {
+	// 	console.log("bad other id " + otherId);
+	// 	return res.status(400).send("'otherId' field not supplied in request.");
+	// }
+
+	// console.log("got id " + otherId);
+
+	// var matcher;
+
+	// console.log("trying to match users");
+
+	// User.match(state.id, otherId)
+	// 	.then(newUser => {
+	// 		matcher = newUser;
+	// 		return User.hasMatch(matcher._id, otherId);
+	// 	})
+	// 	.then(isMatch => {
+	// 		res.send({
+	// 			isMatch: isMatch,
+	// 			data: getUserData(matcher)
+	// 		});
+	// 	})
+	// 	.catch(err => {
+	// 		console.log("got error: " + err.message);
+	// 		res.status(500).send("error: " + err);
+	// 	})
+}
+
 function getUserData(user) {
-  return {
-    id: user._id,
-    name: user.name,
-    img: user.img,
-    spotifyUrl: user.spotifyUrl,
-    email: user.email,
-    isArtist: user.isArtist
-  };
+	return {
+		id: user._id,
+		name: user.name,
+		img: user.img,
+		spotifyUrl: user.spotifyUrl,
+		email: user.email,
+		isArtist: user.isArtist,
+		matches: user.matches
+	};
 }
 
 function getUserReturnString(user, isNewUser = false) {
@@ -292,17 +335,18 @@ function getUserReturnString(user, isNewUser = false) {
 }
 
 module.exports = {
-  index,
-  getUsers,
-  getArtists,
-  getUser,
-  deleteUser,
-  deleteAll,
-  login,
-  updateProfile,
-  getMe,
-  getTopTracks,
-  getTopArtists,
-  getMatches,
-  getSpotifyProfile
+	index,
+	getUsers,
+	getArtists,
+	getUser,
+	deleteUser,
+	deleteAll,
+	login,
+	updateProfile,
+	getMe,
+	getTopTracks,
+	getTopArtists,
+	getMatches,
+	getSpotifyProfile,
+	match
 };
