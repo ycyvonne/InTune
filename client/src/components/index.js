@@ -13,6 +13,7 @@ export { default as ImageCard } from "./components/ImageCard/ImageCard";
 export { default as Splash } from "./components/Splash/Splash";
 export { default as Pagination } from "./components/Pagination/Pagination";
 export { default as Modal } from "./components/Modal/Modal";
+export { default as Pagination } from "./components/Pagination/Pagination";
 
 // Unique components
 export { default as Nav } from "./components/Nav/Nav";

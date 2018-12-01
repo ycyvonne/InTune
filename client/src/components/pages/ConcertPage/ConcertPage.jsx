@@ -29,19 +29,20 @@ class ConcertPage extends Component {
   }
 
   initConcerts() {
-    if (!this.props.concerts.concertsData) {
-      this.setState({
-        concerts: []
-      });
-    } else {
-      var data = Object.values(this.props.concerts.concertsData);
-      data.pop();
+    // if (!this.props.concerts.concertsData) {
+    //   this.setState({
+    //     concerts: []
+    //   });
+    // } else {
+      // var data = Object.values(this.props.concerts.concertsData);
+      // data.pop();
       this.setState({
         initConcerts: true,
-        concerts: [data],
-        maxPages: Math.ceil(data.length / this.state.CONCERTS_PER_PAGE) - 1
+        // concerts: [data],
+        maxPages: Math.ceil(this.state.concerts.length / this.state.CONCERTS_PER_PAGE) - 1
       });
-    }
+    // }
+    
   }
 
   getCurrentConcertsOnThisPage() {
