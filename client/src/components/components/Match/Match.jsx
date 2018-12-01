@@ -69,9 +69,6 @@ class Match extends Component {
           />
         </div>
         <div className="name">{this.props.name}</div>
-        <div className="bio">
-          As a DJ, I play 80s. As myself, I listen to a little more.
-        </div>
       </div>
     );
   }

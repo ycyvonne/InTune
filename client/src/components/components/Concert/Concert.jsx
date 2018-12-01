@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ImageCard } from "../../";
-import barcode from '../../../assets/img/barcode.png';
+import barcode from "../../../assets/img/barcode.png";
 import "./Concert.scss";
 
 class Concert extends Component {
@@ -10,7 +10,7 @@ class Concert extends Component {
   }
   render() {
     return (
-      <a className="concert-wrapper" href={'/concert/' + this.props.id}>
+      <a className="concert-wrapper" href={"/concert/" + this.props.id}>
         <div className="details-wrapper">
           <div className="title">{this.props.name}</div>
           <div className="location">Venue: {this.props.location}</div>
