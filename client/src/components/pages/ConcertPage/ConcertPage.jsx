@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ConcertList, Header, Loader } from "../../";
 import "./ConcertPage.scss";
+import ConcertTemplate from './ConcertTemplate';
 
 class ConcertPage extends Component {
   constructor(props) {
@@ -10,8 +11,8 @@ class ConcertPage extends Component {
       initConcerts: false,
       pageNumber: 0,
       maxPages: 0,
-      CONCERTS_PER_PAGE: 10,
-      concerts: []
+      CONCERTS_PER_PAGE: 9,
+      concerts: Array.apply(null, Array(20)).map(() => ConcertTemplate)
     };
 
     this.initConcerts = this.initConcerts.bind(this);
@@ -20,12 +21,12 @@ class ConcertPage extends Component {
     this.nextIsValid = this.nextIsValid.bind(this);
     this.prevIsValid = this.prevIsValid.bind(this);
 
-    if (
-      !this.props.concerts.concertsData ||
-      !this.props.concerts.concertsData.fetched
-    ) {
-      this.props.getConcerts(this.initConcerts);
-    }
+    // if (
+    //   !this.props.concerts.concertsData ||
+    //   !this.props.concerts.concertsData.fetched
+    // ) {
+    //   this.props.getConcerts(this.initConcerts);
+    // }
   }
 
   initConcerts() {
@@ -38,7 +39,7 @@ class ConcertPage extends Component {
       data.pop();
       this.setState({
         initConcerts: true,
-        concerts: data,
+        concerts: [data],
         maxPages: Math.ceil(data.length / this.state.CONCERTS_PER_PAGE) - 1
       });
     }
