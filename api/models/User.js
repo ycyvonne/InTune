@@ -67,8 +67,6 @@ userSchema.statics.updateProfile = function(id, profile) {
 		.then(user => {
 
 			user.name = profile.name;
-			user.img = profile.img;
-			user.spotifyUrl = profile.spotifyUrl;
 			user.email = profile.email;
 			user.isArtist = profile.isArtist;
 

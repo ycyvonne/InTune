@@ -115,7 +115,7 @@ function login(req, res) {
 			info.id = user.id;
 			sessions.setSessionStateById(sessionId, info);
 			res.cookie('session', sessionId);
-			console.log('sending...', getUserReturnString(user, isNewUser));
+			console.log('sending... ' + user.name)
 			console.log('session cookie = ' + sessionId);
 			res.send(getUserReturnString(user, isNewUser));
 		})
@@ -133,8 +133,6 @@ function updateProfile(req, res) {
 			var profile = {
 				name: req.body.name,
 				email: req.body.email,
-				img: req.body.img,
-				spotifyUrl: req.body.spotifyUrl,
 				isArtist: req.body.isArtist
 			}
 
@@ -282,7 +280,9 @@ function getUserData(user) {
 		img: user.img,
 		spotifyUrl: user.spotifyUrl,
 		email: user.email,
-		isArtist: user.isArtist
+		isArtist: user.isArtist,
+		artists: user.artists,
+		tracks: user.tracks
 	};
 }
 
