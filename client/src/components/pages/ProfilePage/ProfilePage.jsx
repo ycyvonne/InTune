@@ -43,7 +43,7 @@ class Profile extends Component {
     return (
       isValid && (
         <div className="profile-wrapper">
-          <Header subtitle="INTUNE" heading="Profile" subheading={subheading} />
+          <Header subtitle="INTUNE" heading="" subheading={subheading} />
           <div className="profile-content-wrapper">
             <ProfilePicture
               heading="PROFILE PICTURE"

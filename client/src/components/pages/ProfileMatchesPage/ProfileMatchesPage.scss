@@ -1,0 +1,31 @@
+@import "../../../styles/vars.scss";
+
+$profile-padding: 20px;
+
+.profile-wrapper {
+    margin: $page-margin;
+}
+.profile-matches-content {
+    display: flex;
+    background: white;
+    border: 1px solid $grey-light;
+    min-height: 60%;
+
+    h1 {
+        margin: 0;
+    }
+
+    .selections {
+        width: 300px;
+        border-right: 1px solid $grey-light;
+        .selection-item {
+            cursor: pointer;
+            padding: $profile-padding;
+            border-bottom: 1px solid $grey-light;
+        }
+    }
+    .profile-main-view {
+        width: 100%;
+        padding: $profile-padding;
+    }
+}
