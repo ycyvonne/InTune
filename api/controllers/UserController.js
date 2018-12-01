@@ -192,67 +192,109 @@ function getTopArtists(req, res) {
 }
 
 function getMatches(req, res) {
-  var state = sessions.lookupSession(req.cookies.session);
-  if (!state) {
-    return res.status(401).send("User not logged in.");
+
+  // stub getting matches
+  var profiles = [];
+
+	for (var i=0; i < 10; i++) {
+		profiles.push({
+			sid: i.toString(),
+			profile: {
+				name: "John Smith " + i.toString(),
+				img: "https://robertzalog.com/me.jpg",
+				email: "jsmith@gmail.com",
+				spotifyUrl: "https://robertzalog.com",
+				isArtist: false
+			},
+			music_profile: {
+				artists: [],
+				genres: [],
+				tracks: []
+			},
+			test_match: "5c01bc5bbf694a0017d23670"
+		});
   }
-
-  var user;
-  var users = [];
-  var artists = [];
-  User.findById(state.id)
-    .then(_user => {
-      user = _user;
-      return User.findAll();
-    })
-    .then(_users => {
-      users = _users;
-      return User.findAll(true);
-    })
-    .then(_artists => {
-      artists = _artists;
-      util.shuffle(artists);
-
-      var mp = user.musicProfile;
-      users.sort((a, b) => {
-        return util.getScore(mp, b) - util.getScore(mp, a);
-      });
-
-      var matches = [];
-      var idx_artist = 0;
-      var idx_user = 0;
-      while (idx_user < users.length) {
-        if (idx_user != 0 && idx_user % 5 == 0 && idx_artist < artists.length) {
-          var data = artists[idx_artist];
-
-          matches.push({
-            type: "artist",
-            id: data._id,
-            data: getUserData(data)
-          });
-
-          idx_artist++;
-        } else {
-          var data = users[idx_user];
-
-          if (String(data._id).valueOf() !== String(user._id).valueOf()) {
-            matches.push({
-              type: "user",
-              id: data._id,
-              data: getUserData(data)
-            });
-          }
-
-          idx_user++;
-        }
-      }
-
-      res.send(matches);
-    })
-    .catch(err => {
-      console.log("Error: " + err.message);
-      res.status(500).send("Could not get matches: " + err);
+  var matches = [];
+  profiles.forEach((profile, i) => {
+    var type = 'user';
+    if (i % 5 == 0) {
+      type = 'artist';
+    }
+    else {
+      type = 'concert';
+    }
+    matches.push({
+      type: type,
+      id: '' + Math.random(),
+      data: profile
     });
+  });
+
+  res.send({
+    matches: matches
+  })
+
+  // var state = sessions.lookupSession(req.cookies.session);
+  // if (!state) {
+  //   return res.status(401).send("User not logged in.");
+  // }
+
+  // var user;
+  // var users = [];
+  // var artists = [];
+  // User.findById(state.id)
+  //   .then(_user => {
+  //     user = _user;
+  //     return User.findAll();
+  //   })
+  //   .then(_users => {
+  //     users = _users;
+  //     return User.findAll(true);
+  //   })
+  //   .then(_artists => {
+  //     artists = _artists;
+  //     util.shuffle(artists);
+
+  //     var mp = user.musicProfile;
+  //     users.sort((a, b) => {
+  //       return util.getScore(mp, b) - util.getScore(mp, a);
+  //     });
+
+  //     var matches = [];
+  //     var idx_artist = 0;
+  //     var idx_user = 0;
+  //     while (idx_user < users.length) {
+  //       if (idx_user != 0 && idx_user % 5 == 0 && idx_artist < artists.length) {
+  //         var data = artists[idx_artist];
+
+  //         matches.push({
+  //           type: "artist",
+  //           id: data._id,
+  //           data: getUserData(data)
+  //         });
+
+  //         idx_artist++;
+  //       } else {
+  //         var data = users[idx_user];
+
+  //         if (String(data._id).valueOf() !== String(user._id).valueOf()) {
+  //           matches.push({
+  //             type: "user",
+  //             id: data._id,
+  //             data: getUserData(data)
+  //           });
+  //         }
+
+  //         idx_user++;
+  //       }
+  //     }
+
+  //     res.send(matches);
+  //   })
+  //   .catch(err => {
+  //     console.log("Error: " + err.message);
+  //     res.status(500).send("Could not get matches: " + err);
+  //   });
 }
 
 function getSpotifyProfile(req, res) {
