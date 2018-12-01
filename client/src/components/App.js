@@ -15,8 +15,7 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     matches: state.matches,
-    concerts: state.concerts,
-    matchResults: state.matchResults
+    concerts: state.concerts
   };
 }
 

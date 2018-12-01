@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Match, Icon } from "../../";
+import { Match, Icon, Modal } from "../../";
 import "./MatchList.scss";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,7 +14,9 @@ class MatchList extends Component {
       marginMax: 0,
       isHoveringLeft: false,
       isHoveringRight: false,
-      currentInterval: null
+      currentInterval: null,
+      showingMatch: false,
+      matchMessage: ''
     };
   }
 
@@ -83,6 +85,19 @@ class MatchList extends Component {
     }
   }
 
+  showMatch = (personMatchedWith) => {
+    this.setState({
+      showingMatch: true,
+      matchMessage: `Congrats! You and ${personMatchedWith} have matched.`
+    });
+    setTimeout(() => {
+      this.setState({
+        showingMatch: false,
+        matchMessage: ''
+      });
+    }, 2500);
+  }
+
   render() {
     var matches = this.props.user.matchesData;
     return (
@@ -92,6 +107,7 @@ class MatchList extends Component {
           this.matchesWindow = matchesWindow;
         }}
       >
+        <Modal active={this.state.showingMatch}>{this.state.matchMessage}</Modal>
         <div className="left-bar"
           onMouseEnter={() => this.hoverLeft(4)}
           onMouseLeave={this.stopHoverLeft}
@@ -124,7 +140,15 @@ class MatchList extends Component {
           {matches.map((match, i) => {
             return (
               <div className="tile" key={i}>
-                <Match name={match.name} img={match.img} />
+                <Match
+                  matchUser={this.props.matchUser}
+                  matchState={this.props.user.matchResults}
+                  showMatch={this.showMatch}
+                  id={match.id}
+                  type={match.type}
+                  name={match.data.profile.name}
+                  img={match.data.profile.img}
+                />
               </div>
             );
           })}

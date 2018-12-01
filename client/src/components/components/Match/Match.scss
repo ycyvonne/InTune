@@ -1,5 +1,13 @@
 @import "../../../styles/vars.scss";
 
+.loading {
+  position: absolute;
+  top: 0;
+  left: 7px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .match-wrapper {
   width: 375px;
   height: 525px;

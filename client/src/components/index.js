@@ -11,6 +11,7 @@ export { default as Header } from "./components/Header/Header";
 export { default as Card } from "./components/Card/Card";
 export { default as ImageCard } from "./components/ImageCard/ImageCard";
 export { default as Splash } from "./components/Splash/Splash";
+export { default as Modal } from "./components/Modal/Modal";
 
 // Unique components
 export { default as Nav } from "./components/Nav/Nav";
