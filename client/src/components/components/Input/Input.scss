@@ -1,6 +1,4 @@
-$medium-font: 14pt;
-$default-margin: 2% 0 2% 0;
-$default-border: 2px solid rgb(233, 236, 242);
+@import "../../../styles/vars.scss";
 
 #title {
   padding: 0;
@@ -10,6 +8,6 @@ input {
   color: black;
   line-height: 2em;
   margin: $default-margin;
-  font-size: $medium-font;
+  font-size: $medium-font-size;
   border: $default-border;
 }

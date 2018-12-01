@@ -1,14 +1,16 @@
 import React, { Component } from "react";
-import { Nav, ProfilePage, HomePage, ConcertPage } from "../";
+import { Nav, ProfilePage, HomePage, ConcertPage, MatchPage } from "../";
 import { Route, Switch } from "react-router-dom";
 import "./Main.scss";
 
 class Main extends Component {
-
   constructor(props) {
     super(props);
     this.props = props;
     this.props.getLoggedInUser();
+    this.state = {
+      currentPath: window.location.pathname
+    }
   }
 
   render() {
@@ -25,7 +27,7 @@ class Main extends Component {
     }
     return (
       <div>
-        <Nav {...this.props} />
+        <Nav {...this.props} path={this.state.currentPath}/>
         {/*Alternate pages beneath navbar, based on current route*/}
         <Switch>
           <Route exact path="/" render={() => <HomePage {...this.props} />} />
@@ -34,6 +36,7 @@ class Main extends Component {
             path="/concerts"
             render={() => <ConcertPage {...this.props} />}
           />
+          <Route path="/matches" render={() => <MatchPage {...this.props} />} />
         </Switch>
       </div>
     );

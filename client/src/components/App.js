@@ -14,6 +14,7 @@ function mapStateToProps(state) {
   console.log("Redux Store: " + JSON.stringify(state));
   return {
     user: state.user,
+    matches: state.matches,
     concerts: state.concerts
   };
 }

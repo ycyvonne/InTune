@@ -1,0 +1,90 @@
+@import "../../../styles/vars.scss";
+
+body {
+  overflow-y: hidden;
+}
+
+.matches-window {
+  overflow: hidden;
+}
+
+.match-list-wrapper {
+  margin: ($tileHeight / 2) 0;
+  display: flex;
+  width: max-content;
+  z-index: 1000;
+  padding: 0 200px;
+}
+
+.tile {
+  margin: 0 10px;
+  cursor: pointer;
+  transition: $duration all;
+  transform-origin: center left;
+}
+
+.tile:hover {
+  opacity: 1;
+}
+
+.match-list-wrapper:hover {
+  transform: translate3d($moveLeft, 0, 0);
+}
+
+.match-list-wrapper:hover .tile {
+  opacity: 0.5;
+}
+
+.match-list-wrapper:hover .tile:hover {
+  transform: scale($growFactor);
+  opacity: 1;
+}
+
+.tile:hover ~ .tile {
+  transform: translate3d($moveRight, 0, 0);
+}
+
+.left-bar,
+.right-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+
+  .icon-wrapper {
+    opacity: 0.2;
+  }
+
+  &:hover {
+    .icon-wrapper {
+      opacity: 0.8;
+    }
+  }
+}
+
+.left-bar,
+.right-bar,
+.left-bar-fast,
+.right-bar-fast {
+  position: absolute;
+  z-index: 100;
+  width: 10%;
+  height: 100vh;
+  // background: red;
+}
+
+.right-bar {
+  right: 10%;
+}
+
+.right-bar-fast {
+  right: 0;
+}
+
+.left-bar {
+  left: 10%;
+}
+
+.left-bar-fast {
+  left: 0;
+}

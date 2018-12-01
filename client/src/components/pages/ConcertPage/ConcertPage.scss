@@ -1,3 +1,5 @@
+@import "../../../styles/vars.scss";
+
 .concerts-page-wrapper {
   margin: 100px;
   height: 100vh;
@@ -14,8 +16,8 @@
 
 .header > div {
   color: #000;
-  font-family: Georgia;
+  font-family: $heading-2-font;
   font-weight: 700;
-  letter-spacing: 0.8px;
-  line-height: 73px;
+  letter-spacing: 1.5px;
+  line-height: 130px;
 }

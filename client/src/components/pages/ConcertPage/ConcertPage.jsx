@@ -77,7 +77,6 @@ class ConcertPage extends Component {
 
   render() {
     var isValid = true;
-    var data;
     if (!this.props.concerts.concertsData) {
       isValid = false;
     }

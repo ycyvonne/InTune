@@ -37,12 +37,13 @@ export function getLoggedInUser() {
   return (dispatch, prevState) => {
     api
       .authorize()
-      .then(response => dispatch({ user: response, type: "GET_LOGGED_IN_USER" }))
+      .then(response =>
+        dispatch({ user: response, type: "GET_LOGGED_IN_USER" })
+      )
       .catch(error => console.error("Error in getLoggedInUser: " + error));
   };
 }
 
-// ** TODO: jsdoc
 export function getConcerts(cb) {
   return (dispatch, prevState) => {
     api
@@ -52,5 +53,17 @@ export function getConcerts(cb) {
         if (cb) cb();
       })
       .catch(error => console.log("Error in getConcerts: " + error));
+  };
+}
+
+export function getMatches(cb) {
+  return (dispatch, prevState) => {
+    api
+      .authorize()
+      .then(response => dispatch({ matches: response, type: "GET_MATCHES" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in getMatches: " + error));
   };
 }

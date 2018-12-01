@@ -1,0 +1,51 @@
+@import "../../../styles/vars.scss";
+
+.match-wrapper {
+  width: 375px;
+  height: 525px;
+  margin: 0 auto;
+  margin-top: 56px;
+  padding: 25px;
+  border-radius: 25px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 5px rgba(0, 0, 0, 0.1) inset;
+}
+
+.image-wrap {
+  position: relative;
+}
+
+.add-button {
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  color: $add-button-color;
+  font-size: 50px;
+  border: none;
+  background: none;
+}
+
+.match-picture-size {
+  object-fit: cover;
+  width: $match-picture-dimension;
+  height: $match-picture-dimension;
+  max-height: $match-picture-dimension;
+  max-width: 100%;
+}
+
+.match-wrapper .name {
+  font-size: $medium-font-size;
+  font-family: $subheading-font;
+  line-height: 3em;
+  font-weight: 600;
+}
+
+.match-wrapper .bio {
+  font-size: $small-font-size;
+  font-family: $body-font;
+  color: gray;
+}
+
+.match-wrapper {
+  text-align: center;
+}

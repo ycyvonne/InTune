@@ -8,9 +8,9 @@ class Card extends Component {
   }
   render() {
     return (
-      <div className="card-wrapper">
-        <img src={this.props.imgUrl} />
-        <div className="text-overlay">{this.props.text}</div>
+      <div className="card-wrapper" style={{'backgroundImage': `url(${this.props.imgUrl})`}}>
+        <div className="card-overlay-dark"></div>
+        <div className="card-text-overlay text-overlay">{this.props.text}</div>
       </div>
     );
   }
