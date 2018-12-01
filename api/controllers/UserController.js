@@ -113,7 +113,7 @@ function login(req, res) {
       info.id = user.id;
       sessions.setSessionStateById(sessionId, info);
       res.cookie("session", sessionId);
-      console.log("sending...", getUserReturnString(user, isNewUser));
+      console.log("sending... " + user.name);
       console.log("session cookie = " + sessionId);
       res.send(getUserReturnString(user, isNewUser));
     })
@@ -192,47 +192,45 @@ function getTopArtists(req, res) {
 }
 
 function getMatches(req, res) {
-
   // stub getting matches
   var profiles = [];
 
-	for (var i=0; i < 10; i++) {
-		profiles.push({
-			sid: i.toString(),
-			profile: {
-				name: "John Smith " + i.toString(),
-				img: "https://robertzalog.com/me.jpg",
-				email: "jsmith@gmail.com",
-				spotifyUrl: "https://robertzalog.com",
-				isArtist: false
-			},
-			music_profile: {
-				artists: [],
-				genres: [],
-				tracks: []
-			},
-			test_match: "5c01bc5bbf694a0017d23670"
-		});
+  for (var i = 0; i < 10; i++) {
+    profiles.push({
+      sid: i.toString(),
+      profile: {
+        name: "John Smith " + i.toString(),
+        img: "https://robertzalog.com/me.jpg",
+        email: "jsmith@gmail.com",
+        spotifyUrl: "https://robertzalog.com",
+        isArtist: false
+      },
+      music_profile: {
+        artists: [],
+        genres: [],
+        tracks: []
+      },
+      test_match: "5c01bc5bbf694a0017d23670"
+    });
   }
   var matches = [];
   profiles.forEach((profile, i) => {
-    var type = 'user';
+    var type = "user";
     if (i % 5 == 0) {
-      type = 'artist';
-    }
-    else {
-      type = 'concert';
+      type = "artist";
+    } else {
+      type = "concert";
     }
     matches.push({
       type: type,
-      id: '' + Math.random(),
+      id: "" + Math.random(),
       data: profile
     });
   });
 
   res.send({
     matches: matches
-  })
+  });
 
   // var state = sessions.lookupSession(req.cookies.session);
   // if (!state) {
@@ -316,57 +314,58 @@ function getSpotifyProfile(req, res) {
 }
 
 function match(req, res) {
+  // do stub for now
+  res.send({
+    isMatch: true,
+    data: {}
+  });
 
-	// do stub for now
-	res.send({
-		isMatch: true,
-		data: {}
-	});
+  // var state = sessions.lookupSession(req.cookies.session);
+  // if (!state) {
+  // 	return res.status(401).send('User not logged in.');
+  // }
 
-	// var state = sessions.lookupSession(req.cookies.session);
-	// if (!state) {
-	// 	return res.status(401).send('User not logged in.');
-	// }
+  // var otherId = req.body.id;
+  // if (!otherId) {
+  // 	console.log("bad other id " + otherId);
+  // 	return res.status(400).send("'otherId' field not supplied in request.");
+  // }
 
-	// var otherId = req.body.id;
-	// if (!otherId) {
-	// 	console.log("bad other id " + otherId);
-	// 	return res.status(400).send("'otherId' field not supplied in request.");
-	// }
+  // console.log("got id " + otherId);
 
-	// console.log("got id " + otherId);
+  // var matcher;
 
-	// var matcher;
+  // console.log("trying to match users");
 
-	// console.log("trying to match users");
-
-	// User.match(state.id, otherId)
-	// 	.then(newUser => {
-	// 		matcher = newUser;
-	// 		return User.hasMatch(matcher._id, otherId);
-	// 	})
-	// 	.then(isMatch => {
-	// 		res.send({
-	// 			isMatch: isMatch,
-	// 			data: getUserData(matcher)
-	// 		});
-	// 	})
-	// 	.catch(err => {
-	// 		console.log("got error: " + err.message);
-	// 		res.status(500).send("error: " + err);
-	// 	})
+  // User.match(state.id, otherId)
+  // 	.then(newUser => {
+  // 		matcher = newUser;
+  // 		return User.hasMatch(matcher._id, otherId);
+  // 	})
+  // 	.then(isMatch => {
+  // 		res.send({
+  // 			isMatch: isMatch,
+  // 			data: getUserData(matcher)
+  // 		});
+  // 	})
+  // 	.catch(err => {
+  // 		console.log("got error: " + err.message);
+  // 		res.status(500).send("error: " + err);
+  // 	})
 }
 
 function getUserData(user) {
-	return {
-		id: user._id,
-		name: user.name,
-		img: user.img,
-		spotifyUrl: user.spotifyUrl,
-		email: user.email,
-		isArtist: user.isArtist,
-		matches: user.matches
-	};
+  return {
+    id: user._id,
+    name: user.name,
+    img: user.img,
+    spotifyUrl: user.spotifyUrl,
+    email: user.email,
+    isArtist: user.isArtist,
+    matches: user.matches,
+    artists: user.artists,
+    tracks: user.tracks
+  };
 }
 
 function getUserReturnString(user, isNewUser = false) {
@@ -377,18 +376,18 @@ function getUserReturnString(user, isNewUser = false) {
 }
 
 module.exports = {
-	index,
-	getUsers,
-	getArtists,
-	getUser,
-	deleteUser,
-	deleteAll,
-	login,
-	updateProfile,
-	getMe,
-	getTopTracks,
-	getTopArtists,
-	getMatches,
-	getSpotifyProfile,
-	match
+  index,
+  getUsers,
+  getArtists,
+  getUser,
+  deleteUser,
+  deleteAll,
+  login,
+  updateProfile,
+  getMe,
+  getTopTracks,
+  getTopArtists,
+  getMatches,
+  getSpotifyProfile,
+  match
 };
