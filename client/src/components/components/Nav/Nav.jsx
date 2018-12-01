@@ -42,6 +42,7 @@ class Nav extends Component {
           </div>
           <div className="navbar-link">
             <ProfilePicture
+              hasMenu={true}
               imageUrl={this.props.user.spotifyData.img}
               customSize="nav-picture-size"
               isCircle={true}
