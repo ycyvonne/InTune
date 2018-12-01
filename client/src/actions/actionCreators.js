@@ -34,6 +34,7 @@ export function loginUser(code) {
 }
 
 export function getLoggedInUser() {
+  console.log("getLoggedInUser");
   return (dispatch, prevState) => {
     api
       .authorize()
@@ -65,5 +66,20 @@ export function getMatches(cb) {
         if (cb) cb();
       })
       .catch(error => console.log("Error in getMatches: " + error));
+  };
+}
+
+export function getTopArtists(cb) {
+  console.log("getTopArtists in actionCreators");
+  return (dispatch, prevState) => {
+    api
+      .getTopArtists()
+      .then(response =>
+        dispatch({ topArtists: response, type: "GET_TOP_ARTISTS" })
+      )
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in getTopArtists: " + error));
   };
 }

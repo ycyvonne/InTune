@@ -11,6 +11,7 @@
  * @memberof module:reducers
  */
 function UserReducer(state = {}, action) {
+  console.log(action);
   switch (action.type) {
     case "GET_USER_NAME":
       return {
@@ -43,6 +44,12 @@ function UserReducer(state = {}, action) {
       }
       return Object.assign({}, state, {
         matchesData: matchesData
+      });
+    case "GET_TOP_ARTISTS":
+      console.log("action");
+      console.log(action.topArtists);
+      return Object.assign({}, state, {
+        topArtistsData: action.topArtists
       });
     default:
       return state;

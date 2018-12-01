@@ -179,6 +179,7 @@ function getTopTracks(req, res) {
 }
 
 function getTopArtists(req, res) {
+  console.log("getTopArtists in UserController");
   var state = sessions.lookupSession(req.cookies.session);
   if (!state) {
     return res.status(401).send("User not logged in.");

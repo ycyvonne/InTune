@@ -10,7 +10,7 @@ class Main extends Component {
     this.props.getLoggedInUser();
     this.state = {
       currentPath: window.location.pathname
-    }
+    };
   }
 
   render() {
@@ -20,18 +20,22 @@ class Main extends Component {
       !this.props.user.spotifyData.isNewUser
     ) {
       // login, not new user
-      callbackComponent = <HomePage {...this.props} />;
+      callbackComponent = <ProfilePage {...this.props} />;
     } else {
       // create, new user
       callbackComponent = <ProfilePage {...this.props} />;
     }
     return (
       <div>
-        <Nav {...this.props} path={this.state.currentPath}/>
+        <Nav {...this.props} path={this.state.currentPath} />
         {/*Alternate pages beneath navbar, based on current route*/}
         <Switch>
           <Route exact path="/" render={() => <HomePage {...this.props} />} />
           <Route path="/callback" render={() => callbackComponent} />
+          <Route
+            path="/profile"
+            render={() => <ProfilePage {...this.props} />}
+          />
           <Route
             path="/concerts"
             render={() => <ConcertPage {...this.props} />}

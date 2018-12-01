@@ -15,6 +15,7 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     matches: state.matches,
+    topArtists: state.topArtists,
     concerts: state.concerts
   };
 }

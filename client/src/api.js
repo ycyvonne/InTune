@@ -26,6 +26,10 @@ export function getMatches() {
   return get(`${serverBaseURL}/user/me/matches`).then(res => res);
 }
 
+export function getTopArtists() {
+  return get(`${serverBaseURL}/user/me/top-artists`).then(res => res);
+}
+
 export function getConcerts() {
   return get(`${serverBaseURL}/concerts`).then(res => res);
 }

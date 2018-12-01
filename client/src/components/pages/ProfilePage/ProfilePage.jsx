@@ -15,11 +15,19 @@ class Profile extends Component {
     this.state = {};
     this.loginUser = this.loginUser.bind(this);
     if (!this.props.user.spotifyData || !this.props.user.spotifyData.fetched) {
+      console.log("calls loginUser");
       this.loginUser();
+    }
+    if (
+      !this.props.user.topArtistsData ||
+      !this.props.user.topArtistsData.fetched
+    ) {
+      this.props.getTopArtists();
     }
   }
 
   loginUser() {
+    console.log("attempts to login from profile page");
     var regex = RegExp(/code=([^&]*)/).exec(window.location.href);
     if (regex) {
       var code = regex[1];
@@ -31,10 +39,13 @@ class Profile extends Component {
     var isValid = true;
     if (
       !this.props.user.spotifyData ||
-      this.props.user.spotifyData.error == "invalid_token"
+      this.props.user.spotifyData.error == "invalid_token" ||
+      !this.props.user.topArtistsData
     ) {
+      console.log("invalid token of render");
       isValid = false;
     } else {
+      console.log("else of render");
       console.log(this.props);
       var spotifyData = this.props.user.spotifyData;
       var subheading = "Hi " + spotifyData.name.split(" ")[0] + "!";
