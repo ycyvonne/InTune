@@ -14,24 +14,39 @@ class ProfileMatchesPage extends Component {
     super(props);
     this.props = props;
     this.state = {
-      currentSelection: null
+      initMatches: false,
+      currentSelection: null,
+      matches: []
     };
+
+    this.initMatches = this.initMatches.bind(this);
+    this.selectionClick = this.selectionClick.bind(this);
+    if (!this.props.user.matchesData || !this.props.user.matchesData.fetched) {
+      this.props.getMatches(this.initMatches);
+    }
   }
 
-  selectionClick() {
-    // TODO: set current selection
+  initMatches() {
+    if (!this.props.user.matchesData) {
+      this.setState({ matches: [] });
+    } else {
+      var data = Object.values(this.props.user.matchesData);
+      this.setState({
+        initMatches: true,
+        matches: data,
+        currentSelection: data[0].id
+      });
+    }
+  }
+
+  selectionClick(id) {
+    this.setState({ currentSelection: id });
   }
 
   render() {
     var isValid = true;
-    if (
-      !this.props.user.spotifyData ||
-      this.props.user.spotifyData.error == "invalid_token"
-    ) {
+    if (!this.props.user.matchesData) {
       isValid = false;
-    } else {
-      console.log(this.props);
-      var spotifyData = this.props.user.spotifyData;
     }
 
     return (
@@ -39,20 +54,28 @@ class ProfileMatchesPage extends Component {
         <div className="profile-wrapper">
           <div className="profile-matches-content">
             <div className="selections">
-              <SelectionItem
-                name="John Doe 0"
-                img="https://robertzalog.com/me.jpg"
-                onClick={this.selectionClick}
-              />
-              <SelectionItem
-                name="John Doe 1"
-                img="https://robertzalog.com/me.jpg"
-                onClick={this.selectionClick}
-              />
+              {this.state.matches.map((match, i) => {
+                return (
+                  <SelectionItem
+                    id={match.id}
+                    name={match.data.profile.name}
+                    img="https://robertzalog.com/me.jpg"
+                    onClick={this.selectionClick}
+                    currentSelection={this.state.currentSelection}
+                  />
+                );
+              })}
             </div>
             <div className="profile-main-view">
-              <h1>John Doe xxx</h1>
-              <p>Description</p>
+              {this.state.matches.map((match, i) => {
+                if (match.id == this.state.currentSelection)
+                  return (
+                    <div>
+                      <h1>{match.data.profile.name}</h1>
+                      <p>Details</p>
+                    </div>
+                  );
+              })}
             </div>
           </div>
         </div>

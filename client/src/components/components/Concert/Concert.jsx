@@ -9,7 +9,7 @@ class Concert extends Component {
   }
   render() {
     return (
-      <a className="concert-wrapper" href={'/concert/' + this.props.id}>
+      <a className="concert-wrapper" href={"/concert/" + this.props.id}>
         <ImageCard
           customClass="image-wrapper"
           imgUrl="/img/concert-default.png"
