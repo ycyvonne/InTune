@@ -16,8 +16,14 @@ class MatchList extends Component {
       isHoveringRight: false,
       currentInterval: null,
       showingMatch: false,
-      matchMessage: ''
+      matchMessage: ""
     };
+    this.setMoveInterval = this.setMoveInterval.bind(this);
+    this.hoverLeft = this.hoverLeft.bind(this);
+    this.stopHoverLeft = this.stopHoverLeft.bind(this);
+    this.hoverRight = this.hoverRight.bind(this);
+    this.stopHoverRight = this.stopHoverRight.bind(this);
+    this.showMatch = this.showMatch.bind(this);
   }
 
   componentDidMount() {
@@ -28,24 +34,23 @@ class MatchList extends Component {
     });
   }
 
-  setMoveInterval = (moveAmount) => {
+  setMoveInterval(moveAmount) {
     return setInterval(() => {
       if (moveAmount > 0) {
         // moving left
         if (this.state.marginLeft <= 0) {
-          this.setState({marginLeft: this.state.marginLeft + moveAmount});
+          this.setState({ marginLeft: this.state.marginLeft + moveAmount });
         }
-      }
-      else {
+      } else {
         // moving right
         if (Math.abs(this.state.marginLeft) < this.state.marginMax) {
-          this.setState({marginLeft: this.state.marginLeft + moveAmount});
+          this.setState({ marginLeft: this.state.marginLeft + moveAmount });
         }
       }
     }, 1);
   }
 
-  hoverLeft = (amt) => {
+  hoverLeft(amt) {
     if (this.state.marginLeft <= 0) {
       var interval = this.setMoveInterval(amt);
       this.setState({
@@ -55,17 +60,17 @@ class MatchList extends Component {
     }
   }
 
-  stopHoverLeft = () => {
+  stopHoverLeft() {
     if (this.state.isHoveringLeft) {
       clearInterval(this.state.currentInterval);
       this.setState({
         isHoveringLeft: false,
-        currentInterval: null,
+        currentInterval: null
       });
     }
   }
 
-  hoverRight = (amt) => {
+  hoverRight(amt) {
     if (Math.abs(this.state.marginLeft) < this.state.marginMax) {
       var interval = this.setMoveInterval(-1 * amt);
       this.setState({
@@ -75,17 +80,17 @@ class MatchList extends Component {
     }
   }
 
-  stopHoverRight = () => {
+  stopHoverRight() {
     if (this.state.isHoveringRight) {
       clearInterval(this.state.currentInterval);
       this.setState({
         isHoveringRight: false,
-        currentInterval: null,
+        currentInterval: null
       });
     }
   }
 
-  showMatch = (personMatchedWith) => {
+  showMatch(personMatchedWith) {
     this.setState({
       showingMatch: true,
       matchMessage: `Congrats! You and ${personMatchedWith} have matched.`
@@ -93,7 +98,7 @@ class MatchList extends Component {
     setTimeout(() => {
       this.setState({
         showingMatch: false,
-        matchMessage: ''
+        matchMessage: ""
       });
     }, 2500);
   }
@@ -107,24 +112,30 @@ class MatchList extends Component {
           this.matchesWindow = matchesWindow;
         }}
       >
-        <Modal active={this.state.showingMatch}>{this.state.matchMessage}</Modal>
-        <div className="left-bar"
+        <Modal active={this.state.showingMatch}>
+          {this.state.matchMessage}
+        </Modal>
+        <div
+          className="left-bar"
           onMouseEnter={() => this.hoverLeft(4)}
           onMouseLeave={this.stopHoverLeft}
         >
           <Icon icon={faArrowLeft} />
         </div>
-        <div className="left-bar-fast"
+        <div
+          className="left-bar-fast"
           onMouseEnter={() => this.hoverLeft(10)}
           onMouseLeave={this.stopHoverLeft}
         />
-        <div className="right-bar"
+        <div
+          className="right-bar"
           onMouseEnter={() => this.hoverRight(4)}
           onMouseLeave={this.stopHoverRight}
         >
           <Icon icon={faArrowRight} />
         </div>
-        <div className="right-bar-fast"
+        <div
+          className="right-bar-fast"
           onMouseEnter={() => this.hoverRight(10)}
           onMouseLeave={this.stopHoverRight}
         />

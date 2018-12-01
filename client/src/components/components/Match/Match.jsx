@@ -3,7 +3,7 @@ import { faPlusCircle, faCircle } from "@fortawesome/free-solid-svg-icons";
 import { ProfilePicture, Button, Icon } from "../../";
 import "./Match.scss";
 
-import loading from '../../../assets/icons/loading.gif'
+import loading from "../../../assets/icons/loading.gif";
 
 class Match extends Component {
   constructor(props) {
@@ -13,24 +13,23 @@ class Match extends Component {
       id: this.props.id,
       isLoading: false,
       isToggled: false
-    }
+    };
+    this.makeMatch = this.makeMatch.bind(this);
   }
 
-  makeMatch = () => {
+  makeMatch() {
     if (!this.state.isToggled) {
-
       this.setState({
         isToggled: true,
         sLoading: true
-      })
+      });
 
       this.props.matchUser(this.state.id, () => {
-        this.setState({isLoading: false});
+        this.setState({ isLoading: false });
         if (this.props.matchState.isMatch) {
-          this.props.showMatch('person you matched with');
+          this.props.showMatch("person you matched with");
         }
-
-      })
+      });
     }
   }
 
@@ -42,11 +41,11 @@ class Match extends Component {
           <Icon icon={faCircle} color="white" size="lg" />
           <Icon
             icon={faPlusCircle}
-            color={this.state.isToggled ? "#ff5151" : "rgb(237, 182, 189)"} />
+            color={this.state.isToggled ? "#ff5151" : "rgb(237, 182, 189)"}
+          />
         </span>
       );
-    }
-    else {
+    } else {
       iconStack = (
         <span className="fa-layers fa-fw">
           <Icon icon={faCircle} color="white" size="lg" />
@@ -54,7 +53,7 @@ class Match extends Component {
         </span>
       );
     }
-    
+
     return (
       <div className={`match-wrapper type-${this.props.type}`}>
         <div className="image-wrap">

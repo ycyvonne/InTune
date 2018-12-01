@@ -6,7 +6,7 @@ import {
   FavoriteList,
   Button
 } from "../../";
-import SelectionItem from './SelectionItem';
+import SelectionItem from "./SelectionItem";
 import "./ProfileMatchesPage.scss";
 
 class ProfileMatchesPage extends Component {
@@ -18,8 +18,8 @@ class ProfileMatchesPage extends Component {
     };
   }
 
-  selectionClick = () => {
-      // TODO: set current selection
+  selectionClick() {
+    // TODO: set current selection
   }
 
   render() {
@@ -39,12 +39,12 @@ class ProfileMatchesPage extends Component {
         <div className="profile-wrapper">
           <div className="profile-matches-content">
             <div className="selections">
-              <SelectionItem 
+              <SelectionItem
                 name="John Doe 0"
                 img="https://robertzalog.com/me.jpg"
                 onClick={this.selectionClick}
               />
-              <SelectionItem 
+              <SelectionItem
                 name="John Doe 1"
                 img="https://robertzalog.com/me.jpg"
                 onClick={this.selectionClick}
