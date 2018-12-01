@@ -25,3 +25,4 @@ export { default as ConcertList } from "./components/ConcertList/ConcertList";
 export { default as ProfilePage } from "./pages/ProfilePage/ProfilePage";
 export { default as HomePage } from "./pages/HomePage/HomePage";
 export { default as ConcertPage } from "./pages/ConcertPage/ConcertPage";
+export { default as ConcertInfoPage } from "./pages/ConcertInfoPage/ConcertInfoPage";
