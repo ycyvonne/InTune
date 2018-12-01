@@ -12,7 +12,7 @@ class ConcertPage extends Component {
       pageNumber: 0,
       maxPages: 0,
       CONCERTS_PER_PAGE: 9,
-      concerts: Array.apply(null, Array(20)).map(() => ConcertTemplate)
+      concerts: []
     };
 
     this.initConcerts = this.initConcerts.bind(this);
@@ -20,30 +20,28 @@ class ConcertPage extends Component {
   }
 
   componentDidMount() {
-    // if (
-    //   !this.props.concerts.concertsData ||
-    //   !this.props.concerts.concertsData.fetched
-    // ) {
-    //   this.props.getConcerts(this.initConcerts);
-    // }
-    this.initConcerts();
+    if (
+      !this.props.concerts.concertsData ||
+      !this.props.concerts.concertsData.fetched
+    ) {
+      this.props.getConcerts(this.initConcerts);
+    }
   }
 
   initConcerts() {
-    // if (!this.props.concerts.concertsData) {
-    //   this.setState({
-    //     concerts: []
-    //   });
-    // } else {
-      // var data = Object.values(this.props.concerts.concertsData);
-      // data.pop();
+    if (!this.props.concerts.concertsData) {
+      this.setState({
+        concerts: []
+      });
+    } else {
+      var data = Object.values(this.props.concerts.concertsData);
+      data.pop();
       this.setState({
         initConcerts: true,
-        // concerts: [data],
-        maxPages: Math.ceil(this.state.concerts.length / this.state.CONCERTS_PER_PAGE) - 1
+        concerts: data,
+        maxPages: Math.ceil(data.length / this.state.CONCERTS_PER_PAGE) - 1
       });
-    // }
-    
+    }
   }
 
   getCurrentConcertsOnThisPage() {
@@ -60,10 +58,9 @@ class ConcertPage extends Component {
 
   render() {
     var isValid = true;
-    // var data;
-    // if (!this.props.concerts.concertsData) {
-    //   isValid = false;
-    // }
+    if (!this.props.concerts.concertsData) {
+      isValid = false;
+    }
     return (
       <div className="concerts-page-wrapper">
         <Header heading="Concert Discovery" customClass="header" />
@@ -71,10 +68,10 @@ class ConcertPage extends Component {
         {isValid && (
           <ConcertList concerts={this.getCurrentConcertsOnThisPage()} />
         )}
-        <Pagination 
+        {isValid && <Pagination 
           maxPages={this.state.maxPages}
           setPageNumber={this.setPageNumber}
-        />
+        />}
       </div>
     );
   }
