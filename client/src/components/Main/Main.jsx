@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Nav, ProfilePage, HomePage, ConcertPage, MatchPage } from "../";
+import { Nav, ProfilePage, HomePage, ConcertPage, MatchPage, ProfileMatchesPage } from "../";
 import { Route, Switch } from "react-router-dom";
 import "./Main.scss";
 
@@ -32,6 +32,8 @@ class Main extends Component {
         <Switch>
           <Route exact path="/" render={() => <HomePage {...this.props} />} />
           <Route path="/callback" render={() => callbackComponent} />
+          <Route path="/profile" render={() => <ProfilePage {...this.props} />} />
+          <Route path="/profile-matches" render={() => <ProfileMatchesPage {...this.props} />} />
           <Route
             path="/concerts"
             render={() => <ConcertPage {...this.props} />}

@@ -34,6 +34,7 @@ export { default as Match } from "./components/Match/Match";
 
 // Pages
 export { default as ProfilePage } from "./pages/ProfilePage/ProfilePage";
+export { default as ProfileMatchesPage } from "./pages/ProfileMatchesPage/ProfileMatchesPage";
 export { default as HomePage } from "./pages/HomePage/HomePage";
 export { default as ConcertPage } from "./pages/ConcertPage/ConcertPage";
 export { default as MatchPage } from "./pages/MatchPage/MatchPage";
