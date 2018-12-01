@@ -33,6 +33,7 @@ class Main extends Component {
         <Switch>
           <Route exact path="/" render={() => <HomePage {...this.props} />} />
           <Route path="/callback" render={() => callbackComponent} />
+          <Route path="/profile" render={() => <ProfilePage {...this.props} />} />
           <Route
             path="/concerts"
             render={() => <ConcertPage {...this.props} />}

@@ -6,16 +6,63 @@ a {
 }
 
 .concert-wrapper {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
-  border-radius: 5px;
-  box-shadow: 0 3px 8px 0 rgba(83,83,83,0.42);
-  margin: 8px 0px 20px 0px;
-}
+  border: 2px solid $grey;
+  padding: 20px;
 
-.concert-wrapper:hover {
-  cursor: pointer;
-  transform: scale(1.015);
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.015);
+  }
+  
+  .details-wrapper {
+    flex-basis: 50%;
+
+    .location {
+      color: #000;
+      font-family: $body-font;
+      font-size: $small-font-size;
+      letter-spacing: 0.8px;
+      line-height: 20px;
+      margin: 8px 0px 0px 0px;
+    }
+
+    .title {
+      color: #000;
+      text-transform: uppercase;
+      font-family: $body-font;;
+      font-size: $large-font-size;
+      font-weight: 700;
+      letter-spacing: 1.07px;
+      line-height: 31px;
+    }
+    .description {
+      color: rgba(0, 0, 0, 100);
+      font-family: $body-font;
+      font-size: $small-font-size;
+      line-height: 24px;
+    }
+  }
+
+  .ticket-side {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    margin: 0;
+    border-left: 1px solid $grey;
+
+    img {
+      width: 80%;
+      opacity: 0.5;
+    }
+  }
 }
 
 .concert-wrapper > div {
@@ -26,36 +73,7 @@ a {
   flex-basis: 40%;
 }
 
-.details-wrapper {
-  flex-basis: 50%;
-}
-
 .concert-details {
   flex-direction: column;
   justify-content: flex-end;
-}
-
-.details-wrapper .location {
-  color: #000;
-  font-family: $body-font;
-  font-size: $small-font-size;
-  letter-spacing: 0.8px;
-  line-height: 20px;
-  margin: 8px 0px 0px 0px;
-}
-
-.details-wrapper .title {
-  color: #000;
-  font-family: Georgia;
-  font-size: $large-font-size;
-  font-weight: 700;
-  letter-spacing: 1.07px;
-  line-height: 31px;
-}
-
-.details-wrapper .description {
-  color: rgba(0, 0, 0, 100);
-  font-family: $body-font;
-  font-size: $small-font-size;
-  line-height: 24px;
 }

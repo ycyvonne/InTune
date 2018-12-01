@@ -10,10 +10,10 @@ class ConcertList extends Component {
   render() {
     return (
       <div className="concert-list-wrapper">
-        {this.props.concerts.map(concert => {
+        {this.props.concerts.map((concert, i) => {
           return (
             <Concert
-              key={concert.id}
+              key={i}
               name={concert.displayName}
               location={concert.venue.displayName}
               artist={concert.performance[0].displayName}

@@ -10,13 +10,19 @@
   justify-content: center;
 }
 
+.concert-list-wrapper {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .concert-list-wrapper > div {
   margin: 20px;
 }
 
 .header > div {
-  color: #000;
-  font-family: $heading-2-font;
+  color: $theme-color-2;
+  font-family: $body-font;
   font-weight: 700;
   letter-spacing: 1.5px;
   line-height: 130px;
