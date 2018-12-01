@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./SelectionItem.scss";
+import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 
 class SelectionItem extends Component {
   constructor(props) {
@@ -11,9 +11,9 @@ class SelectionItem extends Component {
   }
 
   render() {
-    var className = "tab-list-item";
+    var className = "selection-item";
     if (this.props.currentSelection == this.props.id) {
-      className += " tab-list-active";
+      className += " active-item";
     }
 
     return (
@@ -21,6 +21,11 @@ class SelectionItem extends Component {
         className={className}
         onClick={() => this.props.onClick(this.state.id)}
       >
+        <ProfilePicture
+          imageUrl={this.props.img}
+          customSize="nav-picture-size"
+          isCircle={true}
+        />
         {this.props.name}
       </div>
     );

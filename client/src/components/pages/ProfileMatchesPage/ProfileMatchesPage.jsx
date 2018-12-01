@@ -4,9 +4,12 @@ import {
   ProfilePicture,
   ProfileDetails,
   FavoriteList,
-  Button
+  Button,
+  Icon
 } from "../../";
 import SelectionItem from "./SelectionItem";
+import ProfileMatchView from "./ProfileMatchView";
+
 import "./ProfileMatchesPage.scss";
 
 class ProfileMatchesPage extends Component {
@@ -20,6 +23,7 @@ class ProfileMatchesPage extends Component {
     };
 
     this.initMatches = this.initMatches.bind(this);
+
     this.selectionClick = this.selectionClick.bind(this);
     if (!this.props.user.matchesData || !this.props.user.matchesData.fetched) {
       this.props.getMatches(this.initMatches);
@@ -51,7 +55,7 @@ class ProfileMatchesPage extends Component {
 
     return (
       isValid && (
-        <div className="profile-wrapper">
+        <div className="profile-matches-wrapper">
           <div className="profile-matches-content">
             <div className="selections">
               {this.state.matches.map((match, i) => {
@@ -66,17 +70,11 @@ class ProfileMatchesPage extends Component {
                 );
               })}
             </div>
-            <div className="profile-main-view">
-              {this.state.matches.map((match, i) => {
-                if (match.id == this.state.currentSelection)
-                  return (
-                    <div>
-                      <h1>{match.data.profile.name}</h1>
-                      <p>Details</p>
-                    </div>
-                  );
-              })}
-            </div>
+            {this.state.matches.map((match, i) => {
+              if (match.id == this.state.currentSelection) {
+                return <ProfileMatchView match={match} />;
+              }
+            })}
           </div>
         </div>
       )

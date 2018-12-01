@@ -2,30 +2,76 @@
 
 $profile-padding: 20px;
 
-.profile-wrapper {
-    margin: $page-margin;
+.profile-matches-wrapper {
+  margin: $page-margin;
+  background: $profile-background;
+  font-family: $body-font;
+  color: $body-font-color;
 }
+
 .profile-matches-content {
+  display: flex;
+  background: white;
+  border: 1px solid $grey-light;
+  min-height: 60%;
+
+  h1 {
+    margin: 0;
+  }
+
+  .selections {
+    width: 300px;
+    .selection-item {
+      cursor: pointer;
+      padding: $profile-padding;
+      border-bottom: 1px solid $grey-light;
+      border-right: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+    }
+    .active-item {
+      cursor: pointer;
+      padding: $profile-padding;
+      border-bottom: 1px solid $grey-light;
+      font-weight: bold;
+      border-right: none;
+    }
+  }
+  .profile-main-view {
+    width: 100%;
+    padding: $profile-padding;
     display: flex;
-    background: white;
-    border: 1px solid $grey-light;
-    min-height: 60%;
-
-    h1 {
-        margin: 0;
+    flex-direction: column;
+    .match-picture-size {
+      object-fit: cover;
+      width: $match-picture-dimension;
+      height: $match-picture-dimension;
+      max-height: $match-picture-dimension;
+      max-width: 100%;
     }
-
-    .selections {
-        width: 300px;
-        border-right: 1px solid $grey-light;
-        .selection-item {
-            cursor: pointer;
-            padding: $profile-padding;
-            border-bottom: 1px solid $grey-light;
+    .match-details {
+      display: flex;
+      justify-content: space-around;
+      .name {
+        font-size: $large-font-size;
+        font-family: $subheading-font;
+        font-weight: 600;
+      }
+      .type {
+        font-size: $medium-font-size;
+      }
+      .artist-type {
+        color: $theme-color-1;
+      }
+      .concert-type {
+        color: $theme-color-2;
+      }
+      .match-detail {
+        p {
+          display: flex;
+          align-items: center;
         }
+      }
     }
-    .profile-main-view {
-        width: 100%;
-        padding: $profile-padding;
-    }
+  }
 }
