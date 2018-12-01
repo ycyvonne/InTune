@@ -12,8 +12,8 @@ body {
   margin: ($tileHeight / 2) 0;
   display: flex;
   width: max-content;
-  transition: margin-left 300ms ease-in-out;
   z-index: 1000;
+  padding: 0 200px;
 }
 
 .tile {
@@ -46,11 +46,45 @@ body {
 
 .left-bar,
 .right-bar {
-  width: 100px;
-  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+
+  .icon-wrapper {
+    opacity: 0.2;
+  }
+
+  &:hover {
+    .icon-wrapper {
+      opacity: 0.8;
+    }
+  }
+}
+
+.left-bar,
+.right-bar,
+.left-bar-fast,
+.right-bar-fast {
   position: absolute;
+  z-index: 100;
+  width: 10%;
+  height: 100vh;
+  // background: red;
 }
 
 .right-bar {
+  right: 10%;
+}
+
+.right-bar-fast {
   right: 0;
+}
+
+.left-bar {
+  left: 10%;
+}
+
+.left-bar-fast {
+  left: 0;
 }
