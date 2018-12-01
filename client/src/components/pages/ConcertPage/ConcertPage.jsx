@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { ConcertList, Header, Loader } from "../../";
+import { ConcertList, Header, Loader, Pagination } from "../../";
 import "./ConcertPage.scss";
+import ConcertTemplate from './ConcertTemplate';
 
 class ConcertPage extends Component {
   constructor(props) {
@@ -10,16 +11,15 @@ class ConcertPage extends Component {
       initConcerts: false,
       pageNumber: 0,
       maxPages: 0,
-      CONCERTS_PER_PAGE: 10,
+      CONCERTS_PER_PAGE: 9,
       concerts: []
     };
 
     this.initConcerts = this.initConcerts.bind(this);
-    this.goToNextPage = this.goToNextPage.bind(this);
-    this.goToPrevPage = this.goToPrevPage.bind(this);
-    this.nextIsValid = this.nextIsValid.bind(this);
-    this.prevIsValid = this.prevIsValid.bind(this);
+    this.setPageNumber = this.setPageNumber.bind(this);
+  }
 
+  componentDidMount() {
     if (
       !this.props.concerts.concertsData ||
       !this.props.concerts.concertsData.fetched
@@ -51,29 +51,10 @@ class ConcertPage extends Component {
     );
   }
 
-  goToNextPage() {
-    if (this.nextIsValid()) {
-      this.setState({
-        pageNumber: this.state.pageNumber + 1
-      });
-    }
+  setPageNumber(pageNum) {
+    this.setState({ pageNumber: pageNum })
   }
-
-  goToPrevPage() {
-    if (this.prevIsValid()) {
-      this.setState({
-        pageNumber: this.state.pageNumber - 1
-      });
-    }
-  }
-
-  nextIsValid() {
-    return this.state.pageNumber < this.state.maxPages;
-  }
-
-  prevIsValid() {
-    return this.state.pageNumber > 0;
-  }
+  
 
   render() {
     var isValid = true;
@@ -82,17 +63,15 @@ class ConcertPage extends Component {
     }
     return (
       <div className="concerts-page-wrapper">
-        <button onClick={this.goToPrevPage} disabled={!this.prevIsValid()}>
-          Prev
-        </button>
-        <button onClick={this.goToNextPage} disabled={!this.nextIsValid()}>
-          Next
-        </button>
         <Header heading="Concert Discovery" customClass="header" />
         {!isValid && <Loader type="Bars" color="#005AA8" />}
         {isValid && (
           <ConcertList concerts={this.getCurrentConcertsOnThisPage()} />
         )}
+        {isValid && <Pagination 
+          maxPages={this.state.maxPages}
+          setPageNumber={this.setPageNumber}
+        />}
       </div>
     );
   }
