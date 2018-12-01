@@ -44,6 +44,10 @@ function UserReducer(state = {}, action) {
       return Object.assign({}, state, {
         matchesData: matchesData
       });
+    case "MATCH":
+      return Object.assign({}, state, {
+        matchResults: action.matchResult
+      });
     default:
       return state;
   }

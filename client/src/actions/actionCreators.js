@@ -67,3 +67,15 @@ export function getMatches(cb) {
       .catch(error => console.log("Error in getMatches: " + error));
   };
 }
+
+export function matchUser(userToMatchWithId, cb) {
+  return (dispatch, prevState) => {
+    api
+      .makeMatch(userToMatchWithId)
+      .then(response => dispatch({ matchResult: response, type: "MATCH" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in matchUser: " + error));
+  };
+}

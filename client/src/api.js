@@ -26,6 +26,10 @@ export function getMatches() {
   return get(`${serverBaseURL}/user/me/matches`).then(res => res);
 }
 
+export function makeMatch(userToMatchWithId) {
+  return post(`${serverBaseURL}/user/me/match`).then(res => res);
+}
+
 export function getConcerts() {
   return get(`${serverBaseURL}/concerts`).then(res => res);
 }

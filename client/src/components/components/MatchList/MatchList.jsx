@@ -121,8 +121,7 @@ class MatchList extends Component {
           }}
           className="match-list-wrapper"
         >
-          {matches.concat(matches).map((match, i) => {
-            // TODO: add key prop when these are real matches
+          {matches.map((match, i) => {
             return (
               <div className="tile" key={i}>
                 <Match name={match.name} img={match.img} />
