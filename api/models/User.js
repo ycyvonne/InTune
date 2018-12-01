@@ -6,16 +6,19 @@ const sessions = require('../sessions');
 
 var userSchema = new mongoose.Schema({
 	spotifyId: String,
-	artists: [String],
-	tracks: [String],
-	genres: [String],
+	artists: {type: [String], default: []},
+	tracks: {type: [String], default: []},
+	genres: {type: [String], default: []},
+
+	desired: {type: [String], default: []},
 
 	// public
 	name: String,
 	img: String,
 	spotifyUrl: String,
 	email: String,
-	isArtist: Boolean
+	isArtist: {type: Boolean, default: false},
+	matches: {type: [String], default: []}
 });
 
 // User Schema Methods
@@ -126,6 +129,58 @@ userSchema.statics.findBySpotifyId = function(spotId) {
 			}
 		})
 	})
+}
+
+userSchema.statics.match = function(matcherId, targetId) {
+	var matcher, target;
+
+	return this.findById(matcherId)
+		.then(_matcher => {
+			matcher = _matcher;
+
+			return this.findById(targetId);
+		})
+		.then(_target => {
+			target = _target;
+
+			// This needs to be "concat" instead of "push" because Mongo is weird
+			matcher.desired.concat(target._id);
+
+			if (target.desired.includes(matcher._id)) {
+				matcher.matches.concat(target._id);
+				target.matches.concat(matcher._id);
+			}
+
+			return new Promise((resolve, reject) => {
+				target.save((err, newUser) => {
+					if (err) reject(err);
+					else resolve(newUser);
+				});
+			});
+		})
+		.then(newTarget => {
+			return new Promise((resolve, reject) => {
+				matcher.save((err, newUser) => {
+					if (err) reject(err);
+					else resolve(newUser);
+				});
+			});
+		})
+}
+
+userSchema.statics.hasMatch = function(matcherId, targetId) {
+	var matcher, target;
+
+	return this.findById(matcherId)
+		.then(_matcher => {
+			matcher = _matcher;
+			return this.findById(targetId);
+		})
+		.then(_target => {
+			target = _target;
+
+			return matcher.matches.includes(target._id);
+		})
 }
 
 /**

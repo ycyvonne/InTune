@@ -35,6 +35,7 @@ class Profile extends Component {
     ) {
       isValid = false;
     } else {
+      console.log(this.props);
       var spotifyData = this.props.user.spotifyData;
       var subheading = "Hi " + spotifyData.name.split(" ")[0] + "!";
     }
@@ -42,7 +43,7 @@ class Profile extends Component {
     return (
       isValid && (
         <div className="profile-wrapper">
-          <Header subtitle="INTUNE" heading="Profile" subheading={subheading} />
+          <Header subtitle="INTUNE" heading="" subheading={subheading} />
           <div className="profile-content-wrapper">
             <ProfilePicture
               heading="PROFILE PICTURE"

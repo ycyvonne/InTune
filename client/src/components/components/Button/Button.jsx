@@ -7,7 +7,11 @@ class Button extends Component {
   }
   render() {
     return (
-      <button className={this.props.customClass} type={this.props.customType}>
+      <button
+        className={this.props.customClass}
+        type={this.props.customType}
+        onClick={this.props.onClick}
+      >
         {this.props.text}
       </button>
     );
