@@ -104,6 +104,8 @@ router.get("/me", userController.getMe);
 /* Docs TODO */
 router.post("/me/update", userController.updateProfile);
 
+router.post("/me/match", userController.match);
+
 /**
  * Route to get user's top-tracks
  * @name /me/top-tracks

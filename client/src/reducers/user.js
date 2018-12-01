@@ -4,7 +4,6 @@
  * @description Client side reducer to state/store updates
  */
 
-
 /**
  * Makes global state/store updates according to received action
  * @name UserReducer
@@ -25,7 +24,6 @@ function UserReducer(state = {}, action) {
           fetched: true
         });
       }
-
       return Object.assign({}, state, {
         spotifyData: spotifyData
       });
@@ -38,6 +36,16 @@ function UserReducer(state = {}, action) {
       }
       // else, don't change anything
       return state;
+    case "GET_MATCHES":
+      // console.log('matches data', action.matches)
+      return Object.assign({}, state, {
+        matchesData: action.matches.matches
+      })
+    case "MATCH":
+      console.log('action', action.matchResult)
+      return Object.assign({}, state, {
+        matchResults: action.matchResult
+      });
     default:
       return state;
   }

@@ -111,7 +111,7 @@ function getUserInfo(access_token) {
   });
 }
 
-function getTop(access_token, endpoint) {
+function getTop(access_token, endpoint, stringify) {
   var apiUrl = config.spotify.url.web_api + endpoint;
   var options = {
     url: apiUrl,
@@ -125,7 +125,7 @@ function getTop(access_token, endpoint) {
       if (!error && response.statusCode == 200) {
         var values = [];
         body.items.forEach(value => {
-          values.push(value.id);
+          values.push(stringify(value));
         });
 
         resolve(values);
@@ -150,7 +150,14 @@ function getTop(access_token, endpoint) {
  * @returns {Promise} - A promise which resolves to a JSON object containing Spotify Track objects
  */
 function getUserTopTracks(access_token) {
-  return getTop(access_token, config.spotify.url.topTracks);
+  return getTop(access_token, config.spotify.url.topTracks, function(track) {
+    return JSON.stringify({
+      album: track.album.name,
+      img: track.album.images,
+      artist: track.artists[0].name,
+      name: track.name
+    })
+  });
 }
 
 /**
@@ -162,7 +169,12 @@ function getUserTopTracks(access_token) {
  * @returns {Promise} - A promise which resolves to a JSON object containing Spotify Artist objects
  */
 function getUserTopArtists(access_token) {
-  return getTop(access_token, config.spotify.url.topArtists);
+  return getTop(access_token, config.spotify.url.topArtists, function(artist) {
+    return JSON.stringify({
+      link: artist.external_urls.spotify,
+      name: artist.name,
+      genres: artist.genres
+    })});
 }
 
 module.exports = {

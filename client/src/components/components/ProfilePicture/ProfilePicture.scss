@@ -54,3 +54,47 @@
   transform: translate(-50%, -50%);
   text-align: center;
 }
+
+.profile-dropdown {
+  position: fixed;
+  padding: 20px;
+  background: white;
+  border: 1px solid $grey-light;
+  top: 80px;
+
+  .tooltip {
+    width: 20px;
+    height: 20px;
+    background: white;
+    transform: rotate(45deg);
+    position: absolute;
+    top: -9px;
+    left: 14px;
+    border: 1px solid $grey-light;
+    z-index: -1;
+  }
+
+  .tooltip-block {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: white;
+    top: 0px;
+    left: 2px;
+    z-index: -1;
+  }
+
+  .profile-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-link {
+    padding: 10px 0;
+
+    &:hover {
+      color: $theme-color-1;
+    }
+  }
+}
+
