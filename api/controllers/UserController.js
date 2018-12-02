@@ -17,12 +17,12 @@ function _createUser(userData, sessionInfo) {
   return new Promise((resolve, reject) => {
     spotId = userData.id;
 
-	// Update profile
+    // Update profile
     profile.name = userData.display_name;
     profile.email = userData.email;
     profile.img = userData.images[0].url;
     profile.spotifyUrl = userData.external_urls.spotify;
-	profile.isArtist = false;
+    profile.isArtist = false;
     resolve(User.create(spotId));
   })
     .then(user => {
@@ -196,7 +196,6 @@ function getMatches(req, res) {
   if (!state) {
     return res.status(401).send("User not logged in.");
   }
-
   var user;
   var users = [];
   var artists = [];
@@ -212,7 +211,6 @@ function getMatches(req, res) {
     .then(_artists => {
       artists = _artists;
       util.shuffle(artists);
-
       var mp = user.musicProfile;
       users.sort((a, b) => {
         return util.getScore(mp, b) - util.getScore(mp, a);
@@ -224,31 +222,30 @@ function getMatches(req, res) {
       while (idx_user < users.length) {
         if (idx_user != 0 && idx_user % 5 == 0 && idx_artist < artists.length) {
           var data = artists[idx_artist];
-
           matches.push({
             type: "artist",
             id: data._id,
             data: getUserData(data)
           });
-
           idx_artist++;
         } else {
           var data = users[idx_user];
-
-		  if (String(data._id).valueOf() !== String(user._id).valueOf()
-		  		&& !user.desired.includes(String(data._id).valueOf())) {
+          if (
+            String(data._id).valueOf() !== String(user._id).valueOf() &&
+            !user.desired.includes(String(data._id).valueOf())
+          ) {
             matches.push({
               type: "user",
               id: data._id,
               data: getUserData(data)
             });
           }
-
           idx_user++;
         }
       }
-
-      res.send(matches);
+      res.send({
+        matches: matches
+      });
     })
     .catch(err => {
       console.log("Error: " + err.message);
@@ -277,13 +274,13 @@ function getSpotifyProfile(req, res) {
 function match(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
   if (!state) {
-  	return res.status(401).send('User not logged in.');
+    return res.status(401).send("User not logged in.");
   }
 
   var otherId = req.body.id;
   if (!otherId) {
-  	console.log("bad other id " + otherId);
-  	return res.status(400).send("'otherId' field not supplied in request.");
+    console.log("bad other id " + otherId);
+    return res.status(400).send("'otherId' field not supplied in request.");
   }
 
   console.log("got id " + otherId);
@@ -293,78 +290,77 @@ function match(req, res) {
   console.log("trying to match users");
 
   User.match(state.id, otherId)
-  	.then(newUser => {
-  		matcher = newUser;
-  		return User.hasMatch(matcher._id, otherId);
-  	})
-  	.then(isMatch => {
-  		res.send({
-  			isMatch: isMatch,
-  			data: getUserData(matcher)
-  		});
-  	})
-  	.catch(err => {
-  		console.log("got error: " + err.message);
-  		res.status(500).send("error: " + err);
-  	})
+    .then(newUser => {
+      matcher = newUser;
+      return User.hasMatch(matcher._id, otherId);
+    })
+    .then(isMatch => {
+      res.send({
+        isMatch: isMatch,
+        data: getUserData(matcher)
+      });
+    })
+    .catch(err => {
+      console.log("got error: " + err.message);
+      res.status(500).send("error: " + err);
+    });
 }
 
 function getPeople(req, res) {
-	var state = sessions.lookupSession(req.cookies.session);
-	if (!state) {
-		return res.status(401).send("User not logged in.");
-	}
+  var state = sessions.lookupSession(req.cookies.session);
+  if (!state) {
+    return res.status(401).send("User not logged in.");
+  }
 
-	User.findById(state.id)
-		.then(user => {
-			res.json(user.matches);
-		})
-		.catch(err => {
-			console.log(err, err.message);
-			res.status(500).send(err);
-		});
+  User.findById(state.id)
+    .then(user => {
+      res.json(user.matches);
+    })
+    .catch(err => {
+      console.log(err, err.message);
+      res.status(500).send(err);
+    });
 }
 
 function testMatches(req, res) {
-	var first, second, result;
-	result = {};
+  var first, second, result;
+  result = {};
 
-	console.log("testing matches");
+  console.log("testing matches");
 
-	User.findBySpotifyId(1)
-		.then(user => {
-			first = user;
-			return User.findBySpotifyId(2)
-			})
-		.then(user => {
-			second = user;
+  User.findBySpotifyId(1)
+    .then(user => {
+      first = user;
+      return User.findBySpotifyId(2);
+    })
+    .then(user => {
+      second = user;
 
-			return User.match(first._id, second._id);
-		})
-		.then(_ => {
-			return User.match(second._id, first._id);
-		})
-		.then(_ => {
-			return User.findById(first._id);
-		})
-		.then(user => {
-			result.first = user;
-			return User.findById(second._id);
-		})
-		.then(user => {
-			result.second = user
-			return User.hasMatch(first._id, second._id);
-		})
-		.then(isMatch => {
-			result.isMatch = isMatch;
-			res.json(result);
-		})
-		.catch(err => {
-			console.log(err, err.message);
-			res.status(500).send(err);
-		})
+      return User.match(first._id, second._id);
+    })
+    .then(_ => {
+      return User.match(second._id, first._id);
+    })
+    .then(_ => {
+      return User.findById(first._id);
+    })
+    .then(user => {
+      result.first = user;
+      return User.findById(second._id);
+    })
+    .then(user => {
+      result.second = user;
+      return User.hasMatch(first._id, second._id);
+    })
+    .then(isMatch => {
+      result.isMatch = isMatch;
+      res.json(result);
+    })
+    .catch(err => {
+      console.log(err, err.message);
+      res.status(500).send(err);
+    });
 }
-	
 
 function getUserData(user) {
   return {

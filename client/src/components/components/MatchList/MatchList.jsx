@@ -157,8 +157,8 @@ class MatchList extends Component {
                   showMatch={this.showMatch}
                   id={match.id}
                   type={match.type}
-                  name={match.data.profile.name}
-                  img={match.data.profile.img}
+                  name={match.data.name}
+                  img={match.data.img}
                 />
               </div>
             );
