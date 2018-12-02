@@ -16,6 +16,32 @@ $profile-padding: 20px;
   min-height: 60%;
   min-width: max-content;
 
+  .no-people {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    h1 {
+      margin: 10px 0;
+    }
+    p {
+      margin: 10px 0;
+    }
+    button {
+      cursor: pointer;
+      font-family: $body-font;
+      margin: 10px;
+      outline: none;
+      border: 1px solid $grey;
+      padding: 10px 20px;
+      font-size: 24px;
+      background: $theme-color-1;
+      color: white;
+    }
+  }
+
   h1 {
     margin: 0;
   }
@@ -50,9 +76,12 @@ $profile-padding: 20px;
       max-height: $match-picture-dimension;
       max-width: 100%;
     }
-    .match-details {
+    .details {
       display: flex;
       justify-content: space-around;
+      .subtitle {
+        font-size: $medium-font-size;
+      }
       .name {
         font-size: $large-font-size;
         font-family: $subheading-font;
@@ -67,7 +96,7 @@ $profile-padding: 20px;
       .concert-type {
         color: $theme-color-2;
       }
-      .match-detail {
+      .detail {
         p {
           display: flex;
           align-items: center;

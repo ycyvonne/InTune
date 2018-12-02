@@ -17,12 +17,15 @@ class Main extends Component {
     this.props = props;
     this.props.getLoggedInUser(() => {
       if (this.props.user.spotifyData) {
-        var currentSessionUser = sessionStorage.getItem('user');
-        var updatedUser = Object.assign({}, JSON.parse(currentSessionUser), this.props.user.spotifyData);
-        sessionStorage.setItem('user', JSON.stringify(updatedUser));
-      }
-      else if (!this.props.user.loggedIn) {
-        sessionStorage.removeItem('user');
+        var currentSessionUser = sessionStorage.getItem("user");
+        var updatedUser = Object.assign(
+          {},
+          JSON.parse(currentSessionUser),
+          this.props.user.spotifyData
+        );
+        sessionStorage.setItem("user", JSON.stringify(updatedUser));
+      } else if (!this.props.user.loggedIn) {
+        sessionStorage.removeItem("user");
       }
     });
     this.state = {
@@ -49,7 +52,10 @@ class Main extends Component {
         <Switch>
           <Route exact path="/" render={() => <HomePage {...this.props} />} />
           <Route path="/callback" render={() => callbackComponent} />
-          <Route path="/profile" render={() => <ProfilePage {...this.props} />} />
+          <Route
+            path="/profile"
+            render={() => <ProfilePage {...this.props} />}
+          />
           <Route
             path="/profile"
             render={() => <ProfilePage {...this.props} />}
