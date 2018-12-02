@@ -63,7 +63,7 @@ class ProfileMatchesPage extends Component {
                   <SelectionItem
                     id={person.id}
                     name={person.name}
-                    img="https://robertzalog.com/me.jpg"
+                    img={person.img}
                     onClick={this.selectionClick}
                     currentSelection={this.state.currentSelection}
                   />
