@@ -33,13 +33,16 @@ export function loginUser(code) {
   };
 }
 
-export function getLoggedInUser() {
+export function getLoggedInUser(cb) {
   return (dispatch, prevState) => {
     api
       .authorize()
       .then(response =>
         dispatch({ user: response, type: "GET_LOGGED_IN_USER" })
       )
+      .then(() => {
+        if (cb) cb();
+      })
       .catch(error => console.error("Error in getLoggedInUser: " + error));
   };
 }
