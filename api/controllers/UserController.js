@@ -1,6 +1,7 @@
 "use strict";
 
 const User = require("../models/User"); // eslint-disable-line
+const Concert = require("../models/Concert");
 const SpotifyAdapter = require("../adapters/SpotifyAdapter");
 const sessions = require("../sessions");
 const util = require("../utils");
@@ -200,6 +201,7 @@ function getMatches(req, res) {
   var user;
   var users = [];
   var artists = [];
+  var concerts = [];
   User.findById(state.id)
     .then(_user => {
       user = _user;
@@ -212,6 +214,11 @@ function getMatches(req, res) {
     .then(_artists => {
       artists = _artists;
       util.shuffle(artists);
+      return Concert.findAll();
+    })
+    .then(_concerts => {
+      concerts = _concerts;
+      util.shuffle(concerts);
 
       var mp = user.musicProfile;
       users.sort((a, b) => {
@@ -234,6 +241,16 @@ function getMatches(req, res) {
           idx_artist++;
         } else {
           var data = users[idx_user];
+
+      if (idx_user != 0  && idx_user % 7 == 0 && idx_concerts < concerts.length) {
+        var data = concerts[idx_concerts];
+
+        matches.push({
+          type: "concert",
+          id: data.concertId,
+          data: getConcertData(data)
+        })
+      }
 
 		  if (String(data._id).valueOf() !== String(user._id).valueOf()
 		  		&& !user.desired.includes(String(data._id).valueOf())) {
