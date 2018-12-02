@@ -26,6 +26,7 @@ function getConcerts(req, res) {
         concert.venue = songkickConcert.venue.displayName;
         concert.location = songkickConcert.location.city;
         concert.artist = songkickConcert.performance[0].displayName;
+        concert.artistId = songkickConcert.performance[0].artist.id;
         concert.date = songkickConcert.start.datetime;
       
         return checkConcert(concert.id, concert);
