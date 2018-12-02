@@ -79,7 +79,7 @@ class ConcertInfoPage extends Component {
                                 <div className="blurb-icon"><Icon icon={faCalendarAlt}/>{this.getDateString(this.state.concert.start.datetime)}</div>
                             </div>
                         </div>
-                        <div>
+                        <div className="concert-performance-wrapper">
                             {this.state.concert.performance.map((performanceData, i) => {
                                 return (<ConcertPerformanceItem
                                     key={i}
@@ -88,6 +88,9 @@ class ConcertInfoPage extends Component {
                                     name={performanceData.artist.displayName}
                                 />)
                             })}
+                        </div>
+                        <div className="concert-location-wrapper">
+
                         </div>
                     </div>
                 }

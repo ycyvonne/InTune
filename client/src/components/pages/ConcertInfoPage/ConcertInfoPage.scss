@@ -128,6 +128,11 @@
     column-count: 3;
 }
 
+.concert-performance-wrapper {
+    width: 100%;
+    padding-bottom: 1px;
+}
+
 // performance item
 .performance-item {
     cursor: pointer;
@@ -142,4 +147,8 @@
     p {
         margin: 0 10px;
     }
+}
+
+.concert-location-wrapper {
+    border-top: 1px solid $grey-med;
 }
