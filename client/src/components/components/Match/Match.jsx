@@ -1,7 +1,13 @@
 import React, { Component } from "react";
-import { faPlusCircle, faCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlusCircle,
+  faCircle,
+  faCalendarAlt,
+  faMap
+} from "@fortawesome/free-solid-svg-icons";
 import { ProfilePicture, Button, Icon } from "../../";
 import "./Match.scss";
+import moment from "moment";
 
 import loading from "../../../assets/icons/loading.gif";
 
@@ -15,6 +21,8 @@ class Match extends Component {
       isToggled: false
     };
     this.makeMatch = this.makeMatch.bind(this);
+    this.trimLength = this.trimLength.bind(this);
+    this.getDateString = this.getDateString.bind(this);
   }
 
   makeMatch() {
@@ -31,6 +39,25 @@ class Match extends Component {
         }
       });
     }
+  }
+
+  trimLength(str, len) {
+    if (str.length > len) {
+      return str.substring(0, len) + "...";
+    }
+    return str;
+  }
+
+  getDateString(datetime) {
+    var d = moment(datetime);
+    var month = moment.monthsShort(d.month());
+    var day = d.date();
+    var year = d.year();
+    if (!month || !day || !year) {
+      console.log("datetime error", datetime);
+      return "";
+    }
+    return `${month} ${d.date()}, ${d.year()}`;
   }
 
   render() {
@@ -56,6 +83,9 @@ class Match extends Component {
 
     return (
       <div className={`match-wrapper type-${this.props.type}`}>
+        {this.props.type != "user" && (
+          <div className="banner">{this.props.type}</div>
+        )}
         <div className="image-wrap">
           <ProfilePicture
             imageUrl={this.props.img}
@@ -68,7 +98,24 @@ class Match extends Component {
             onClick={this.makeMatch}
           />
         </div>
-        <div className="name">{this.props.name}</div>
+        <div className="name">{this.trimLength(this.props.name, 60)}</div>
+        {this.props.type == "user" && (
+          <div className="bio">
+            As a DJ, I play 80s. As myself, I listen to a little more.
+          </div>
+        )}
+        {this.props.type == "concert" && (
+          <div className="bio">
+            <div className="concert-calendar">
+              <Icon icon={faCalendarAlt} />{" "}
+              {this.getDateString(this.props.date)}
+            </div>
+            <div className="concert-location">
+              <Icon icon={faMap} />
+              {this.props.artist}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
