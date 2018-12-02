@@ -29,18 +29,26 @@
 }
 
 .concert-main-wrapper {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $grey-med;
     padding: 10px;
     display: flex;
+    height: 300px;
 
     img {
         width: 300px;
         height: 100%;
     }
 
-    .concert-title {
-        font-family: $body-font;
-        margin: 10px;
+    .concert-detail-side {
+        margin: 0 20px;
+        .concert-title {
+            font-family: $body-font;
+            margin: 0;
+        }
+    }
+
+    .blurb-icon {
+        margin: 20px 0;
     }
 }
 
@@ -118,4 +126,20 @@
 
 .concert-details {
     column-count: 3;
+}
+
+// performance item
+.performance-item {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $grey-med;
+    padding: 0px;
+    padding-right: 80px;
+    margin: 20px;
+
+    p {
+        margin: 0 10px;
+    }
 }

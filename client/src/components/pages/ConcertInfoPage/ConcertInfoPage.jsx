@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Header, Loader, ImageCard } from "../../";
+import { Loader, Icon, ConcertImage, ConcertPerformanceItem } from "../../";
 import moment from 'moment';
+import { faCalendarAlt, faMap } from "@fortawesome/free-solid-svg-icons";
 
 import './ConcertInfoPage.scss'
 
@@ -64,11 +65,32 @@ class ConcertInfoPage extends Component {
         return (
             <div className ="concert-info-wrapper">
                 {!isValid && <Loader type="Bars" color="#005AA8" />}
-                {isValid && 
-                <div className="concert-main-wrapper">
-                    <img src={`http://images.sk-static.com/images/media/profile_images/artists/${this.state.concert.performance[0].artist.id}/huge_avatar`} />
-                    <h1 className="concert-title">Beach Bums and Bedroom with El Chisme at The Roxy Theatre</h1>
-                </div>}
+                {
+                    isValid && 
+                    <div>  
+                        <div className="concert-main-wrapper">
+                            <ConcertImage
+                                artistId={this.state.concert.performance[0].artist.id}
+                                width='500px'
+                                height='auto'
+                            />
+                            <div className="concert-detail-side">
+                                <h1 className="concert-title">Beach Bums and Bedroom with El Chisme at The Roxy Theatre</h1>
+                                <div className="blurb-icon"><Icon icon={faCalendarAlt}/>{this.getDateString(this.state.concert.start.datetime)}</div>
+                            </div>
+                        </div>
+                        <div>
+                            {this.state.concert.performance.map((performanceData, i) => {
+                                return (<ConcertPerformanceItem
+                                    key={i}
+                                    link={performanceData.artist.uri}
+                                    artistId={performanceData.artist.id}
+                                    name={performanceData.artist.displayName}
+                                />)
+                            })}
+                        </div>
+                    </div>
+                }
             </div>
         )
     }

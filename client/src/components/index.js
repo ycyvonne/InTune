@@ -28,6 +28,8 @@ export {
 export {
   default as FavoriteList
 } from "./components/FavoriteList/FavoriteList";
+export { default as ConcertImage } from "./components/ConcertImage/ConcertImage";
+export { default as ConcertPerformanceItem } from "./pages/ConcertInfoPage/ConcertPerformanceItem";
 export { default as Concert } from "./components/Concert/Concert";
 export { default as ConcertList } from "./components/ConcertList/ConcertList";
 export { default as MatchList } from "./components/MatchList/MatchList";
