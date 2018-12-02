@@ -79,6 +79,8 @@ userSchema.statics.updateProfile = function(id, profile) {
 
 			user.name = profile.name;
 			user.email = profile.email;
+			user.spotifyId = profile.spotifyId;
+			user.img = profile.img;
 			user.isArtist = profile.isArtist;
 
 			return new Promise((resolve, reject) => {
