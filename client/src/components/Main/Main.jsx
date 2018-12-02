@@ -15,7 +15,14 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.props = props;
-    this.props.getLoggedInUser();
+    this.props.getLoggedInUser(() => {
+      if (this.props.user.spotifyData) {
+        var currentSessionUser = sessionStorage.getItem('user');
+        var updatedUser = Object.assign({}, JSON.parse(currentSessionUser), this.props.user.spotifyData);
+        sessionStorage.setItem('user', JSON.stringify(updatedUser));
+      }
+      
+    });
     this.state = {
       currentPath: window.location.pathname
     };
