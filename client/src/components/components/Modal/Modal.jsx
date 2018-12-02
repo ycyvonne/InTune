@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Modal.scss";
+import dancingMusic from '../../../assets/img/dancing_music.gif';
 
 class Modal extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class Modal extends Component {
         <div className={`modal-wrapper ${!this.props.active ? 'modal-inactive' : ''}`}>
             <div className="overlay"></div>
             <div className="modal-main">
-                {this.props.children}
+                <img src={dancingMusic} className="modal-image"/>
+                <div className="modal-content">{this.props.children}</div>
             </div>
         </div>
     )

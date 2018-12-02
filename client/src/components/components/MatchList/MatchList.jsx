@@ -160,6 +160,7 @@ class MatchList extends Component {
                     type={match.type}
                     name={match.data.name}
                     img={match.data.img}
+                    key={i}
                   />
                 </div>
               );
@@ -176,6 +177,7 @@ class MatchList extends Component {
                     img={`http://images.sk-static.com/images/media/profile_images/artists/${match.data.artist_id}/huge_avatar`}
                     artist={match.data.artist}
                     date={match.data.date}
+                    key={i}
                   />
                 </div>
               );
