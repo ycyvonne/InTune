@@ -79,3 +79,15 @@ export function matchUser(userToMatchWithId, cb) {
       .catch(error => console.log("Error in matchUser: " + error));
   };
 }
+
+export function getPeople(cb) {
+  return (dispatch, prevState) => {
+    api
+      .getPeople()
+      .then(response => dispatch({ people: response, type: "GET_PEOPLE" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in getPeople: " + error));
+  };
+}

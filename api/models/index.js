@@ -30,7 +30,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 function loadMockData() {
-	for (var i=0; i < 10; i++) {
+	for (var i=0; i < 12; i++) {
 		User.findBySpotifyId(i)
 			.then(user => {
 				if (user !== null) {
@@ -59,6 +59,38 @@ function loadMockData() {
 		});
 	}
 
+	profiles.push({
+		sid: "10",
+		profile: {
+			name: "Evlis Presley",
+			img: "https://robertzalog.com/me.jpg",
+			email: "epresley@gmail.com",
+			spotifyUrl: "https://robertzalog.com",
+			isArtist: true
+		},
+		music_profile: {
+			artists: [],
+			genres: [],
+			tracks: []
+		}
+	});
+
+	profiles.push({
+		sid: "11",
+		profile: {
+			name: "John Lennon",
+			img: "https://robertzalog.com/me.jpg",
+			email: "epresley@gmail.com",
+			spotifyUrl: "https://robertzalog.com",
+			isArtist: true
+		},
+		music_profile: {
+			artists: [],
+			genres: [],
+			tracks: []
+		}
+	})
+
 	profiles.forEach(profile => {
 		var id;
 
@@ -73,7 +105,9 @@ function loadMockData() {
 			.catch(err => {
 				console.log("got error " + err + ", " + err.message);
 			});
-	});			
+	});
+
+
 }
 
 module.exports = {
