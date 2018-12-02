@@ -211,6 +211,8 @@ function getMatches(req, res) {
     .then(_artists => {
       artists = _artists;
       util.shuffle(artists);
+
+      util.shuffle(users);
       var mp = user.musicProfile;
       users.sort((a, b) => {
         return util.getScore(mp, b) - util.getScore(mp, a);
@@ -220,29 +222,32 @@ function getMatches(req, res) {
       var idx_artist = 0;
       var idx_user = 0;
       while (idx_user < users.length) {
-        if (idx_user != 0 && idx_user % 5 == 0 && idx_artist < artists.length) {
+        var data = users[idx_user];
+        if (
+          String(data._id).valueOf() !== String(user._id).valueOf() &&
+          !user.desired.includes(String(data._id).valueOf())
+        ) {
+
+          matches.push({
+            type: "user",
+            id: data._id,
+            data: getUserData(data)
+          });
+        }
+        idx_user++;
+
+        if (idx_user % 5 == 0 && idx_artist < artists.length) {
           var data = artists[idx_artist];
+
           matches.push({
             type: "artist",
             id: data._id,
             data: getUserData(data)
           });
           idx_artist++;
-        } else {
-          var data = users[idx_user];
-          if (
-            String(data._id).valueOf() !== String(user._id).valueOf() &&
-            !user.desired.includes(String(data._id).valueOf())
-          ) {
-            matches.push({
-              type: "user",
-              id: data._id,
-              data: getUserData(data)
-            });
-          }
-          idx_user++;
         }
       }
+
       res.send({
         matches: matches
       });
