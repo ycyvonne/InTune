@@ -17,12 +17,12 @@ function _createUser(userData, sessionInfo) {
   return new Promise((resolve, reject) => {
     spotId = userData.id;
 
-    // Update profile
+	// Update profile
     profile.name = userData.display_name;
     profile.email = userData.email;
     profile.img = userData.images[0].url;
     profile.spotifyUrl = userData.external_urls.spotify;
-    profile.isArtist = false;
+	profile.isArtist = false;
     resolve(User.create(spotId));
   })
     .then(user => {
@@ -46,7 +46,7 @@ function _createUser(userData, sessionInfo) {
 
 function getUsers(req, res) {
   User.findAll()
-    .then(users => res.send(JSON.stringify(users)))
+    .then(users => res.json(users))
     .catch(err => res.send(err));
 }
 

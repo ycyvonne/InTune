@@ -80,6 +80,7 @@ userSchema.statics.updateProfile = function(id, profile) {
 			user.name = profile.name;
 			user.email = profile.email;
 			user.spotifyId = profile.spotifyId;
+			user.spotifyUrl = profile.spotifyUrl;
 			user.img = profile.img;
 			user.isArtist = profile.isArtist;
 
