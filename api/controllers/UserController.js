@@ -227,6 +227,7 @@ function getMatches(req, res) {
       var matches = [];
       var idx_artist = 0;
       var idx_user = 0;
+      var idx_concert = 0;
       while (idx_user < users.length) {
         if (idx_user != 0 && idx_user % 5 == 0 && idx_artist < artists.length) {
           var data = artists[idx_artist];
@@ -236,7 +237,15 @@ function getMatches(req, res) {
             data: getUserData(data)
           });
           idx_artist++;
-        } else {
+        } else if (idx_iser !=0 && idx_user % 7 == 0 && idx_concert < concerts.length){
+          var data = concerts[idx_concert];
+          matches.push({
+            type: "concert",
+            id: data.concertId,
+            data: getConcertData(data)
+          })
+        }
+        else{
           var data = users[idx_user];
           if (
             String(data._id).valueOf() !== String(user._id).valueOf() &&
@@ -382,6 +391,18 @@ function getUserData(user) {
     artists: user.artists,
     tracks: user.tracks
   };
+}
+
+function getConcertData(concert){
+  return {
+    id: concert.concertId,
+    name: concert.name,
+    url: concert.songkickUrl,
+    venue: concert.venue,
+    location: concert.location,
+    artist: concert.artist,
+    date: concert.date
+  }
 }
 
 function getUserReturnString(user, isNewUser = false) {
