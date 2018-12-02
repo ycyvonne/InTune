@@ -30,5 +30,6 @@ let concertRouter = express.Router();
 const concertController = require("../controllers/ConcertController");
 
 concertRouter.get("/", concertController.getConcerts);
+concertRouter.get("/all/delete", concertController.deleteAll);
 
 module.exports = concertRouter;

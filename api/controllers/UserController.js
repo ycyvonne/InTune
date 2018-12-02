@@ -1,6 +1,7 @@
 "use strict";
 
 const User = require("../models/User"); // eslint-disable-line
+const Concert = require("../models/Concert");
 const SpotifyAdapter = require("../adapters/SpotifyAdapter");
 const sessions = require("../sessions");
 const util = require("../utils");
@@ -199,6 +200,7 @@ function getMatches(req, res) {
   var user;
   var users = [];
   var artists = [];
+  var concerts = [];
   User.findById(state.id)
     .then(_user => {
       user = _user;
@@ -211,6 +213,13 @@ function getMatches(req, res) {
     .then(_artists => {
       artists = _artists;
       util.shuffle(artists);
+      return Concert.findAll();
+    })
+    .then(_concerts => {
+      concerts = _concerts;
+      util.shuffle(concerts);
+
+      var mp = user.musicProfile;
 
       util.shuffle(users);
       users.sort((a, b) => {
@@ -220,31 +229,38 @@ function getMatches(req, res) {
       var matches = [];
       var idx_artist = 0;
       var idx_user = 0;
+      var idx_concert = 0;
       while (idx_user < users.length) {
-        var data = users[idx_user];
-        if (
-          String(data._id).valueOf() !== String(user._id).valueOf() &&
-          !user.desired.includes(String(data._id).valueOf())
-        ) {
-
-          matches.push({
-            type: "user",
-            id: data._id,
-            data: getUserData(data)
-          });
-        }
-        idx_user++;
-
-        if (idx_user % 5 == 0 && idx_artist < artists.length) {
-          var data = artists[idx_artist];
-
-          matches.push({
-            type: "artist",
-            id: data._id,
-            data: getUserData(data)
-          });
-          idx_artist++;
-        }
+          var data = users[idx_user];
+          if (
+            String(data._id).valueOf() !== String(user._id).valueOf() &&
+            !user.desired.includes(String(data._id).valueOf())
+          ) {
+            matches.push({
+              type: "user",
+              id: data._id,
+              data: getUserData(data)
+            });
+          }
+          idx_user++;
+          if (idx_user % 5 == 0 && idx_artist < artists.length) {
+              var data = artists[idx_artist];
+              matches.push({
+                type: "artist",
+                id: data._id,
+                data: getUserData(data)
+              });
+              idx_artist++;
+          } 
+          else if (idx_user !=0 && idx_user % 7 == 0 && idx_concert < concerts.length){
+              var data = concerts[idx_concert];
+              matches.push({
+                type: "concert",
+                id: data.concertId,
+                data: getConcertData(data)
+              })
+              idx_concert++;
+          }
       }
 
       res.send({
@@ -383,6 +399,19 @@ function getUserData(user) {
     artists: user.artists,
     tracks: user.tracks
   };
+}
+
+function getConcertData(concert){
+  return {
+    id: concert.concertId,
+    name: concert.name,
+    url: concert.songkickUrl,
+    venue: concert.venue,
+    location: concert.location,
+    artist: concert.artist,
+    artist_id: concert.artistId,
+    date: concert.date
+  }
 }
 
 function getUserReturnString(user, isNewUser = false) {

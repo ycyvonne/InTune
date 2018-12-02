@@ -8,7 +8,22 @@
   max-height: 100%;
 }
 
+.banner {
+  position: absolute;
+  top: 0;
+  right: -30px;
+  padding: 10px 40px 10px 100px;
+  color: white;
+  transform: rotate(35deg);
+  font-size: 18px;
+  letter-spacing: 2px;
+  z-index: 1;
+  box-shadow: $shadow;
+}
+
 .match-wrapper {
+  position: relative;
+  overflow: hidden;
   width: 375px;
   height: 525px;
   margin: 0 auto;
@@ -16,7 +31,44 @@
   padding: 25px;
   border-radius: 25px;
   box-sizing: border-box;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 5px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: $shadow;
+
+  &.type-concert {
+    border-radius: 0px;
+    box-shadow: none;
+    border: 1px solid $grey;
+
+    .banner {
+      background: $theme-color-1;
+    }
+
+    .profile-picture {
+      border-radius: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .add-button {
+      right: -20px;
+    }
+    
+    .bio {
+      padding: 20px;
+      font-size: 20px;
+    }
+
+    .concert-calendar, .concert-location {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &.type-artist {
+    .banner {
+      background: $theme-color-3;
+    }
+  }
 }
 
 .image-wrap {
@@ -44,7 +96,7 @@
 .match-wrapper .name {
   font-size: $medium-font-size;
   font-family: $subheading-font;
-  line-height: 3em;
+  line-height: 1.4em;
   font-weight: 600;
 }
 
