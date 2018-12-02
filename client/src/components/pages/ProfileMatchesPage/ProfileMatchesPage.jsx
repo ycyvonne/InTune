@@ -19,14 +19,19 @@ class ProfileMatchesPage extends Component {
     this.state = {
       initPeople: false,
       currentSelection: null,
-      people: []
+      people: [],
+      concerts: []
     };
 
     this.initPeople = this.initPeople.bind(this);
+    this.initConcerts = this.initConcerts.bind(this);
 
     this.selectionClick = this.selectionClick.bind(this);
     if (!this.props.user.peopleData || !this.props.user.peopleData.fetched) {
       this.props.getPeople(this.initPeople);
+    }
+    if (!this.props.user.concerts) {
+      this.props.getUserConcerts(this.initConcerts);
     }
   }
 
@@ -41,6 +46,12 @@ class ProfileMatchesPage extends Component {
         currentSelection: data[0].id
       });
     }
+  }
+
+  initConcerts() {
+    this.setState({
+      concerts: this.props.user.concerts
+    })
   }
 
   selectionClick(id) {

@@ -94,3 +94,15 @@ export function getPeople(cb) {
       .catch(error => console.log("Error in getPeople: " + error));
   };
 }
+
+export function getUserConcerts(cb) {
+  return (dispatch, prevState) => {
+    api
+      .getConcerts()
+      .then(response => dispatch({ concerts: response, type: "GET_USER_CONCERTS" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in getUserConcerts: " + error));
+  };
+}

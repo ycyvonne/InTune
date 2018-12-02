@@ -55,6 +55,11 @@ function UserReducer(state = {}, action) {
       return Object.assign({}, state, {
         peopleData: action.people
       });
+    case "GET_USER_CONCERTS":
+      console.log("concerts data", action.concerts);
+      return Object.assign({}, state, {
+        concerts: action.concerts
+      });
     default:
       return state;
   }
