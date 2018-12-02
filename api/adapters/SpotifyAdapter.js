@@ -102,8 +102,6 @@ function getUserInfo(access_token) {
       } else {
         reject(
           "Could not fetch user data: " +
-            response.statusCode +
-            ", " +
             JSON.stringify(response)
         );
       }
@@ -132,8 +130,6 @@ function getTop(access_token, endpoint, stringify) {
       } else {
         reject(
           "Could not fetch top items: " +
-            response.statusCode +
-            ", " +
             JSON.stringify(response)
         );
       }
