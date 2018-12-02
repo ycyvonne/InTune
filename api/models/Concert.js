@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 var concertSchema = new mongoose.Schema({
 	concertId: String,
-
+	artistId: String,
 	// public
 	name: String,
     songkickUrl: String,
@@ -16,7 +16,8 @@ var concertSchema = new mongoose.Schema({
 
 concertSchema.statics.create = function(id, concert) {
     var concert  = new this ({
-        concertId: id,
+		concertId: id,
+		artistId: concert.performance.artist.id,
         name: concert.name,
         songkickUrl: concert.url,
         venue: concert.venue,

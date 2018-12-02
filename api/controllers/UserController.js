@@ -401,6 +401,7 @@ function getConcertData(concert){
     venue: concert.venue,
     location: concert.location,
     artist: concert.artist,
+    artist_id: concert.artistId,
     date: concert.date
   }
 }
