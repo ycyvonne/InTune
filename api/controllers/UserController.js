@@ -220,8 +220,10 @@ function getMatches(req, res) {
       util.shuffle(concerts);
 
       var mp = user.musicProfile;
+
+      util.shuffle(users);
       users.sort((a, b) => {
-        return util.getScore(mp, b) - util.getScore(mp, a);
+        return util.getScore(user, b) - util.getScore(user, a);
       });
 
       var matches = [];
@@ -241,7 +243,7 @@ function getMatches(req, res) {
             });
           }
           idx_user++;
-          if (idx_user != 0 && idx_user % 5 == 0 && idx_artist < artists.length) {
+          if (idx_user % 5 == 0 && idx_artist < artists.length) {
               var data = artists[idx_artist];
               matches.push({
                 type: "artist",
@@ -260,6 +262,7 @@ function getMatches(req, res) {
               idx_concert++;
           }
       }
+
       res.send({
         matches: matches
       });
@@ -331,7 +334,12 @@ function getPeople(req, res) {
 
   User.findById(state.id)
     .then(user => {
-      res.json(user.matches);
+      return Promise.all(user.matches.map(id => {
+        return User.findById(id);
+      }));
+    })
+    .then(users => {
+      res.json(users.map(user => getUserData(user)));
     })
     .catch(err => {
       console.log(err, err.message);
