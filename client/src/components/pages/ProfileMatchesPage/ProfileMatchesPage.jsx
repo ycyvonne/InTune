@@ -50,7 +50,8 @@ class ProfileMatchesPage extends Component {
 
   initConcerts() {
     this.setState({
-      concerts: this.props.user.concerts
+      // TODO remove .slice() after removing stubbing
+      concerts: this.props.user.concerts.slice(0, 8)
     })
   }
 
