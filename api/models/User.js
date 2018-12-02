@@ -153,8 +153,6 @@ userSchema.statics.match = function(matcherId, targetId) {
 		.then(_target => {
 			target = _target;
 
-			console.log("matcher: " + JSON.stringify(matcher));
-
 			// Have to do this weird thing cuz we are using incompatible versions of
 			// Mongo and Mongoose
 			matcher.desired = app(matcher.desired, target._id);

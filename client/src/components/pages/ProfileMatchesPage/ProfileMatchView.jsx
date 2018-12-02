@@ -10,15 +10,8 @@ class ProfileMatchView extends Component {
   }
 
   render() {
-    var type;
+    var type = "Person";
     var typeClass = "type";
-    if (this.props.person.isArtist == "artist") {
-      typeClass += " artist-type";
-      type = "Artist";
-    } else {
-      typeClass += " concert-type";
-      type = "Concert";
-    }
     return (
       <div className="profile-main-view">
         <ProfilePicture
@@ -35,10 +28,6 @@ class ProfileMatchView extends Component {
             <p>
               <Icon icon={faEnvelope} />
               {this.props.person.email}
-            </p>
-            <p>
-              <Icon icon={faMusic} />
-              {this.props.person.spotifyUrl}
             </p>
             <p>
               <Icon icon={faMusic} />
