@@ -21,7 +21,7 @@
 }
 
 .concert-info-wrapper {
-    margin: 100px 200px;
+    margin: 100px 300px;
     height: 100vh;
     font-size: 1.4em;
     font-weight: 500;
@@ -34,15 +34,13 @@
     display: flex;
 
     img {
-        width: 50%;
+        width: 300px;
         height: 100%;
-        filter: contrast(10);
     }
 
     .concert-title {
         font-family: $body-font;
         margin: 10px;
-        width: 50%;
     }
 }
 

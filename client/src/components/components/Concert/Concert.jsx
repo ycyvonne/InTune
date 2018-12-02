@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ImageCard } from "../../";
-import barcode from '../../../assets/img/barcode.png';
+import ConcertDefault from '../../../assets/img/concert_default.jpg';
 import "./Concert.scss";
 
 class Concert extends Component {
@@ -12,7 +12,10 @@ class Concert extends Component {
     console.log('this.props', this.props)
     return (
       <a className="concert-wrapper" href={'/concert/' + this.props.id}>
-        <img src={`http://images.sk-static.com/images/media/profile_images/artists/${this.props.artistId}/huge_avatar`} />
+        <div className="thumbnail">
+          <div className="img default-under" style={{backgroundImage: `url(${ConcertDefault})`}} />
+          <div className="img custom" style={{backgroundImage: `url('http://images.sk-static.com/images/media/profile_images/artists/${this.props.artistId}/huge_avatar')`}} />
+        </div>
         <div className="concert-inner-wrapper">
           <div className="details-wrapper">
             <div className="title">{this.props.name}</div>
