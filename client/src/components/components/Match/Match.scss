@@ -26,12 +26,28 @@
   overflow: hidden;
   width: 375px;
   height: 525px;
-  margin: 0 auto;
+  margin: 0 10px;
   margin-top: 56px;
   padding: 25px;
   border-radius: 25px;
   box-sizing: border-box;
   box-shadow: $shadow;
+
+  transition: 0.6s ease all;
+
+  &.disappear {
+    opacity: 0;
+  }
+
+  &.squash {
+    transition: 1s ease all;
+    margin: 0px;
+    width: 0px;
+  }
+
+  &.hide {
+    display: none;
+  }
 
   &.type-concert {
     border-radius: 0px;

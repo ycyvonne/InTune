@@ -18,11 +18,16 @@ class Match extends Component {
     this.state = {
       id: this.props.id,
       isLoading: false,
-      isToggled: false
+      isToggled: false,
+      isMatched: false,
+      isSquash: false,
+      doneDisappear: false
     };
     this.makeMatch = this.makeMatch.bind(this);
     this.trimLength = this.trimLength.bind(this);
     this.getDateString = this.getDateString.bind(this);
+
+    this.makeFade = this.makeFade.bind(this);
   }
 
   makeMatch() {
@@ -33,8 +38,10 @@ class Match extends Component {
       });
 
       this.props.matchUser(this.state.id, () => {
-        this.setState({ isLoading: false });
+        this.setState({isLoading: false });
         if (this.props.matchState.isMatch) {
+          
+          this.makeFade();
           var name;
           if (this.props.type == 'user') {
             name = this.props.name.split(' ')[0]
@@ -48,6 +55,20 @@ class Match extends Component {
           this.props.showMatch(name);
         }
       });
+    }
+  }
+
+  makeFade() {
+    if (!this.isMatched) {
+      setTimeout(() => {
+        this.setState({isMatched: true});
+        setTimeout(() => {
+          this.setState({isSquash: true})
+          setTimeout(() => {
+            this.setState({doneDisappear: true});
+          }, 1000)
+        }, 500)
+      }, 3000);
     }
   }
 
@@ -92,7 +113,8 @@ class Match extends Component {
     }
 
     return (
-      <div className={`match-wrapper type-${this.props.type}`}>
+      <div className={
+        `match-wrapper type-${this.props.type} ${this.state.isMatched ? 'disappear' : ''} ${this.state.isSquash ? 'squash' : ''} ${this.state.doneDisappear ? 'hide' : ''}`}>
         {this.props.type != "user" && (
           <div className="banner">{this.props.type}</div>
         )}
