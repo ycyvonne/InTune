@@ -46,7 +46,7 @@ function _createUser(userData, sessionInfo) {
 
 function getUsers(req, res) {
   User.findAll()
-    .then(users => res.send(JSON.stringify(users)))
+    .then(users => res.json(users))
     .catch(err => res.send(err));
 }
 
@@ -192,107 +192,65 @@ function getTopArtists(req, res) {
 }
 
 function getMatches(req, res) {
-  // stub getting matches
-  var profiles = [];
-
-  for (var i = 0; i < 10; i++) {
-    profiles.push({
-      sid: i.toString(),
-      profile: {
-        name: "John Smith " + i.toString(),
-        img: "https://robertzalog.com/me.jpg",
-        email: "jsmith@gmail.com",
-        spotifyUrl: "https://robertzalog.com",
-        isArtist: false
-      },
-      music_profile: {
-        artists: [],
-        genres: [],
-        tracks: []
-      },
-      test_match: "5c01bc5bbf694a0017d23670"
-    });
+  var state = sessions.lookupSession(req.cookies.session);
+  if (!state) {
+    return res.status(401).send("User not logged in.");
   }
-  var matches = [];
-  profiles.forEach((profile, i) => {
-    var type = "user";
-    if (i % 5 == 0) {
-      type = "artist";
-    } else {
-      type = "concert";
-    }
-    matches.push({
-      type: type,
-      id: "" + Math.random(),
-      data: profile
+  var user;
+  var users = [];
+  var artists = [];
+  User.findById(state.id)
+    .then(_user => {
+      user = _user;
+      return User.findAll();
+    })
+    .then(_users => {
+      users = _users;
+      return User.findAll(true);
+    })
+    .then(_artists => {
+      artists = _artists;
+      util.shuffle(artists);
+      var mp = user.musicProfile;
+      users.sort((a, b) => {
+        return util.getScore(mp, b) - util.getScore(mp, a);
+      });
+
+      var matches = [];
+      var idx_artist = 0;
+      var idx_user = 0;
+      while (idx_user < users.length) {
+        if (idx_user != 0 && idx_user % 5 == 0 && idx_artist < artists.length) {
+          var data = artists[idx_artist];
+          matches.push({
+            type: "artist",
+            id: data._id,
+            data: getUserData(data)
+          });
+          idx_artist++;
+        } else {
+          var data = users[idx_user];
+          if (
+            String(data._id).valueOf() !== String(user._id).valueOf() &&
+            !user.desired.includes(String(data._id).valueOf())
+          ) {
+            matches.push({
+              type: "user",
+              id: data._id,
+              data: getUserData(data)
+            });
+          }
+          idx_user++;
+        }
+      }
+      res.send({
+        matches: matches
+      });
+    })
+    .catch(err => {
+      console.log("Error: " + err.message);
+      res.status(500).send("Could not get matches: " + err);
     });
-  });
-
-  res.send({
-    matches: matches
-  });
-
-  // var state = sessions.lookupSession(req.cookies.session);
-  // if (!state) {
-  //   return res.status(401).send("User not logged in.");
-  // }
-
-  // var user;
-  // var users = [];
-  // var artists = [];
-  // User.findById(state.id)
-  //   .then(_user => {
-  //     user = _user;
-  //     return User.findAll();
-  //   })
-  //   .then(_users => {
-  //     users = _users;
-  //     return User.findAll(true);
-  //   })
-  //   .then(_artists => {
-  //     artists = _artists;
-  //     util.shuffle(artists);
-
-  //     var mp = user.musicProfile;
-  //     users.sort((a, b) => {
-  //       return util.getScore(mp, b) - util.getScore(mp, a);
-  //     });
-
-  //     var matches = [];
-  //     var idx_artist = 0;
-  //     var idx_user = 0;
-  //     while (idx_user < users.length) {
-  //       if (idx_user != 0 && idx_user % 5 == 0 && idx_artist < artists.length) {
-  //         var data = artists[idx_artist];
-
-  //         matches.push({
-  //           type: "artist",
-  //           id: data._id,
-  //           data: getUserData(data)
-  //         });
-
-  //         idx_artist++;
-  //       } else {
-  //         var data = users[idx_user];
-
-  //         if (String(data._id).valueOf() !== String(user._id).valueOf()) {
-  //           matches.push({
-  //             type: "user",
-  //             id: data._id,
-  //             data: getUserData(data)
-  //           });
-  //         }
-
-  //         idx_user++;
-  //       }
-  //     }
-
-  //     res.send(matches);
-  //   })
-  //   .catch(err => {
-  //     console.log("Error: " + err.message);
-  //     res.status(500).send("Could not get matches: " + err);
-  //   });
 }
 
 function getSpotifyProfile(req, res) {
@@ -314,44 +272,94 @@ function getSpotifyProfile(req, res) {
 }
 
 function match(req, res) {
-  // do stub for now
-  res.send({
-    isMatch: true,
-    data: {}
-  });
+  var state = sessions.lookupSession(req.cookies.session);
+  if (!state) {
+    return res.status(401).send("User not logged in.");
+  }
 
-  // var state = sessions.lookupSession(req.cookies.session);
-  // if (!state) {
-  // 	return res.status(401).send('User not logged in.');
-  // }
+  var otherId = req.body.id;
+  if (!otherId) {
+    console.log("bad other id " + otherId);
+    return res.status(400).send("'otherId' field not supplied in request.");
+  }
 
-  // var otherId = req.body.id;
-  // if (!otherId) {
-  // 	console.log("bad other id " + otherId);
-  // 	return res.status(400).send("'otherId' field not supplied in request.");
-  // }
+  console.log("got id " + otherId);
 
-  // console.log("got id " + otherId);
+  var matcher;
 
-  // var matcher;
+  console.log("trying to match users");
 
-  // console.log("trying to match users");
+  User.match(state.id, otherId)
+    .then(newUser => {
+      matcher = newUser;
+      return User.hasMatch(matcher._id, otherId);
+    })
+    .then(isMatch => {
+      res.send({
+        isMatch: isMatch,
+        data: getUserData(matcher)
+      });
+    })
+    .catch(err => {
+      console.log("got error: " + err.message);
+      res.status(500).send("error: " + err);
+    });
+}
 
-  // User.match(state.id, otherId)
-  // 	.then(newUser => {
-  // 		matcher = newUser;
-  // 		return User.hasMatch(matcher._id, otherId);
-  // 	})
-  // 	.then(isMatch => {
-  // 		res.send({
-  // 			isMatch: isMatch,
-  // 			data: getUserData(matcher)
-  // 		});
-  // 	})
-  // 	.catch(err => {
-  // 		console.log("got error: " + err.message);
-  // 		res.status(500).send("error: " + err);
-  // 	})
+function getPeople(req, res) {
+  var state = sessions.lookupSession(req.cookies.session);
+  if (!state) {
+    return res.status(401).send("User not logged in.");
+  }
+
+  User.findById(state.id)
+    .then(user => {
+      res.json(user.matches);
+    })
+    .catch(err => {
+      console.log(err, err.message);
+      res.status(500).send(err);
+    });
+}
+
+function testMatches(req, res) {
+  var first, second, result;
+  result = {};
+
+  console.log("testing matches");
+
+  User.findBySpotifyId(1)
+    .then(user => {
+      first = user;
+      return User.findBySpotifyId(2);
+    })
+    .then(user => {
+      second = user;
+
+      return User.match(first._id, second._id);
+    })
+    .then(_ => {
+      return User.match(second._id, first._id);
+    })
+    .then(_ => {
+      return User.findById(first._id);
+    })
+    .then(user => {
+      result.first = user;
+      return User.findById(second._id);
+    })
+    .then(user => {
+      result.second = user;
+      return User.hasMatch(first._id, second._id);
+    })
+    .then(isMatch => {
+      result.isMatch = isMatch;
+      res.json(result);
+    })
+    .catch(err => {
+      console.log(err, err.message);
+      res.status(500).send(err);
+    });
 }
 
 function getUserData(user) {
@@ -389,5 +397,46 @@ module.exports = {
   getTopArtists,
   getMatches,
   getSpotifyProfile,
-  match
+  match,
+  getPeople,
+  testMatches
 };
+
+//   // stub getting matches
+//   var profiles = [];
+
+//   for (var i = 0; i < 10; i++) {
+//     profiles.push({
+//       sid: i.toString(),
+//       profile: {
+//         name: "John Smith " + i.toString(),
+//         img: "https://robertzalog.com/me.jpg",
+//         email: "jsmith@gmail.com",
+//         spotifyUrl: "https://robertzalog.com",
+//         isArtist: false
+//       },
+//       music_profile: {
+//         artists: [],
+//         genres: [],
+//         tracks: []
+//       }
+//     });
+//   }
+//   var matches = [];
+//   profiles.forEach((profile, i) => {
+//     var type = "user";
+//     if (i % 5 == 0) {
+//       type = "artist";
+//     } else {
+//       type = "concert";
+//     }
+//     matches.push({
+//       type: type,
+//       id: "" + Math.random(),
+//       data: profile
+//     });
+//   });
+
+//   res.send({
+//     matches: matches
+//   });

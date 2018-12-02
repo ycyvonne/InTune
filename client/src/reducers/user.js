@@ -37,12 +37,12 @@ function UserReducer(state = {}, action) {
       // else, don't change anything
       return state;
     case "GET_MATCHES":
-      // console.log('matches data', action.matches)
+      console.log("matches data", action.matches);
       return Object.assign({}, state, {
         matchesData: action.matches.matches
-      })
+      });
     case "MATCH":
-      console.log('action', action.matchResult)
+      console.log("action", action.matchResult);
       return Object.assign({}, state, {
         matchResults: action.matchResult
       });

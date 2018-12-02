@@ -6,11 +6,11 @@ const sessions = require('../sessions');
 
 var userSchema = new mongoose.Schema({
 	spotifyId: String,
-	artists: {type: [String], default: []},
-	tracks: {type: [String], default: []},
-	genres: {type: [String], default: []},
+	artists: [String],
+	tracks: [String],
+	genres: [String],
 
-	desired: {type: [String], default: []},
+	desired: [String],
 
 	// public
 	name: String,
@@ -18,8 +18,16 @@ var userSchema = new mongoose.Schema({
 	spotifyUrl: String,
 	email: String,
 	isArtist: {type: Boolean, default: false},
-	matches: {type: [String], default: []}
+	matches: [String]
 });
+
+// Util
+
+function app(arr, val) {
+	var tmp = arr.slice();
+	tmp.push(val);
+	return tmp;
+}
 
 // User Schema Methods
 
@@ -71,6 +79,8 @@ userSchema.statics.updateProfile = function(id, profile) {
 
 			user.name = profile.name;
 			user.email = profile.email;
+			user.spotifyUrl = profile.spotifyUrl;
+			user.img = profile.img;
 			user.isArtist = profile.isArtist;
 
 			return new Promise((resolve, reject) => {
@@ -143,12 +153,21 @@ userSchema.statics.match = function(matcherId, targetId) {
 		.then(_target => {
 			target = _target;
 
-			// This needs to be "concat" instead of "push" because Mongo is weird
-			matcher.desired.concat(target._id);
+			console.log("matcher: " + JSON.stringify(matcher));
 
-			if (target.desired.includes(matcher._id)) {
-				matcher.matches.concat(target._id);
-				target.matches.concat(matcher._id);
+			// Have to do this weird thing cuz we are using incompatible versions of
+			// Mongo and Mongoose
+			matcher.desired = app(matcher.desired, target._id);
+
+			if (target.desired.includes(String(matcher._id).valueOf())) {
+
+				if (!matcher.matches.includes(String(target._id).valueOf())) {
+					matcher.matches = app(matcher.matches, target._id);
+				}
+
+				if (!target.matches.includes(String(target._id).valueOf())) {
+					target.matches = app(target.matches, matcher._id);
+				}
 			}
 
 			return new Promise((resolve, reject) => {
@@ -158,7 +177,7 @@ userSchema.statics.match = function(matcherId, targetId) {
 				});
 			});
 		})
-		.then(newTarget => {
+		.then(_ => {
 			return new Promise((resolve, reject) => {
 				matcher.save((err, newUser) => {
 					if (err) reject(err);
@@ -179,7 +198,7 @@ userSchema.statics.hasMatch = function(matcherId, targetId) {
 		.then(_target => {
 			target = _target;
 
-			return matcher.matches.includes(target._id);
+			return matcher.matches.includes(String(target._id).valueOf());
 		})
 }
 
