@@ -15,7 +15,8 @@
     "express-session": "^1.15.6",
     "mongoose": "^4.12.6",
     "querystring": "~0.2.0",
-    "request": "~2.83.0"
+    "request": "~2.83.0",
+    "sinon": "^7.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
