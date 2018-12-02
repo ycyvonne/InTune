@@ -1,22 +1,22 @@
 
-const utils = require('../utils');
+const utils = require('../utils/index');
 
 var profile1 = {
     genres:['genre1'],
     artists: ['artist1'],
-    songs: ['song1']
+    tracks: ['song1']
 }
 
 var profile2 = {
     genres:['genre2'],
     artists: ['artist2'],
-    songs: ['song2']
+    tracks: ['song2']
 }
 
 var profile3 = {
   genres:['genre2'],
   artists: ['artist1'],
-  songs: ['song1']
+  tracks: ['song1']
 }
 
 var profile4 = {}
