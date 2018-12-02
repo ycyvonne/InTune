@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const config = require('../config');
 const User = require('./User');
 
+const mock = require('../mock-data');
+
 // Build the connection string 
 const dbURI = config.database.uri;
 
@@ -30,84 +32,33 @@ mongoose.connection.on('error', (err) => {
 });
 
 function loadMockData() {
-	for (var i=0; i < 12; i++) {
-		User.findBySpotifyId(i)
-			.then(user => {
-				if (user !== null) {
-					User.deleteById(user._id);
+	mock.users.forEach(user => {
+		User.findBySpotifyId(user.spotifyId)
+			.then(obj => {
+				if (obj) {
+					User.deleteById(obj._id);
 				}
-			});
-	}
-
-	var profiles = [];
-
-	for (var i=0; i < 10; i++) {
-		profiles.push({
-			sid: i.toString(),
-			profile: {
-				name: "John Smith " + i.toString(),
-				img: "https://robertzalog.com/me.jpg",
-				email: "jsmith@gmail.com",
-				spotifyUrl: "https://robertzalog.com",
-				isArtist: false
-			},
-			music_profile: {
-				artists: [],
-				genres: [],
-				tracks: []
-			}
-		});
-	}
-
-	profiles.push({
-		sid: "10",
-		profile: {
-			name: "Evlis Presley",
-			img: "https://robertzalog.com/me.jpg",
-			email: "epresley@gmail.com",
-			spotifyUrl: "https://robertzalog.com",
-			isArtist: true
-		},
-		music_profile: {
-			artists: [],
-			genres: [],
-			tracks: []
-		}
-	});
-
-	profiles.push({
-		sid: "11",
-		profile: {
-			name: "John Lennon",
-			img: "https://robertzalog.com/me.jpg",
-			email: "epresley@gmail.com",
-			spotifyUrl: "https://robertzalog.com",
-			isArtist: true
-		},
-		music_profile: {
-			artists: [],
-			genres: [],
-			tracks: []
-		}
-	})
-
-	profiles.forEach(profile => {
-		var id;
-
-		User.create(profile.sid)
-			.then(user => {
-				id = user._id;
-				return User.updateProfile(id, profile.profile);
-			})
-			.then(user => {
-				return User.updateMusicProfile(id, profile.music_profile);
 			})
 			.catch(err => {
-				console.log("got error " + err + ", " + err.message);
-			});
-	});
+				console.log("err writing obj: ", err, err.message);
+			})
+	})
 
+	mock.users.forEach(profile => {
+		var id;
 
+		User.create(profile.spotifyId)
+			.then(user => {
+				id = user._id;
+				return User.updateProfile(id, profile);
+			})
+			.then(user => {
+				return User.updateMusicProfile(id, profile);
+			})
+			.catch(err => {
+				console.log("got error " + err);
+			})
+	})
 }
 
 module.exports = {

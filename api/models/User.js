@@ -76,7 +76,6 @@ userSchema.statics.updateMusicProfile = function(id, profile) {
 userSchema.statics.updateProfile = function(id, profile) {
 	return this.findById(id)
 		.then(user => {
-
 			user.name = profile.name;
 			user.email = profile.email;
 			user.spotifyUrl = profile.spotifyUrl;
