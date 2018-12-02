@@ -6,19 +6,35 @@ a {
 }
 
 .concert-wrapper {
+
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
   border: 2px solid $grey;
-  padding: 20px;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 
   &:hover {
     cursor: pointer;
     transform: scale(1.015);
   }
+
+  .concert-inner-wrapper {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin: 0;
+    border-top: none;
+    margin-top: 0px;
+    height: 300px;
+    overflow: scroll;
+    border-top: 1px solid $grey;
+  }
+  
   
   .details-wrapper {
-    flex-basis: 50%;
 
     .location {
       color: #000;
@@ -46,22 +62,10 @@ a {
     }
   }
 
-  .ticket-side {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 100%;
-    top: 0;
-    right: 0;
+  .ticket-bottom {
+    border-top: 1px solid $grey;
     margin: 0;
-    border-left: 1px solid $grey;
-
-    img {
-      width: 80%;
-      opacity: 0.5;
-    }
+    padding: 20px;
   }
 }
 

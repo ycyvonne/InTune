@@ -21,11 +21,35 @@
 }
 
 .concert-info-wrapper {
-    margin: 100px;
+    margin: 100px 300px;
     height: 100vh;
     font-size: 1.4em;
     font-weight: 500;
     color:  #666666;
+}
+
+.concert-main-wrapper {
+    border-bottom: 1px solid $grey-med;
+    padding: 10px;
+    display: flex;
+    height: 300px;
+
+    img {
+        width: 300px;
+        height: 100%;
+    }
+
+    .concert-detail-side {
+        margin: 0 20px;
+        .concert-title {
+            font-family: $body-font;
+            margin: 0;
+        }
+    }
+
+    .blurb-icon {
+        margin: 20px 0;
+    }
 }
 
 .button-wrapper {
@@ -102,4 +126,29 @@
 
 .concert-details {
     column-count: 3;
+}
+
+.concert-performance-wrapper {
+    width: 100%;
+    padding-bottom: 1px;
+}
+
+// performance item
+.performance-item {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $grey-med;
+    padding: 0px;
+    padding-right: 80px;
+    margin: 20px;
+
+    p {
+        margin: 0 10px;
+    }
+}
+
+.concert-location-wrapper {
+    border-top: 1px solid $grey-med;
 }
