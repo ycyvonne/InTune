@@ -4,7 +4,8 @@ import {
   ProfilePicture,
   ProfileDetails,
   FavoriteList,
-  Button
+  Button,
+  Loader
 } from "../../";
 import "./ProfilePage.scss";
 
@@ -41,29 +42,31 @@ class Profile extends Component {
     }
 
     return (
-      isValid && (
-        <div className="profile-wrapper">
-          <Header subtitle="INTUNE" heading="" subheading={subheading} />
-          <div className="profile-content-wrapper">
-            <ProfilePicture
-              heading="PROFILE PICTURE"
-              imageUrl={this.props.user.spotifyData.img}
-              customSize="profile-picture-size"
-              isInput={true}
-            />
-            <ProfileDetails {...this.props} />
-            <FavoriteList
-              topic="ARTISTS"
-              data={this.props.user.spotifyData.artists}
-            />
-            <FavoriteList
-              topic="TRACKS"
-              data={this.props.user.spotifyData.tracks}
-            />
-          </div>
-          <Button customClass="save-button" text="SAVE" />
+      <div>
+        {!isValid && <div className="profile-loader"><Loader type="Bars" color="#005AA8" /></div>}
+        {isValid && 
+          <div className="profile-wrapper">
+            <Header subtitle="INTUNE" heading="" subheading={subheading} />
+            <div className="profile-content-wrapper">
+              <ProfilePicture
+                heading="PROFILE PICTURE"
+                imageUrl={this.props.user.spotifyData.img}
+                customSize="profile-picture-size"
+                isInput={true}
+              />
+              <ProfileDetails {...this.props} />
+              <FavoriteList
+                topic="ARTISTS"
+                data={this.props.user.spotifyData.artists}
+              />
+              <FavoriteList
+                topic="TRACKS"
+                data={this.props.user.spotifyData.tracks}
+              />
+            </div>
+            <Button customClass="save-button" text="SAVE" />
+          </div>}
         </div>
-      )
     );
   }
 }
