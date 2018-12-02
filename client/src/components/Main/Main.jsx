@@ -21,7 +21,9 @@ class Main extends Component {
         var updatedUser = Object.assign({}, JSON.parse(currentSessionUser), this.props.user.spotifyData);
         sessionStorage.setItem('user', JSON.stringify(updatedUser));
       }
-      
+      else if (!this.props.user.loggedIn) {
+        sessionStorage.removeItem('user');
+      }
     });
     this.state = {
       currentPath: window.location.pathname
