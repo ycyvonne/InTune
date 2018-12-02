@@ -57,7 +57,12 @@ class ProfileMatchesPage extends Component {
       isValid && (
         <div className="profile-matches-wrapper">
           <div className="profile-matches-content">
-            <div className="selections">
+            {this.state.people.length == 0 && <div className="no-people">
+                <h1>No matches yet to view.</h1>
+                <p>Head on over to our matches page to find other people to match with!</p>
+                <button onClick={() => window.location.href = '/matches'}>Go to Matches</button>
+              </div>}
+            {this.state.people.length != 0 && <div className="selections">
               {this.state.people.map((person, i) => {
                 return (
                   <SelectionItem
@@ -69,7 +74,7 @@ class ProfileMatchesPage extends Component {
                   />
                 );
               })}
-            </div>
+            </div>}
             {this.state.people.map((person, i) => {
               if (person.id == this.state.currentSelection) {
                 return <ProfileMatchView person={person} />;
