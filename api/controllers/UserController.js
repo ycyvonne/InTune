@@ -421,6 +421,12 @@ function getConcertData(concert) {
   };
 }
 
+const mockConcerts = require('../mock-concert')
+function getUserConcerts(req, res) {
+  console.log('mock concerts', mockConcerts.concerts[0])
+  res.send(mockConcerts.concerts);
+}
+
 function getUserReturnString(user, isNewUser = false) {
   var data = getUserData(user);
   data.isNewUser = isNewUser;
@@ -444,6 +450,7 @@ module.exports = {
   getSpotifyProfile,
   match,
   getPeople,
+  getUserConcerts,
   testMatches
 };
 
