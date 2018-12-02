@@ -30,15 +30,35 @@ var mockConcert = {
 }
 
 describe('Test concertController', () => {
-    it('Should get concerts', () => {
+    it('Should get concerts and not insert if already there', () => {
 
         req = mocks.createRequest();
         res = mocks.createResponse({
             eventEmitter: require('events').EventEmitter
         });
-        songkickAdapter.getEventsByMetroArea.mockReturnValue(Promise.resolve({'events':[mockConcert]}));
+        songkickAdapter.getEventsByMetroArea.mockReturnValue(Promise.resolve([mockConcert]));
         jest.spyOn(Concert, 'findByConcertId')
-            .mockImplementationOnce(Promise.resolve(['newConcertCreated']))
+            .mockReturnValueOnce(Promise.resolve('test'));
+
+        concertController.getConcerts(req,res);
+        res.on('send', () => {
+            var test = JSON.parse(res._getData());
+            expect(test).toEqual([mockConcert]);
+        });
+        
+    })
+
+    it('Should get concerts and insert if not already there', () => {
+        req = mocks.createRequest();
+        res = mocks.createResponse({
+            eventEmitter: require('events').EventEmitter
+        });
+        songkickAdapter.getEventsByMetroArea.mockReturnValue(Promise.resolve([mockConcert]));
+        jest.spyOn(Concert, 'findByConcertId')
+            .mockReturnValueOnce(Promise.resolve(null));
+
+        jest.spyOn(Concert,'create')
+            .mockReturnValueOnce(Promise.resolve('concert created!'));
 
         concertController.getConcerts(req,res);
         res.on('send', () => {
@@ -57,11 +77,73 @@ describe('Test concertController', () => {
 
         concertController.getConcerts(req,res);
         res.on('send', () => {
-            var test = JSON.parse(res._getData());
-            expect(test).toEqual({
-                error: 'error'
-            });
+            var test = res._getData();
+            expect(test).toEqual('error');
         });
 
+    })
+
+    it('Should handle deleteAll', () => {
+        req = mocks.createRequest();
+        res = mocks.createResponse({
+            eventEmitter: require('events').EventEmitter
+        });
+        var returnedValue = {deleted: 'done'};
+        jest.spyOn(Concert, 'deleteAll')
+            .mockReturnValueOnce(Promise.resolve(returnedValue));
+
+        concertController.deleteAll(req,res);
+        res.on('send', () => {
+            var test = JSON.parse(res._getData());
+            expect(test).toEqual(returnedValue);
+        });
+    })
+
+    it('Should handle deleteAll error', () => {
+        req = mocks.createRequest();
+        res = mocks.createResponse({
+            eventEmitter: require('events').EventEmitter
+        });
+        var returnedValue = {deleted: 'done'};
+        jest.spyOn(Concert, 'deleteAll')
+            .mockReturnValueOnce(Promise.reject('error'));
+
+        concertController.deleteAll(req,res);
+        res.on('send', () => {
+            var test = res._getData();
+            expect(test).toEqual('error');
+        });
+    })
+
+    it('Should handle getAllConcerts' , () => {
+        req = mocks.createRequest();
+        res = mocks.createResponse({
+            eventEmitter: require('events').EventEmitter
+        });
+        var returnedValue = {concert: 'done'};
+        jest.spyOn(Concert, 'findAll')
+            .mockReturnValueOnce(Promise.resolve(returnedValue));
+
+        concertController.getAllConcerts(req,res);
+        res.on('send', () => {
+            var test = JSON.parse(res._getData());
+            expect(test).toEqual(returnedValue);
+        });
+    })
+
+    it('Should handle getAllConcerts error' , () => {
+        req = mocks.createRequest();
+        res = mocks.createResponse({
+            eventEmitter: require('events').EventEmitter
+        });
+        var returnedValue = {concert: 'done'};
+        jest.spyOn(Concert, 'findAll')
+            .mockReturnValueOnce(Promise.reject(returnedValue));
+
+        concertController.getAllConcerts(req,res);
+        res.on('send', () => {
+            var test = JSON.parse(res._getData());
+            expect(test).toEqual(returnedValue);
+        });
     })
 })
