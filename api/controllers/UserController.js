@@ -1,6 +1,7 @@
 "use strict";
 
 const User = require("../models/User"); // eslint-disable-line
+const Concert = require("../models/Concert");
 const SpotifyAdapter = require("../adapters/SpotifyAdapter");
 const sessions = require("../sessions");
 const util = require("../utils");
@@ -199,6 +200,7 @@ function getMatches(req, res) {
   var user;
   var users = [];
   var artists = [];
+  var concerts = [];
   User.findById(state.id)
     .then(_user => {
       user = _user;
@@ -211,6 +213,12 @@ function getMatches(req, res) {
     .then(_artists => {
       artists = _artists;
       util.shuffle(artists);
+      return Concert.findAll();
+    })
+    .then(_concerts => {
+      concerts = _concerts;
+      util.shuffle(concerts);
+
       var mp = user.musicProfile;
       users.sort((a, b) => {
         return util.getScore(mp, b) - util.getScore(mp, a);
