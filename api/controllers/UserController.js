@@ -213,9 +213,8 @@ function getMatches(req, res) {
       util.shuffle(artists);
 
       util.shuffle(users);
-      var mp = user.musicProfile;
       users.sort((a, b) => {
-        return util.getScore(mp, b) - util.getScore(mp, a);
+        return util.getScore(user, b) - util.getScore(user, a);
       });
 
       var matches = [];
