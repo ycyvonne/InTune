@@ -231,36 +231,39 @@ function getMatches(req, res) {
       var idx_user = 0;
       var idx_concert = 0;
       while (idx_user < users.length) {
-          var data = users[idx_user];
-          if (
-            String(data._id).valueOf() !== String(user._id).valueOf() &&
-            !user.desired.includes(String(data._id).valueOf())
-          ) {
-            matches.push({
-              type: "user",
-              id: data._id,
-              data: getUserData(data)
-            });
-          }
-          idx_user++;
-          if (idx_user % 5 == 0 && idx_artist < artists.length) {
-              var data = artists[idx_artist];
-              matches.push({
-                type: "artist",
-                id: data._id,
-                data: getUserData(data)
-              });
-              idx_artist++;
-          } 
-          else if (idx_user !=0 && idx_user % 7 == 0 && idx_concert < concerts.length){
-              var data = concerts[idx_concert];
-              matches.push({
-                type: "concert",
-                id: data.concertId,
-                data: getConcertData(data)
-              })
-              idx_concert++;
-          }
+        var data = users[idx_user];
+        if (
+          String(data._id).valueOf() !== String(user._id).valueOf() &&
+          !user.desired.includes(String(data._id).valueOf())
+        ) {
+          matches.push({
+            type: "user",
+            id: data._id,
+            data: getUserData(data)
+          });
+        }
+        idx_user++;
+        if (idx_user % 5 == 0 && idx_artist < artists.length) {
+          var data = artists[idx_artist];
+          matches.push({
+            type: "artist",
+            id: data._id,
+            data: getUserData(data)
+          });
+          idx_artist++;
+        } else if (
+          idx_user != 0 &&
+          idx_user % 7 == 0 &&
+          idx_concert < concerts.length
+        ) {
+          var data = concerts[idx_concert];
+          matches.push({
+            type: "concert",
+            id: data.concertId,
+            data: getConcertData(data)
+          });
+          idx_concert++;
+        }
       }
 
       res.send({
@@ -331,12 +334,16 @@ function getPeople(req, res) {
   if (!state) {
     return res.status(401).send("User not logged in.");
   }
-
+  console.log("getPeople");
+  console.log(req);
+  console.log(res);
   User.findById(state.id)
     .then(user => {
-      return Promise.all(user.matches.map(id => {
-        return User.findById(id);
-      }));
+      return Promise.all(
+        user.matches.map(id => {
+          return User.findById(id);
+        })
+      );
     })
     .then(users => {
       res.json(users.map(user => getUserData(user)));
@@ -401,7 +408,7 @@ function getUserData(user) {
   };
 }
 
-function getConcertData(concert){
+function getConcertData(concert) {
   return {
     id: concert.concertId,
     name: concert.name,
@@ -411,7 +418,7 @@ function getConcertData(concert){
     artist: concert.artist,
     artist_id: concert.artistId,
     date: concert.date
-  }
+  };
 }
 
 function getUserReturnString(user, isNewUser = false) {
