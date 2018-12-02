@@ -7,6 +7,8 @@ a {
 
 .concert-wrapper {
 
+  border: 2px solid $grey;
+
   img {
     width: 100%;
     height: auto;
@@ -21,13 +23,13 @@ a {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    border: 2px solid $grey;
     padding: 20px;
     margin: 0;
     border-top: none;
     margin-top: -4px;
     height: 300px;
     overflow: scroll;
+    border-top: 1px solid $grey;
   }
   
   
@@ -60,9 +62,8 @@ a {
   }
 
   .ticket-bottom {
-    border: 1px solid $grey;
+    border-top: 1px solid $grey;
     margin: 0;
-    border-top: none;
     padding: 20px;
   }
 }
