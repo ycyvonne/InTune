@@ -5,7 +5,7 @@ jest.mock('../api');
 describe('action creator', () =>(
     it('creates AUTHORIZE thunk once api.authorize is done', () =>{
         api.authorize.mockReturnValueOnce({'test': 'value'});
-        var test = actionCreators.authorize("test");
+        var test = actionCreators.loginUser("test");
         expect(test).toBeDefined;
     })
 ));
