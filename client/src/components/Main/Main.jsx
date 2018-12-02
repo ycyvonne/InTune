@@ -15,7 +15,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.props = props;
-    // this.props.getLoggedInUser();
+    this.props.getLoggedInUser();
     this.state = {
       currentPath: window.location.pathname
     };
