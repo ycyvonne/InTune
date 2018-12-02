@@ -46,6 +46,11 @@ function UserReducer(state = {}, action) {
       return Object.assign({}, state, {
         matchResults: action.matchResult
       });
+    case "GET_PEOPLE":
+      console.log("people data", action.people);
+      return Object.assign({}, state, {
+        peopleData: action.people
+      });
     default:
       return state;
   }

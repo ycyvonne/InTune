@@ -17,27 +17,27 @@ class ProfileMatchesPage extends Component {
     super(props);
     this.props = props;
     this.state = {
-      initMatches: false,
+      initPeople: false,
       currentSelection: null,
-      matches: []
+      people: []
     };
 
-    this.initMatches = this.initMatches.bind(this);
+    this.initPeople = this.initPeople.bind(this);
 
     this.selectionClick = this.selectionClick.bind(this);
-    if (!this.props.user.matchesData || !this.props.user.matchesData.fetched) {
-      this.props.getMatches(this.initMatches);
+    if (!this.props.user.peopleData || !this.props.user.peopleData.fetched) {
+      this.props.getPeople(this.initPeople);
     }
   }
 
-  initMatches() {
-    if (!this.props.user.matchesData) {
-      this.setState({ matches: [] });
+  initPeople() {
+    if (!this.props.user.peopleData) {
+      this.setState({ people: [] });
     } else {
-      var data = Object.values(this.props.user.matchesData);
+      var data = Object.values(this.props.user.peopleData);
       this.setState({
-        initMatches: true,
-        matches: data,
+        initPeople: true,
+        people: data,
         currentSelection: data[0].id
       });
     }
@@ -49,7 +49,7 @@ class ProfileMatchesPage extends Component {
 
   render() {
     var isValid = true;
-    if (!this.props.user.matchesData) {
+    if (!this.props.user.peopleData) {
       isValid = false;
     }
 
@@ -58,11 +58,11 @@ class ProfileMatchesPage extends Component {
         <div className="profile-matches-wrapper">
           <div className="profile-matches-content">
             <div className="selections">
-              {this.state.matches.map((match, i) => {
+              {this.state.people.map((person, i) => {
                 return (
                   <SelectionItem
-                    id={match.id}
-                    name={match.data.name}
+                    id={person.id}
+                    name={person.name}
                     img="https://robertzalog.com/me.jpg"
                     onClick={this.selectionClick}
                     currentSelection={this.state.currentSelection}
@@ -70,9 +70,9 @@ class ProfileMatchesPage extends Component {
                 );
               })}
             </div>
-            {this.state.matches.map((match, i) => {
-              if (match.id == this.state.currentSelection) {
-                return <ProfileMatchView match={match} />;
+            {this.state.people.map((person, i) => {
+              if (person.id == this.state.currentSelection) {
+                return <ProfileMatchView person={person} />;
               }
             })}
           </div>

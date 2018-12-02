@@ -7,48 +7,42 @@ class ProfileMatchView extends Component {
   constructor(props) {
     super(props);
     this.props = props;
-    console.log(this.props);
-    this.capitalize = this.capitalize.bind(this);
   }
 
-  capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
   render() {
+    var type;
     var typeClass = "type";
-    if (this.props.match.type == "artist") {
+    if (this.props.person.isArtist == "artist") {
       typeClass += " artist-type";
+      type = "Artist";
     } else {
       typeClass += " concert-type";
+      type = "Concert";
     }
-    console.log("match plez");
-    console.log(this.props.match);
     return (
       <div className="profile-main-view">
         <ProfilePicture
-          imageUrl={this.props.match.data.img}
+          imageUrl={this.props.person.img}
           customSize="match-picture-size"
           isCircle={true}
         />
         <div className="match-details">
           <div className="match-detail">
-            <p className="name">{this.props.match.data.name}</p>
-            <p className={typeClass}>
-              {this.capitalize(this.props.match.type)}
-            </p>
+            <p className="name">{this.props.person.name}</p>
+            <p className={typeClass}>{type}</p>
           </div>
           <div className="match-detail">
             <p>
               <Icon icon={faEnvelope} />
-              {this.props.match.data.email}
+              {this.props.person.email}
             </p>
             <p>
               <Icon icon={faMusic} />
-              {this.props.match.data.spotifyUrl}
+              {this.props.person.spotifyUrl}
             </p>
             <p>
               <Icon icon={faMusic} />
-              {this.props.match.data.spotifyUrl}
+              {this.props.person.spotifyUrl}
             </p>
           </div>
         </div>

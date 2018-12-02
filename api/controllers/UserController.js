@@ -230,10 +230,7 @@ function getMatches(req, res) {
           idx_artist++;
         } else {
           var data = users[idx_user];
-          if (
-            String(data._id).valueOf() !== String(user._id).valueOf() &&
-            !user.desired.includes(String(data._id).valueOf())
-          ) {
+          if (String(data._id).valueOf() !== String(user._id).valueOf()) {
             matches.push({
               type: "user",
               id: data._id,
@@ -311,12 +308,16 @@ function getPeople(req, res) {
   if (!state) {
     return res.status(401).send("User not logged in.");
   }
-
+  console.log("getPeople");
+  console.log(req);
+  console.log(res);
   User.findById(state.id)
     .then(user => {
-      return Promise.all(user.matches.map(id => {
-        return User.findById(id);
-      }));
+      return Promise.all(
+        user.matches.map(id => {
+          return User.findById(id);
+        })
+      );
     })
     .then(users => {
       res.json(users.map(user => getUserData(user)));
