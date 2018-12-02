@@ -21,11 +21,29 @@
 }
 
 .concert-info-wrapper {
-    margin: 100px;
+    margin: 100px 200px;
     height: 100vh;
     font-size: 1.4em;
     font-weight: 500;
     color:  #666666;
+}
+
+.concert-main-wrapper {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px;
+    display: flex;
+
+    img {
+        width: 50%;
+        height: 100%;
+        filter: contrast(10);
+    }
+
+    .concert-title {
+        font-family: $body-font;
+        margin: 10px;
+        width: 50%;
+    }
 }
 
 .button-wrapper {

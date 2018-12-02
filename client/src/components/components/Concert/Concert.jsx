@@ -9,15 +9,19 @@ class Concert extends Component {
     this.props = props;
   }
   render() {
+    console.log('this.props', this.props)
     return (
       <a className="concert-wrapper" href={'/concert/' + this.props.id}>
-        <div className="details-wrapper">
-          <div className="title">{this.props.name}</div>
-          <div className="location">Venue: {this.props.location}</div>
+        <img src={`http://images.sk-static.com/images/media/profile_images/artists/${this.props.artistId}/huge_avatar`} />
+        <div className="concert-inner-wrapper">
+          <div className="details-wrapper">
+            <div className="title">{this.props.name}</div>
+            <div className="location">Venue: {this.props.location}</div>
+          </div>
         </div>
-        <div className="ticket-side">
-          <img src={barcode} />
-        </div>
+        <div className="ticket-bottom">
+            Read More
+          </div>
       </a>
     );
   }

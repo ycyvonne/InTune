@@ -11,6 +11,7 @@ class ConcertList extends Component {
     return (
       <div className="concert-list-wrapper">
         {this.props.concerts.map((concert, i) => {
+          console.log('concert obj', concert)
           return (
             <Concert
               key={i}
@@ -19,6 +20,7 @@ class ConcertList extends Component {
               artist={concert.performance[0].displayName}
               link={concert.uri}
               id={concert.id}
+              artistId={concert.performance[0].artist.id}
             />
           );
         })}
