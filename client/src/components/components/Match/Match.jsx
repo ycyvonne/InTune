@@ -35,7 +35,17 @@ class Match extends Component {
       this.props.matchUser(this.state.id, () => {
         this.setState({ isLoading: false });
         if (this.props.matchState.isMatch) {
-          this.props.showMatch("person you matched with");
+          var name;
+          if (this.props.type == 'user') {
+            name = this.props.name.split(' ')[0]
+          }
+          else if (this.props.type == 'artist'){
+            name = this.props.name
+          }
+          else {
+            name = this.trimLength(this.props.name, 60)
+          }
+          this.props.showMatch(name);
         }
       });
     }
