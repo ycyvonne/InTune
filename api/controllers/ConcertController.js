@@ -28,10 +28,9 @@ function getConcerts(req, res) {
         concert.artist = songkickConcert.performance[0].displayName;
         concert.artistId = songkickConcert.performance[0].artist.id;
         concert.date = songkickConcert.start.datetime;
-      
         return checkConcert(concert.id, concert);
       })
-
+      
       Promise.all(promises).then(data =>
       {
         res.json(concertData);
