@@ -314,7 +314,12 @@ function getPeople(req, res) {
 
   User.findById(state.id)
     .then(user => {
-      res.json(user.matches);
+      return Promise.all(user.matches.map(id => {
+        return User.findById(id);
+      }));
+    })
+    .then(users => {
+      res.json(users.map(user => getUserData(user)));
     })
     .catch(err => {
       console.log(err, err.message);
