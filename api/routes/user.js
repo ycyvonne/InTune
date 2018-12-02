@@ -101,11 +101,38 @@ router.post("/login", userController.login);
  */
 router.get("/me", userController.getMe);
 
-/* Docs TODO */
+/**
+ * Route to get user info
+ * @name /me/update
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @param {*} req.body.profile - The new profile information
+ * @returns {JSON} - A json object containing the user info
+ */
 router.post("/me/update", userController.updateProfile);
 
+/**
+ * Route to match request another user
+ * @name /me/match
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @param {string} req.body.id - The id of the other user to match with.
+ * @returns {JSON} - A json object containing the user info
+ */
 router.post("/me/match", userController.match);
+
+/**
+ * Route to get all matched users
+ * @name /me
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @returns {JSON} - A json object containing the user info
+ */
 router.get("/me/people", userController.getPeople);
+
 router.get("/test-matches", userController.testMatches);
 
 /**
