@@ -235,7 +235,8 @@ function getMatches(req, res) {
         } else {
           var data = users[idx_user];
 
-          if (String(data._id).valueOf() !== String(user._id).valueOf()) {
+		  if (String(data._id).valueOf() !== String(user._id).valueOf()
+		  		&& !user.desired.includes(String(data._id).valueOf())) {
             matches.push({
               type: "user",
               id: data._id,
