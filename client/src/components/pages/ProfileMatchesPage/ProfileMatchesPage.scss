@@ -50,9 +50,12 @@ $profile-padding: 20px;
       max-height: $match-picture-dimension;
       max-width: 100%;
     }
-    .match-details {
+    .details {
       display: flex;
       justify-content: space-around;
+      .subtitle {
+        font-size: $medium-font-size;
+      }
       .name {
         font-size: $large-font-size;
         font-family: $subheading-font;
@@ -67,7 +70,7 @@ $profile-padding: 20px;
       .concert-type {
         color: $theme-color-2;
       }
-      .match-detail {
+      .detail {
         p {
           display: flex;
           align-items: center;

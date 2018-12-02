@@ -15,7 +15,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.props = props;
-    // this.props.getLoggedInUser();
+    this.props.getLoggedInUser();
     this.state = {
       currentPath: window.location.pathname
     };
@@ -40,7 +40,10 @@ class Main extends Component {
         <Switch>
           <Route exact path="/" render={() => <HomePage {...this.props} />} />
           <Route path="/callback" render={() => callbackComponent} />
-          <Route path="/profile" render={() => <ProfilePage {...this.props} />} />
+          <Route
+            path="/profile"
+            render={() => <ProfilePage {...this.props} />}
+          />
           <Route
             path="/profile"
             render={() => <ProfilePage {...this.props} />}

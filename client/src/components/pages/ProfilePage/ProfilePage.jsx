@@ -52,8 +52,14 @@ class Profile extends Component {
               isInput={true}
             />
             <ProfileDetails {...this.props} />
-            <FavoriteList topic="ARTISTS" />
-            <FavoriteList topic="GENRES" />
+            <FavoriteList
+              topic="ARTISTS"
+              data={this.props.user.spotifyData.artists}
+            />
+            <FavoriteList
+              topic="TRACKS"
+              data={this.props.user.spotifyData.tracks}
+            />
           </div>
           <Button customClass="save-button" text="SAVE" />
         </div>

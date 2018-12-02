@@ -7,6 +7,7 @@ class ProfileMatchView extends Component {
   constructor(props) {
     super(props);
     this.props = props;
+    console.log(this.props);
   }
 
   render() {
@@ -14,17 +15,10 @@ class ProfileMatchView extends Component {
     var typeClass = "type";
     return (
       <div className="profile-main-view">
-        <ProfilePicture
-          imageUrl={this.props.person.img}
-          customSize="match-picture-size"
-          isCircle={true}
-        />
-        <div className="match-details">
-          <div className="match-detail">
+        <div className="details">
+          <div className="detail">
             <p className="name">{this.props.person.name}</p>
             <p className={typeClass}>{type}</p>
-          </div>
-          <div className="match-detail">
             <p>
               <Icon icon={faEnvelope} />
               {this.props.person.email}
@@ -33,6 +27,25 @@ class ProfileMatchView extends Component {
               <Icon icon={faMusic} />
               {this.props.person.spotifyUrl}
             </p>
+          </div>
+          <ProfilePicture
+            imageUrl={this.props.person.img}
+            customSize="match-picture-size"
+            isCircle={true}
+          />
+        </div>
+        <div className="details">
+          <div className="match-artists">
+            <div className="subtitle">Top Artists</div>
+            {this.props.person.artists.map(artist => {
+              return <div>{JSON.parse(artist).name}</div>;
+            })}
+          </div>
+          <div className="match-tracks">
+            <div className="subtitle">Top Tracks</div>
+            {this.props.person.tracks.map(track => {
+              return <div>{JSON.parse(track).name}</div>;
+            })}
           </div>
         </div>
       </div>
