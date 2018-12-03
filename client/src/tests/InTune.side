@@ -1,0 +1,257 @@
+{
+  "id": "7d985582-3138-40e6-91a9-2ee6f736f915",
+  "version": "1.1",
+  "name": "InTune",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "9ee585e0-ac66-4576-a8f6-0e5c3bde0218",
+    "name": "Test Concert Page",
+    "commands": [{
+      "id": "e433380a-42c6-441b-b7b5-bba70a2bf7bf",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "87a61dbc-cd40-4ac9-a906-0f89715465fd",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1253x778",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6d7cec65-ed59-47ce-9052-5f70dfe8ce3c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.navbar-middle > .navbar-link:nth-child(2) > div",
+      "targets": [
+        ["css=.navbar-middle > .navbar-link:nth-child(2) > div", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[2]/a[2]/div", "xpath:idRelative"],
+        ["xpath=//a[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4b9657ac-c632-46d2-953c-7a4d566708d9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.pagination-btn:nth-child(3)",
+      "targets": [
+        ["css=.pagination-btn:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a7b0c5ba-4263-46c6-8e47-f9850f026b7a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.pagination-btn:nth-child(1)",
+      "targets": [
+        ["css=.pagination-btn:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div[3]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "61e0737e-d349-4c5b-8bae-e0b61c596f3b",
+    "name": "Test Match Page",
+    "commands": [{
+      "id": "3548bb55-2a62-4861-8041-ef8061b933c8",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4f52b7ba-31dd-4e2f-b2eb-7ac853109862",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1253x778",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "42eb9e1b-2884-4de6-b393-2affc6bc9f58",
+      "comment": "",
+      "command": "click",
+      "target": "css=div.navbar-middle > a.navbar-link > div",
+      "targets": [
+        ["css=div.navbar-middle > a.navbar-link > div", "css"],
+        ["css=.navbar-middle > .navbar-link:nth-child(1) > div", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[2]/a/div", "xpath:idRelative"],
+        ["xpath=//div[2]/a/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4456c472-035a-4acb-ac82-9a390ceaf71a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.tile:nth-child(1) .icon-wrapper:nth-child(2) > .svg-inline--fa",
+      "targets": [
+        ["css=.tile:nth-child(1) .icon-wrapper:nth-child(2) > .svg-inline--fa", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "3e2746e0-c12c-44ed-9a32-346911d3c2f1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.nav-picture-size",
+      "targets": [
+        ["css=.nav-picture-size", "css:finder"],
+        ["xpath=//img[contains(@src,'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1482139145207746&height=200&width=200&ext=1546306122&hash=AeQb-Iihlv7Pjg6n')]", "xpath:img"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[3]/span/div[2]/div/div[2]/label/img", "xpath:idRelative"],
+        ["xpath=//img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f084af51-e67a-4afb-8d04-24eb8ba43915",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=My Matches",
+      "targets": [
+        ["linkText=My Matches", "linkText"],
+        ["css=.profile-link:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'My Matches')]", "xpath:link"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[3]/span/div[2]/div/div[3]/div[3]/a[2]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/profile-matches')]", "xpath:href"],
+        ["xpath=//div[3]/a[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "384d8eb0-bd9f-46e4-a65d-302df5b0fa03",
+      "comment": "",
+      "command": "click",
+      "target": "css=button",
+      "targets": [
+        ["css=button", "css"],
+        ["css=button", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "147ac8e1-23b3-4c5f-8feb-da59d9588c2b",
+    "name": "Test Profile Page",
+    "commands": [{
+      "id": "d798c217-a9fb-4a1b-b108-6382bf66a171",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b969a564-39cc-4eca-8fd2-c8f610fe101e",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1253x778",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bfd7bf86-59ee-401d-a9fe-bf05ae9bba10",
+      "comment": "",
+      "command": "click",
+      "target": "css=.profile-picture",
+      "targets": [
+        ["css=.profile-picture", "css:finder"],
+        ["xpath=//img[contains(@src,'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1482139145207746&height=200&width=200&ext=1546306122&hash=AeQb-Iihlv7Pjg6n')]", "xpath:img"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[3]/span/div[2]/div/div[2]/label/img", "xpath:idRelative"],
+        ["xpath=//img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7558695e-53a6-41c2-886f-65a3fed90b45",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=My Profile",
+      "targets": [
+        ["linkText=My Profile", "linkText"],
+        ["css=a.profile-link", "css"],
+        ["css=.profile-link:nth-child(1)", "css:finder"],
+        ["xpath=//a[contains(text(),'My Profile')]", "xpath:link"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[3]/span/div[2]/div/div[3]/div[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/profile')]", "xpath:href"],
+        ["xpath=//div[3]/a", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "29492859-1222-41d7-8927-2f34b706d51d",
+    "name": "Test Concert Info Page",
+    "commands": [{
+      "id": "b2b0c3de-9423-40d1-9f73-ea16a36c3b57",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dfbd67b2-00d0-4d24-85d8-c83c23078cdc",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1253x778",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "552e9488-be65-4953-b66f-99603bbf6561",
+      "comment": "",
+      "command": "click",
+      "target": "css=.navbar-middle > .navbar-link:nth-child(2) > div",
+      "targets": [
+        ["css=.navbar-middle > .navbar-link:nth-child(2) > div", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div/div[2]/a[2]/div", "xpath:idRelative"],
+        ["xpath=//a[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "92b23705-4405-46e2-bc74-893a72d4043c",
+      "comment": "",
+      "command": "click",
+      "target": "css=div.img.custom",
+      "targets": [
+        ["css=div.img.custom", "css"],
+        ["css=.concert-wrapper:nth-child(1) .custom", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div[2]/a/div/div[2]", "xpath:idRelative"],
+        ["xpath=//a/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2bc2376b-3a39-4f42-b148-0117c2cf94d4",
+      "comment": "",
+      "command": "click",
+      "target": "css=div.performance-item",
+      "targets": [
+        ["css=div.performance-item", "css"],
+        ["css=.concert-performance-wrapper:nth-child(1) > .performance-item", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div[2]/a/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[2]/a/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "54e3d87b-2aa8-4630-860a-cf69b5db7eaf",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "win_ser_1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "79d2a0df-7812-4761-b659-7118a7718388",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "win_ser_local",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "54d48304-7826-4e4a-b976-391cb9cb2d6d",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}
