@@ -389,6 +389,60 @@ function getPeople(req, res) {
     });
 }
 
+function matchConcert(req, res) {
+    var state = sessions.lookupSession(req.cookies.session);
+    if (!state) {
+      return res.status(401).send("User not logged in.");
+    }
+
+    var cid = req.body.id;
+    if (!cid) {
+        console.log("bad other id " + cid);
+        return res.status(400).send("'id' field for concert id not supplied in request.");
+    }
+
+    Concert.findByConcertId(cid)
+        .then(concert => {
+            if (!concert) {
+                return new Promise((resolve, reject) => reject("Concert with id " + cid + " does not exist."));
+            }
+            return User.findById(state.id);
+        })
+        .then(user => {
+            return User.addConcert(user._id, cid);
+        })
+        .then(user => {
+            return res.json(getUserData(user));
+        })
+        .catch(err => {
+            console.log(err, err.message);
+            res.status(500).send(err);
+        })
+}
+
+function getConcerts(req, res) {
+    var state = sessions.lookupSession(req.cookies.session);
+    if (!state) {
+        return res.status(401).send("User not logged in.");
+    }
+
+    //return res.json({msg: "hi"});
+
+    User.findById(state.id)
+        .then(user => {
+            return Promise.all(user.concerts.map(id => {
+                return Concert.findByConcertId(id);
+            }))
+        })
+        .then(concerts => {
+            res.json(concerts.map(concert => getConcertData(concert)));
+        })
+        .catch(err => {
+            console.log(err, err.message);
+            res.status(500).send(err);
+        });
+}
+
 function testMatches(req, res) {
   var first, second, result;
   result = {};
@@ -443,7 +497,8 @@ function getUserData(user) {
     isArtist: user.isArtist,
     matches: user.matches,
     artists: user.artists,
-    tracks: user.tracks
+    tracks: user.tracks,
+    concerts: user.concerts
   };
 }
 
@@ -488,6 +543,8 @@ module.exports = {
   getSpotifyProfile,
   match,
   getPeople,
+  matchConcert,
+  getConcerts,
   testMatches
 };
 

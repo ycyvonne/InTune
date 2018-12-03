@@ -168,6 +168,22 @@ router.get("/me/top-artists", userController.getTopArtists);
 router.get("/me/matches", userController.getMatches);
 
 /**
+ * Concert matching
+ */
+router.get("/me/concerts", userController.getConcerts);
+
+/**
+ * Route to get a specific user's Spotify profile
+ * @name /me/match-concert
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @param {string} req.body.id - The id of the concert ot match with
+ * @returns {JSON} - A json object containing the current user's info
+ */
+router.post("/me/match-concert", userController.matchConcert);
+
+/**
  * Route to get a specific user's Spotify profile
  * @name /get-spotify-profile
  * @function

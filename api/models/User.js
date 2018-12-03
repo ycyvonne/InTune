@@ -18,7 +18,8 @@ var userSchema = new mongoose.Schema({
 	spotifyUrl: String,
 	email: String,
 	isArtist: {type: Boolean, default: false},
-	matches: [String]
+	matches: [String],
+	concerts: [String]
 });
 
 // Util
@@ -221,6 +222,21 @@ userSchema.statics.hasMatch = function(matcherId, targetId) {
 			target = _target;
 
 			return matcher.matches.includes(String(target._id).valueOf());
+		})
+}
+
+userSchema.statics.addConcert = function(uid, cid) {
+	return this.findById(uid)
+		.then(user => {
+			if (!user.concerts.includes(cid)) {
+				user.concerts = app(user.concerts, cid);
+			}
+			return new Promise((resolve, reject) => {
+				user.save((err, newUser) => {
+					if (err) reject(err);
+					else resolve(newUser);
+				});
+			});
 		})
 }
 
