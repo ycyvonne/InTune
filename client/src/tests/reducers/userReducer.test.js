@@ -92,4 +92,12 @@ describe('user reducer', () => {
         })
         ).toEqual({peopleData: []})
     })
+
+    it('should handle GET_USER_CONCERTS', () => {
+        expect(UserReducer({},{
+            type: 'GET_USER_CONCERTS',
+            concerts: []
+        })
+        ).toEqual({concerts: []})
+    })
 });
