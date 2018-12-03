@@ -80,7 +80,6 @@ function checkConcert(id,concertData) {
 		{
 		  Concert.create(id, concertData)
 		  .then(data => {
-			console.log(JSON.stringify(data));
 		  })
 		}
 	  })
