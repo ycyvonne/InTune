@@ -11,6 +11,7 @@ const util = require("../utils");
  * Creates a new user and saves it to the DB.
  * @param {*} userData 
  * @param {*} sessionInfo 
+ * @return {void}
  */
 function _createUser(userData, sessionInfo) {
   var musicProfile = {};
@@ -49,6 +50,7 @@ function _createUser(userData, sessionInfo) {
  * Get all users from DB
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function getUsers(req, res) {
   User.findAll()
@@ -60,6 +62,7 @@ function getUsers(req, res) {
  * Get all artists from DB
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function getArtists(req, res) {
   User.findAll(true)
@@ -71,6 +74,7 @@ function getArtists(req, res) {
  * Get a user by ID.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function getUser(req, res) {
   User.findById(req.params.id)
@@ -82,6 +86,7 @@ function getUser(req, res) {
  * Deletes a user by ID
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function deleteUser(req, res) {
   User.deleteById(req.body.id)
@@ -93,6 +98,7 @@ function deleteUser(req, res) {
  * Deletes all users.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function deleteAll(req, res) {
   User.deleteAll()
@@ -104,6 +110,7 @@ function deleteAll(req, res) {
  * Login/create a user and set the proper cookie.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function login(req, res) {
   var code = req.body.code;
@@ -155,6 +162,7 @@ function login(req, res) {
  * Updates the logged in user's profile.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function updateProfile(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
@@ -187,6 +195,7 @@ function updateProfile(req, res) {
  * Get the info for the currently logged in user.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function getMe(req, res) {
   var lookup = sessions.lookupSession(req.cookies.session);
@@ -207,6 +216,7 @@ function getMe(req, res) {
  * Get the current user's top tracks.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function getTopTracks(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
@@ -225,6 +235,7 @@ function getTopTracks(req, res) {
  * Get the current user's top artists.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function getTopArtists(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
@@ -243,6 +254,7 @@ function getTopArtists(req, res) {
  * Get a user's list of potential matches, sorted for similarity.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function getMatches(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
@@ -330,6 +342,7 @@ function getMatches(req, res) {
  * Get a Spotify profile from an access code.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function getSpotifyProfile(req, res) {
   var code = req.body.code;
@@ -353,6 +366,7 @@ function getSpotifyProfile(req, res) {
  * Match the logged in user to another user.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function match(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
@@ -391,6 +405,7 @@ function match(req, res) {
  * Get the logged in user's matches.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function getPeople(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
@@ -417,6 +432,7 @@ function getPeople(req, res) {
  * Match the logged in user to a specified concert.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function matchConcert(req, res) {
     var state = sessions.lookupSession(req.cookies.session);
@@ -462,6 +478,7 @@ function matchConcert(req, res) {
  * Get all of the logged in user's matched concerts.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function getConcerts(req, res) {
     var state = sessions.lookupSession(req.cookies.session);
@@ -494,6 +511,7 @@ function getConcerts(req, res) {
  * Tests that matches work correctly.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function testMatches(req, res) {
   var first, second, result;
@@ -538,6 +556,7 @@ function testMatches(req, res) {
 /**
  * Get the needed fields from the User object.
  * @param {*} user 
+ * @return {User} User object
  */
 function getUserData(user) {
   return {
@@ -557,6 +576,7 @@ function getUserData(user) {
 /**
  * Get the needed fields from the Concert object.
  * @param {*} concert 
+ * @return {Concert} Concert object
  */
 function getConcertData(concert) {
     if (!concert) {
@@ -580,6 +600,7 @@ const mockConcerts = require('../mock-concert')
  * Get mock concerts.
  * @param {*} req 
  * @param {*} res 
+ * @return {void}
  */
 function getUserConcerts(req, res) {
   console.log('mock concerts', mockConcerts.concerts[0])
@@ -590,6 +611,7 @@ function getUserConcerts(req, res) {
  * Get user return string to send back to client.
  * @param {*} user 
  * @param {*} isNewUser 
+ * @return {String} User JSON stringified
  */
 function getUserReturnString(user, isNewUser = false) {
   var data = getUserData(user);

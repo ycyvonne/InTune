@@ -38,6 +38,7 @@ mongoose.connection.on('error', (err) => {
 
 /**
  * Loads mock user data.
+ * @returns {void}
  */
 function loadMockData() {
 	var deletePromises = mock.users.map(user => {
@@ -80,6 +81,7 @@ function loadMockData() {
  * Checks that concert exists or creates it.
  * @param {*} id 
  * @param {*} concertData 
+ * @return {Promise} Resolves to Concert object
  */
 function checkConcert(id,concertData) {
 	return Concert.findByConcertId(id)
@@ -95,6 +97,7 @@ function checkConcert(id,concertData) {
 
 /**
  * Load mock concerts.
+ * @return {void}
  */
 function loadMockConcerts() {
 	SongkickAdapter.getEventsByMetroArea({})

@@ -114,6 +114,7 @@ function getUserInfo(access_token) {
  * @param {*} access_token Access token for Spotify accountn
  * @param {*} endpoint Where to get "top items" from
  * @param {*} stringify How to return the output form the endpoint
+ * @returns {Promise} Resolves to top items
  */
 function getTop(access_token, endpoint, stringify) {
   var apiUrl = config.spotify.url.web_api + endpoint;
