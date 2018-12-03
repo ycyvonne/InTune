@@ -505,17 +505,20 @@ function getUserData(user) {
 }
 
 function getConcertData(concert) {
-  return {
-    id: concert.concertId,
-    name: concert.name,
-    url: concert.songkickUrl,
-    venue: concert.venue,
-    location: concert.location,
-    artist: concert.artist,
-    artist_id: concert.artistId,
-    date: concert.date,
-    data: concert.data
-  };
+    if (!concert) {
+        return null;
+    }
+    return {
+        id: concert.concertId,
+        name: concert.name,
+        url: concert.songkickUrl,
+        venue: concert.venue,
+        location: concert.location,
+        artist: concert.artist,
+        artist_id: concert.artistId,
+        date: concert.date,
+        data: concert.data
+    };
 }
 
 const mockConcerts = require('../mock-concert')
