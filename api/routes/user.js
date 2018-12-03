@@ -189,4 +189,6 @@ router.post("/get-spotify-profile", userController.getSpotifyProfile);
  */
 router.get("/:id", userController.getUser);
 
+router.get("/concerts", userController.getUserConcerts);
+
 module.exports = router;
