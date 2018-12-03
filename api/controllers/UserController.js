@@ -6,6 +6,12 @@ const SpotifyAdapter = require("../adapters/SpotifyAdapter");
 const sessions = require("../sessions");
 const util = require("../utils");
 
+/** UserController
+ * @module UserController
+ * 
+ * @description User controller 
+ */
+
 
 /**
  * Creates a new user and saves it to the DB.

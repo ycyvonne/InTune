@@ -1,6 +1,12 @@
 const SongkickAdapter = require("../adapters/SongkickAdapter");
 const Concert = require('../models/Concert');
 
+/** UserController
+ * @module ConcertController
+ * 
+ * @description Concert controller 
+ */
+
 /**
  * Checks if concert exists and persists if it does not
  * @param {*} id 

@@ -28,7 +28,7 @@ var userSchema = new mongoose.Schema({
  * Return an appended array (needed for Mongoose).
  * @param {*} arr 
  * @param {*} val
- * @return {[*]} New array
+ * @return {Array} New array
  */
 function app(arr, val) {
 	var tmp = arr.slice();
@@ -253,7 +253,7 @@ userSchema.statics.addConcert = function(uid, cid) {
 
 /**
  * Gets all User objects in the database
- * @returns {[User]} User objects
+ * @returns {JSON} User objects
  * @example
  * User.findAll(id)
  *     .then(user => console.log(user))
