@@ -11,7 +11,8 @@ var concertSchema = new mongoose.Schema({
     venue: String,
     location: String,
     artist: String,
-    date: Date,
+	date: Date,
+	data: String
 });
 
 concertSchema.statics.create = function(id, concert) {
@@ -23,7 +24,8 @@ concertSchema.statics.create = function(id, concert) {
         venue: concert.venue,
         location: concert.location,
         artist: concert.artist,
-        date: concert.date,
+		date: concert.date,
+		data: concert.data
     })
 
     return new Promise((resolve, reject) => {
