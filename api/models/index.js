@@ -36,6 +36,9 @@ mongoose.connection.on('error', (err) => {
 	console.log('Mongoose default connection error: ' + err);
 });
 
+/**
+ * Loads mock user data.
+ */
 function loadMockData() {
 	var deletePromises = mock.users.map(user => {
 		return User.findBySpotifyId(user.spotifyId)
@@ -73,6 +76,11 @@ function loadMockData() {
 		.catch(err => console.log("err writing obj: ", err, err.message));
 }
 
+/**
+ * Checks that concert exists or creates it.
+ * @param {*} id 
+ * @param {*} concertData 
+ */
 function checkConcert(id,concertData) {
 	return Concert.findByConcertId(id)
 	  .then(concert => {
@@ -85,6 +93,9 @@ function checkConcert(id,concertData) {
 	  })
   }
 
+/**
+ * Load mock concerts.
+ */
 function loadMockConcerts() {
 	SongkickAdapter.getEventsByMetroArea({})
     .then(function(concertData) {
