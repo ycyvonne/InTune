@@ -22,14 +22,6 @@ let router = express.Router();
 const userController = require("../controllers/UserController");
 
 /**
- * Route serving root index
- * @name /
- * @function
- * @memberof module:routes/user~userRouter
- */
-router.get("/", userController.index);
-
-/**
  * Route to get all normal users
  * @name /all
  * @function
