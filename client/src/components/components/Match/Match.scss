@@ -32,8 +32,64 @@
   border-radius: 25px;
   box-sizing: border-box;
   box-shadow: $shadow;
-
   transition: 0.6s ease all;
+
+  .match-details {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #dfdfdf;
+    margin-top: 20px;
+    padding-top: 10px;
+    .top-artists {
+      color: gray;
+    }
+    .track-item {
+      display: flex;
+    }
+    .track-thumbnail {
+      height: 80px;
+      width: 80px;
+      background-size: cover !important;
+      box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.18);
+      margin-right: 20px;
+    }
+
+    .match-item {
+      margin: $small-margin;
+      a {
+        display: flex;
+        align-items: center;
+        color: grey;
+        font-family: Raleway;
+      }
+      .track-details {
+        line-height: 0px;
+        text-align: left;
+      }
+      .match-icon-wrapper {
+        font-size: 24px;
+        color: $theme-color-2;
+        margin-right: 10px;
+      }
+    }
+
+    .match-thumbnail {
+      background: black;
+      background-size: cover !important;
+      height: 40px;
+      width: 40px;
+      margin: 0px 10px;
+      margin-right: 10px;
+      box-shadow: 1px 1px 15px 1px rgba(0, 0, 0, 0.18);
+    }
+  }
+
+  .visible-on-hover {
+    display: none;
+  }
+  .visible-on-hover:hover {
+    display: block;
+  }
 
   &.disappear {
     opacity: 0;
@@ -67,13 +123,14 @@
     .add-button {
       right: -20px;
     }
-    
+
     .bio {
       padding: 20px;
       font-size: 20px;
     }
 
-    .concert-calendar, .concert-location {
+    .concert-calendar,
+    .concert-location {
       display: flex;
       align-items: center;
       justify-content: center;
