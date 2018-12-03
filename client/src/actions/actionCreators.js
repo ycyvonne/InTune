@@ -6,6 +6,12 @@ import * as api from "../api";
  * @description Client side action dispatcher for global state/store changes
  */
 
+/**
+ * @description Action dispatcher to get username
+ * @name getUsername
+ * @function
+ * @memberof module:actions
+ */
 export function getUsername(cb) {
   return (dispatch, prevState) => {
     api
@@ -19,7 +25,7 @@ export function getUsername(cb) {
 }
 
 /**
- * Action dispatcher to create/login user
+ * @description Action dispatcher to create/login user
  * @name loginUser
  * @function
  * @memberof module:actions
@@ -33,6 +39,12 @@ export function loginUser(code) {
   };
 }
 
+/**
+ * @description Action dispatcher to get logged in user
+ * @name getLoggedInUser
+ * @function
+ * @memberof module:actions
+ */
 export function getLoggedInUser(cb) {
   return (dispatch, prevState) => {
     api
@@ -47,6 +59,12 @@ export function getLoggedInUser(cb) {
   };
 }
 
+/**
+ * @description Action dispatcher to get concerts
+ * @name getConcerts
+ * @function
+ * @memberof module:actions
+ */
 export function getConcerts(cb) {
   return (dispatch, prevState) => {
     api
@@ -59,6 +77,12 @@ export function getConcerts(cb) {
   };
 }
 
+/**
+ * @description Action dispatcher to get matches
+ * @name getMatches
+ * @function
+ * @memberof module:actions
+ */
 export function getMatches(cb) {
   return (dispatch, prevState) => {
     api
@@ -71,6 +95,12 @@ export function getMatches(cb) {
   };
 }
 
+/**
+ * @description Action dispatcher to match user
+ * @name matchUser
+ * @function
+ * @memberof module:actions
+ */
 export function matchUser(userToMatchWithId, cb) {
   return (dispatch, prevState) => {
     api
@@ -83,11 +113,19 @@ export function matchUser(userToMatchWithId, cb) {
   };
 }
 
+/**
+ * @description Action dispatcher to match user with concert
+ * @name matchUserWithConcert
+ * @function
+ * @memberof module:actions
+ */
 export function matchUserWithConcert(concertToMatchWithId, cb) {
   return (dispatch, prevState) => {
     api
       .makeConcertMatch(concertToMatchWithId)
-      .then(response => dispatch({ matchResult: response, type: "MATCH_CONCERT" }))
+      .then(response =>
+        dispatch({ matchResult: response, type: "MATCH_CONCERT" })
+      )
       .then(() => {
         if (cb) cb();
       })
@@ -95,6 +133,12 @@ export function matchUserWithConcert(concertToMatchWithId, cb) {
   };
 }
 
+/**
+ * @description Action dispatcher to get people
+ * @name getPeople
+ * @function
+ * @memberof module:actions
+ */
 export function getPeople(cb) {
   return (dispatch, prevState) => {
     api
@@ -107,11 +151,19 @@ export function getPeople(cb) {
   };
 }
 
+/**
+ * @description Action dispatcher to get user concerts
+ * @name getUserConcerts
+ * @function
+ * @memberof module:actions
+ */
 export function getUserConcerts(cb) {
   return (dispatch, prevState) => {
     api
       .getUserConcerts()
-      .then(response => dispatch({ concerts: response, type: "GET_USER_CONCERTS" }))
+      .then(response =>
+        dispatch({ concerts: response, type: "GET_USER_CONCERTS" })
+      )
       .then(() => {
         if (cb) cb();
       })

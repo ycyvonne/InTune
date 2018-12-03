@@ -5,7 +5,7 @@
  */
 
 /**
- * Makes global state/store updates according to received action
+ * @description Makes global state/store updates according to received action
  * @name UserReducer
  * @function
  * @memberof module:reducers
