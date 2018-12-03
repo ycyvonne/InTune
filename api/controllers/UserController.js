@@ -426,8 +426,6 @@ function getConcerts(req, res) {
         return res.status(401).send("User not logged in.");
     }
 
-    //return res.json({msg: "hi"});
-
     User.findById(state.id)
         .then(user => {
             return Promise.all(user.concerts.map(id => {
