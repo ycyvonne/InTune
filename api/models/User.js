@@ -23,6 +23,11 @@ var userSchema = new mongoose.Schema({
 
 // Util
 
+/**
+ * Return an appended array (needed for Mongoose).
+ * @param {*} arr 
+ * @param {*} val 
+ */
 function app(arr, val) {
 	var tmp = arr.slice();
 	tmp.push(val);
@@ -57,6 +62,11 @@ userSchema.statics.create = function(sid) {
 	})
 };
 
+/**
+ * Updates a user's profile to the DB.
+ * @param {string} spotifyId
+ * @param {*} profile
+ */
 userSchema.statics.updateMusicProfile = function(id, profile) {
 	return this.findById(id)
 		.then(user => {
@@ -73,10 +83,14 @@ userSchema.statics.updateMusicProfile = function(id, profile) {
 		});
 };
 
+/**
+ * Updates a user's music profile to the DB.
+ * @param {string} spotifyId
+ * @param {*} profile
+ */
 userSchema.statics.updateProfile = function(id, profile) {
 	return this.findById(id)
 		.then(user => {
-
 			user.name = profile.name;
 			user.email = profile.email;
 			user.spotifyUrl = profile.spotifyUrl;
@@ -141,6 +155,11 @@ userSchema.statics.findBySpotifyId = function(spotId) {
 	})
 }
 
+/**
+ * Puts a "match" request from one user to another user.
+ * @param {string} matcherId
+ * @param {string} targetId
+ */
 userSchema.statics.match = function(matcherId, targetId) {
 	var matcher, target;
 
@@ -185,6 +204,11 @@ userSchema.statics.match = function(matcherId, targetId) {
 		})
 }
 
+/**
+ * Checks if a user is matched with another.
+ * @param {string} matcherId
+ * @param {string} targetId
+ */
 userSchema.statics.hasMatch = function(matcherId, targetId) {
 	var matcher, target;
 
