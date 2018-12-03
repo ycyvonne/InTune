@@ -9,12 +9,13 @@ $profile-padding: 20px;
   color: $body-font-color;
 }
 
-.profile-matches-content {
+.profile-matches-content, .profile-concerts-content {
   display: flex;
   background: white;
   border: 1px solid $grey-light;
   min-height: 60%;
   min-width: max-content;
+  margin-top: 40px;
 
   .no-people {
     width: 100%;
