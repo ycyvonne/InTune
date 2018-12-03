@@ -169,7 +169,8 @@ function getUserTopArtists(access_token) {
     return JSON.stringify({
       link: artist.external_urls.spotify,
       name: artist.name,
-      genres: artist.genres
+      genres: artist.genres,
+      img: artist.images[0].url ? artist.images : null
     })});
 }
 

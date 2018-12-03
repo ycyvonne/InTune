@@ -10,6 +10,11 @@ function index(req, res) {
   res.json("/ endpoint hit");
 }
 
+/**
+ * Creates a new user and saves it to the DB.
+ * @param {*} userData 
+ * @param {*} sessionInfo 
+ */
 function _createUser(userData, sessionInfo) {
   var musicProfile = {};
   var profile = {};
@@ -57,6 +62,11 @@ function getArtists(req, res) {
     .catch(err => res.send(err));
 }
 
+/**
+ * Get a user by ID.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getUser(req, res) {
   User.findById(req.params.id)
     .then(user => res.send(getUserReturnString))
@@ -75,6 +85,11 @@ function deleteAll(req, res) {
     .catch(err => res.send(err));
 }
 
+/**
+ * Login/create a user and set the proper cookie.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function login(req, res) {
   var code = req.body.code;
   const session = req.cookies.session;
@@ -148,6 +163,11 @@ function updateProfile(req, res) {
     });
 }
 
+/**
+ * Get the info for the currently logged in user.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getMe(req, res) {
   console.log("cookie", req.cookies.session);
   var lookup = sessions.lookupSession(req.cookies.session);
@@ -192,6 +212,11 @@ function getTopArtists(req, res) {
     .catch(err => res.send(err));
 }
 
+/**
+ * Get a user's list of potential matches, sorted for similarity.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getMatches(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
   if (!state) {
@@ -294,6 +319,11 @@ function getSpotifyProfile(req, res) {
     });
 }
 
+/**
+ * Match the logged in user to another user.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function match(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
   if (!state) {
@@ -329,6 +359,11 @@ function match(req, res) {
     });
 }
 
+/**
+ * Get the logged in user's matches.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getPeople(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
   if (!state) {
@@ -394,6 +429,10 @@ function testMatches(req, res) {
     });
 }
 
+/**
+ * Get the needed fields from the user object.
+ * @param {*} user 
+ */
 function getUserData(user) {
   return {
     id: user._id,
@@ -427,6 +466,11 @@ function getUserConcerts(req, res) {
   res.send(mockConcerts.concerts);
 }
 
+/**
+ * Get user return string to send back to client.
+ * @param {*} user 
+ * @param {*} isNewUser 
+ */
 function getUserReturnString(user, isNewUser = false) {
   var data = getUserData(user);
   data.isNewUser = isNewUser;

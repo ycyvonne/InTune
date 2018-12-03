@@ -4,6 +4,10 @@
 const mongoose = require('mongoose');
 const config = require('../config');
 const User = require('./User');
+const Concert = require('./Concert');
+const SongkickAdapter = require('../adapters/SongkickAdapter');
+
+const mock = require('../mock-data');
 
 // Build the connection string 
 const dbURI = config.database.uri;
@@ -15,6 +19,9 @@ mongoose.connect(dbURI);
 // When successfully connected
 mongoose.connection.on('connected', () => {
 	console.log('Mongoose default connection open to ' + dbURI);
+
+	//load concert data
+	loadMockConcerts();
 
 	/**
 	 * Currently this runs every time continually putting more and more fake
@@ -30,84 +37,80 @@ mongoose.connection.on('error', (err) => {
 });
 
 function loadMockData() {
-	for (var i=0; i < 12; i++) {
-		User.findBySpotifyId(i)
-			.then(user => {
-				if (user !== null) {
-					User.deleteById(user._id);
+	var deletePromises = mock.users.map(user => {
+		return User.findBySpotifyId(user.spotifyId)
+			.then(obj => {
+				if (obj) {
+					User.deleteById(obj._id);
 				}
-			});
-	}
-
-	var profiles = [];
-
-	for (var i=0; i < 10; i++) {
-		profiles.push({
-			sid: i.toString(),
-			profile: {
-				name: "John Smith " + i.toString(),
-				img: "https://robertzalog.com/me.jpg",
-				email: "jsmith@gmail.com",
-				spotifyUrl: "https://robertzalog.com",
-				isArtist: false
-			},
-			music_profile: {
-				artists: [],
-				genres: [],
-				tracks: []
-			}
-		});
-	}
-
-	profiles.push({
-		sid: "10",
-		profile: {
-			name: "Evlis Presley",
-			img: "https://robertzalog.com/me.jpg",
-			email: "epresley@gmail.com",
-			spotifyUrl: "https://robertzalog.com",
-			isArtist: true
-		},
-		music_profile: {
-			artists: [],
-			genres: [],
-			tracks: []
-		}
-	});
-
-	profiles.push({
-		sid: "11",
-		profile: {
-			name: "John Lennon",
-			img: "https://robertzalog.com/me.jpg",
-			email: "epresley@gmail.com",
-			spotifyUrl: "https://robertzalog.com",
-			isArtist: true
-		},
-		music_profile: {
-			artists: [],
-			genres: [],
-			tracks: []
-		}
-	})
-
-	profiles.forEach(profile => {
-		var id;
-
-		User.create(profile.sid)
-			.then(user => {
-				id = user._id;
-				return User.updateProfile(id, profile.profile);
-			})
-			.then(user => {
-				return User.updateMusicProfile(id, profile.music_profile);
+				return null;
 			})
 			.catch(err => {
-				console.log("got error " + err + ", " + err.message);
+				console.log("err writing obj: ", err, err.message);
 			});
 	});
 
+	Promise.all(deletePromises)
+		.then(_ => {
+			var creationPromises = mock.users.map(profile => {
+				var id;
+				return User.create(profile.spotifyId)
+					.then(user => {
+						id = user._id;
+						return User.updateProfile(id, profile);
+					})
+					.then(user => {
+						return User.updateMusicProfile(id, profile);
+					})
+					.catch(err => console.log("got error " + err));
+			});
 
+			return Promise.all(creationPromises);
+		})
+		.then(_ => {
+			console.log("Successfully loaded in mock users.");
+		})
+		.catch(err => console.log("err writing obj: ", err, err.message));
+}
+
+function checkConcert(id,concertData) {
+	return Concert.findByConcertId(id)
+	  .then(concert => {
+		if(concert === null)
+		{
+		  Concert.create(id, concertData)
+		  .then(data => {
+		  })
+		}
+	  })
+  }
+
+function loadMockConcerts() {
+	SongkickAdapter.getEventsByMetroArea({})
+    .then(function(concertData) {
+      var promises = concertData.map(songkickConcert => {
+        //check if this concert is in db and add if its not
+        var concert = {};
+        concert.id = songkickConcert.id;
+        concert.name = songkickConcert.displayName;
+        concert.url = songkickConcert.uri;
+        concert.venue = songkickConcert.venue.displayName;
+        concert.location = songkickConcert.location.city;
+        concert.artist = songkickConcert.performance[0].displayName;
+        concert.artistId = songkickConcert.performance[0].artist.id;
+        concert.date = songkickConcert.start.datetime;
+      
+        return checkConcert(concert.id, concert);
+      })
+
+      Promise.all(promises).then(data =>
+      {
+        console.log('Successfully loaded in mock concerts');
+      });
+    })
+    .catch(function(error) {
+      console.log("error loading concert data: " + error);
+    });
 }
 
 module.exports = {
