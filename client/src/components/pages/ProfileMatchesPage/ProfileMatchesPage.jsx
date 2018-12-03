@@ -37,7 +37,7 @@ class ProfileMatchesPage extends Component {
       this.setState({
         initPeople: true,
         people: data,
-        currentSelection: data[0].id
+        currentSelection: data ? data[0].id : null
       });
     }
   }
@@ -129,7 +129,8 @@ class ProfileMatchesPage extends Component {
               this.state.concerts && this.state.concerts.length != 0 && 
               <ConcertList
                 concerts={this.state.concerts}
-                numPerRow={4}/>
+                numPerRow={4}
+                format={true}/>
             }
           </div>
         </div>

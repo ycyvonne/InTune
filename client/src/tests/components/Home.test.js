@@ -1,8 +1,8 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import Home from '../../components/Home/Home';
-import SpotfiyLoginBtn from '../../components/SpotifyLoginBtn/SpotifyLoginBtn';
+import Home from '../../components/pages/HomePage/HomePage';
+import SpotfiyLoginBtn from '../../components/components/SpotifyLoginBtn/SpotifyLoginBtn';
 
 Enzyme.configure({ adapter: new Adapter() });
 
