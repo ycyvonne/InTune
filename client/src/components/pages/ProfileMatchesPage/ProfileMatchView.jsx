@@ -8,8 +8,6 @@ class ProfileMatchView extends Component {
   constructor(props) {
     super(props);
     this.props = props;
-    console.log('artists', this.props.person.artists);
-    console.log('tracks', this.props.person.tracks)
   }
 
   render() {
@@ -53,12 +51,25 @@ class ProfileMatchView extends Component {
               </div>
             </div>
           </div>
-          <div className="match-tracks">
-            <div className="subtitle">Top Tracks</div>
-            {this.props.person.tracks.map((track, i) => {
-              console.log('track', JSON.parse(track))
-              return <div key={i}>{JSON.parse(track).name}</div>;
-            })}
+          <div className="section-divider"/>
+          <div className="detail-section">
+            <h1>Top Tracks</h1>
+            <div className="tracks-grid">
+              {this.props.person.tracks.map((track, i) => {
+                var track = JSON.parse(track);
+                console.log('track', track)
+                return <div className="track-item">
+                  <div className="track-thumbnail"
+                    style={{background: `url(${track.img[2].url})`}}>
+                  </div>
+                  <div className="track-side">
+                    <h3>{track.name}</h3>
+                    <p>{track.album}</p>
+                  </div>
+                </div>;
+              })
+              }
+            </div>
           </div>
         </div>
       </div>

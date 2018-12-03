@@ -73,3 +73,37 @@
         }
     }
 }
+.section-divider {
+    width: 100%;
+    height: 1px;
+    background: $grey-light;
+    margin-bottom: 20px;
+}
+.tracks-grid {
+    margin: 20px 0;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+
+    .track-item {
+        display: flex;
+    }
+    .track-thumbnail {
+        height: 80px;
+        width: 80px;
+        background-size: cover !important;
+        border-radius: 3px;
+        box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.18);
+        margin-right: 20px;
+    }
+
+    .track-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        h3, p {
+            margin: 0;
+        }
+    }
+    
+}
