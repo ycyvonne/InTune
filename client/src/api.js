@@ -22,20 +22,44 @@ export function authorize(code) {
   return post(`${serverBaseURL}/user/login`, { code: code }).then(res => res);
 }
 
+/**
+ * Gets matches
+ * @name getMatches
+ * @function
+ * @memberof module:api
+ */
 export function getMatches() {
   return get(`${serverBaseURL}/user/me/matches`).then(res => res);
 }
 
+/**
+ * @description Makes matches
+ * @name makeMatch
+ * @function
+ * @memberof module:api
+ */
 export function makeMatch(userToMatchWithId) {
   return post(`${serverBaseURL}/user/me/match`, { id: userToMatchWithId }).then(
     res => res
   );
 }
 
+/**
+ * @description Gets people
+ * @name getPeople
+ * @function
+ * @memberof module:api
+ */
 export function getPeople() {
   return get(`${serverBaseURL}/user/me/people`).then(res => res);
 }
 
+/**
+ * @description Gets concerts
+ * @name getConcerts
+ * @function
+ * @memberof module:api
+ */
 export function getConcerts() {
   return get(`${serverBaseURL}/concerts`).then(res => res);
 }
