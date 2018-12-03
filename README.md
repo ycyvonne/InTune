@@ -165,6 +165,13 @@ We have created test scenarios for both our front end and our back end. Front en
 
   [Test the Home page](client/src/tests/components/Home.test.js):
   * The Home page should be able to render when provided with props
+  
+  [Test the Concert Page](client/src/tests/components/Concert.test.js):
+  * The Concert page should be able to render when provided with concert data
+  
+  [Test the Match Page](client/src/tests/components/Match.test.js): 
+  * The Match page should be able to render when provided with match data
+
 
 
 ### [Back End Tests](api/tests)
@@ -191,6 +198,78 @@ We have created test scenarios for both our front end and our back end. Front en
   * `/concert` should be considered a valid path and respond with 200
 
   * `/concert` should be able to retrieve a list of Songkick events for a given metro area using the `SongkickAdapter`client/src/tests/ and the adapter function should return a response with status ‘ok’ and a list of Songkick events
+
+#### Test Scenario 5 - [Can Login Users & Get User Profile Information](api/test/userController.test.js)
+Get a person’s spotify profile information
+  * Should not be able to do if you aren’t logged in
+  * Should be able to return spotify data in correct format
+  * Should handle any errors that occur during this process
+  
+Get a person’s top track & artists
+  * Should not be able to do if you aren’t logged in
+  * Should be able to return data in correct format
+  * Should handle any errors that occur during this process
+  
+Update a person’s user profile
+  * Should not be able to do if you aren’t logged in
+  * Should be able to return updated profile data in correct format
+  * Should handle any errors that occur during this process
+  
+Delete a person’s profile from MongoDB
+  * Should not be able to do if you aren’t logged in
+  * Should handle any errors that occur during this process
+  
+Get a list of artists who are also users 
+  * Should not be able to do if you aren’t logged in
+  * Should be able to return data in correct format
+  * Should handle any errors that occur during this process
+  
+Get all the users
+  * Should not be able to do if you aren’t logged in
+  * Should be able to return data in correct format
+  * Should handle any errors that occur during this process
+  
+Login with a new user
+  * Should add the user to the database
+  * Should be able to return data in correct format
+  * Should handle any errors that occur during this process
+  
+Login with an older user
+  * Should retrieve from the 
+  * Should be able to return data in correct format
+  * Should handle any errors that occur during this process
+  
+#### [Test Scenario 6 - Can Get User’s Matches & Allow Them to Match](api/test/userController.test.js)
+Get people who you have matched with
+  * Should not be able to do if you aren’t logged in
+  * Should be able to return data in correct format
+  * Should handle any errors that occur during this process
+
+User selects a person to match with
+  * Should not be able to do if you aren’t logged in
+  * Should be able to return updated matchlist in correct format
+  * Should handle any errors that occur during this process
+  
+Get a list of potential matches 
+  * Should not be able to do if you aren’t logged in
+  * Should be able to return data in correct format
+  * Should handle any errors that occur during this process
+  
+Test Scenario 7 - [Can Get and Set Concert Information](api/test/concertController.test.js)
+Getting Concert Info
+  * Should retrieve concert information from the Songkick API and store it in MongoDB if it has not been stored already and return it
+  * Should retrieve concert information from the Songkick API and should not store it in MongoDB if it is already there and return it
+  * Should handle errors that occur during this process
+  
+Deleting Concert Info
+  * Should delete all concerts from the database
+  * Should handle errors that occur during this process
+  
+Getting all MongoDB Concert Info
+  * Should get all concert information stored in the MongoDB
+  * Should handle errors that occur during this process
+
+
 
 
 
