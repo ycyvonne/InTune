@@ -409,7 +409,12 @@ function matchConcert(req, res) {
             return User.findById(state.id);
         })
         .then(user => {
-            return User.addConcert(user._id, cid);
+            if (cid) {
+                return User.addConcert(user._id, cid);
+            }
+            else {
+                return user;
+            }
         })
         .then(user => {
             return res.json({
@@ -437,7 +442,13 @@ function getConcerts(req, res) {
             }))
         })
         .then(concerts => {
-            res.json(concerts.map(concert => getConcertData(concert)));
+            var ret = [];
+            concerts.forEach(value => {
+                if (value) {
+                    ret.push(getConcertData(value));
+                }
+            })
+            res.json(ret);
         })
         .catch(err => {
             console.log(err, err.message);
