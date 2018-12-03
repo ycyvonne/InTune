@@ -21,14 +21,6 @@ let router = express.Router();
 
 const userController = require("../controllers/UserController");
 
-/**
- * Route serving root index
- * @name /
- * @function
- * @memberof module:routes/user~userRouter
- */
-router.get("/", userController.index);
-
 // /**
 //  * Route for user creation
 //  * @name /create
@@ -133,8 +125,6 @@ router.post("/me/match", userController.match);
  */
 router.get("/me/people", userController.getPeople);
 
-router.get("/test-matches", userController.testMatches);
-
 /**
  * Route to get user's top-tracks
  * @name /me/top-tracks
@@ -188,7 +178,5 @@ router.post("/get-spotify-profile", userController.getSpotifyProfile);
  * @returns {JSON} - A json object containing a queried user's info
  */
 router.get("/:id", userController.getUser);
-
-router.get("/concerts", userController.getUserConcerts);
 
 module.exports = router;
