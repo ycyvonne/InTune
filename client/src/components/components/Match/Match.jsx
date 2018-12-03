@@ -31,7 +31,6 @@ class Match extends Component {
   }
 
   makeMatch() {
-    console.log('this props', this.props)
     if (!this.state.isToggled) {
       this.setState({
         isToggled: true,

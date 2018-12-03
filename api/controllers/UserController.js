@@ -268,7 +268,7 @@ function getMatches(req, res) {
           });
         }
         idx_user++;
-        if (idx_user % 5 == 0 && idx_artist < artists.length) {
+        if (idx_user % 3 == 0 && idx_artist < artists.length) {
           var data = artists[idx_artist];
           matches.push({
             type: "artist",
@@ -278,7 +278,7 @@ function getMatches(req, res) {
           idx_artist++;
         } else if (
           idx_user != 0 &&
-          idx_user % 7 == 0 &&
+          idx_user % 5 == 0 &&
           idx_concert < concerts.length
         ) {
           var data = concerts[idx_concert];

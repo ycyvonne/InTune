@@ -38,6 +38,10 @@ export function makeConcertMatch(concertToMatchWithId) {
   );
 }
 
+export function getUserConcerts() {
+  return get(`${serverBaseURL}/user/me/concerts`).then(res => res);
+}
+
 export function getPeople() {
   return get(`${serverBaseURL}/user/me/people`).then(res => res);
 }

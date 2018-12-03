@@ -110,7 +110,7 @@ export function getPeople(cb) {
 export function getUserConcerts(cb) {
   return (dispatch, prevState) => {
     api
-      .getConcerts()
+      .getUserConcerts()
       .then(response => dispatch({ concerts: response, type: "GET_USER_CONCERTS" }))
       .then(() => {
         if (cb) cb();
