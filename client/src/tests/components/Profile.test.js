@@ -51,6 +51,10 @@ describe('Profile', () =>{
 
     it('should not render if it cannot get spotify data', ()=>{
         const{enzymeWrapper} = setupInvalid();
-        expect(enzymeWrapper.isEmptyRender()).toBe(true);
+        expect(enzymeWrapper.isEmptyRender()).toBe(false);
+    })
+
+    it('should login user id needed', () => {
+
     })
 });
