@@ -125,7 +125,7 @@ router.post("/me/match", userController.match);
 
 /**
  * Route to get all matched users
- * @name /me
+ * @name /me/people
  * @function
  * @memberof module:routes/user~userRouter
  * @inner
@@ -133,6 +133,14 @@ router.post("/me/match", userController.match);
  */
 router.get("/me/people", userController.getPeople);
 
+/**
+ * Route to test matching
+ * @name /test-matching
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @returns {JSON} - A json object containing the user info
+ */
 router.get("/test-matches", userController.testMatches);
 
 /**
@@ -168,7 +176,12 @@ router.get("/me/top-artists", userController.getTopArtists);
 router.get("/me/matches", userController.getMatches);
 
 /**
- * Concert matching
+ * Route to get matched concerts
+ * @name /me/concerts
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @returns {JSON} - A json object containing an array of concerts
  */
 router.get("/me/concerts", userController.getConcerts);
 

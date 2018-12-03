@@ -50,12 +50,22 @@ function _createUser(userData, sessionInfo) {
     });
 }
 
+/**
+ * Get all users from DB
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getUsers(req, res) {
   User.findAll()
     .then(users => res.json(users))
     .catch(err => res.send(err));
 }
 
+/**
+ * Get all artists from DB
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getArtists(req, res) {
   User.findAll(true)
     .then(users => res.send(JSON.stringify(users)))
@@ -73,12 +83,22 @@ function getUser(req, res) {
     .catch(err => res.send(err));
 }
 
+/**
+ * Deletes a user by ID
+ * @param {*} req 
+ * @param {*} res 
+ */
 function deleteUser(req, res) {
   User.deleteById(req.body.id)
     .then(user => res.send(JSON.stringify(user)))
     .catch(err => res.send(err));
 }
 
+/**
+ * Deletes all users.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function deleteAll(req, res) {
   User.deleteAll()
     .then(users => res.send(JSON.stringify(users)))
@@ -136,6 +156,11 @@ function login(req, res) {
     .catch(err => res.send(err));
 }
 
+/**
+ * Updates the logged in user's profile.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function updateProfile(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
   if (!state) {
@@ -186,6 +211,11 @@ function getMe(req, res) {
     });
 }
 
+/**
+ * Get the current user's top tracks.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getTopTracks(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
   if (!state) {
@@ -199,6 +229,11 @@ function getTopTracks(req, res) {
     .catch(err => res.send(err));
 }
 
+/**
+ * Get the current user's top artists.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getTopArtists(req, res) {
   var state = sessions.lookupSession(req.cookies.session);
   if (!state) {
@@ -301,6 +336,11 @@ function getMatches(req, res) {
     });
 }
 
+/**
+ * Get a Spotify profile from an access code.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getSpotifyProfile(req, res) {
   var code = req.body.code;
 
@@ -389,6 +429,11 @@ function getPeople(req, res) {
     });
 }
 
+/**
+ * Match the logged in user to a specified concert.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function matchConcert(req, res) {
     var state = sessions.lookupSession(req.cookies.session);
     if (!state) {
@@ -429,6 +474,11 @@ function matchConcert(req, res) {
         })
 }
 
+/**
+ * Get all of the logged in user's matched concerts.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getConcerts(req, res) {
     var state = sessions.lookupSession(req.cookies.session);
     if (!state) {
@@ -456,6 +506,11 @@ function getConcerts(req, res) {
         });
 }
 
+/**
+ * Tests that matches work correctly.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function testMatches(req, res) {
   var first, second, result;
   result = {};
@@ -497,7 +552,7 @@ function testMatches(req, res) {
 }
 
 /**
- * Get the needed fields from the user object.
+ * Get the needed fields from the User object.
  * @param {*} user 
  */
 function getUserData(user) {
@@ -515,6 +570,10 @@ function getUserData(user) {
   };
 }
 
+/**
+ * Get the needed fields from the Concert object.
+ * @param {*} concert 
+ */
 function getConcertData(concert) {
     if (!concert) {
         return null;
@@ -533,6 +592,11 @@ function getConcertData(concert) {
 }
 
 const mockConcerts = require('../mock-concert')
+/**
+ * Get mock concerts.
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getUserConcerts(req, res) {
   console.log('mock concerts', mockConcerts.concerts[0])
   res.send(mockConcerts.concerts);
@@ -571,42 +635,3 @@ module.exports = {
   getUserConcerts,
   testMatches
 };
-
-//   // stub getting matches
-//   var profiles = [];
-
-//   for (var i = 0; i < 10; i++) {
-//     profiles.push({
-//       sid: i.toString(),
-//       profile: {
-//         name: "John Smith " + i.toString(),
-//         img: "https://robertzalog.com/me.jpg",
-//         email: "jsmith@gmail.com",
-//         spotifyUrl: "https://robertzalog.com",
-//         isArtist: false
-//       },
-//       music_profile: {
-//         artists: [],
-//         genres: [],
-//         tracks: []
-//       }
-//     });
-//   }
-//   var matches = [];
-//   profiles.forEach((profile, i) => {
-//     var type = "user";
-//     if (i % 5 == 0) {
-//       type = "artist";
-//     } else {
-//       type = "concert";
-//     }
-//     matches.push({
-//       type: type,
-//       id: "" + Math.random(),
-//       data: profile
-//     });
-//   });
-
-//   res.send({
-//     matches: matches
-//   });

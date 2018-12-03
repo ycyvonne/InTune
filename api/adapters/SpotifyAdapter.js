@@ -109,6 +109,12 @@ function getUserInfo(access_token) {
   });
 }
 
+/**
+ * Gets top items from Spotify API
+ * @param {*} access_token Access token for Spotify accountn
+ * @param {*} endpoint Where to get "top items" from
+ * @param {*} stringify How to return the output form the endpoint
+ */
 function getTop(access_token, endpoint, stringify) {
   var apiUrl = config.spotify.url.web_api + endpoint;
   var options = {
