@@ -1,3 +1,10 @@
 .concert-list-wrapper {
     margin: 100px 0 100px 0;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.concert-list-wrapper > div {
+    margin: 20px;
 }

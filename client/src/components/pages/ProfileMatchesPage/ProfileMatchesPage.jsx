@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SelectionItem from "./SelectionItem";
 import EmptyBox from "./EmptyBox";
 import ProfileMatchView from "./ProfileMatchView";
-import { Loader } from "../../";
+import { ConcertList, Loader } from "../../";
 
 import "./ProfileMatchesPage.scss";
 
@@ -13,8 +13,8 @@ class ProfileMatchesPage extends Component {
     this.state = {
       initPeople: false,
       currentSelection: null,
-      people: [],
-      concerts: []
+      people: null,
+      concerts: null
     };
 
     this.initPeople = this.initPeople.bind(this);
@@ -67,7 +67,11 @@ class ProfileMatchesPage extends Component {
     return (
       isValid && (
         <div className="profile-matches-wrapper">
+          <h1 className="section-header">Your matches</h1>
           <div className="profile-matches-content">
+            {
+              !this.state.people && <Loader type="Bars" color="#005AA8" />
+            }
             {
               this.state.people && this.state.people.length == 0 && 
               <EmptyBox
@@ -98,12 +102,18 @@ class ProfileMatchesPage extends Component {
             {
               this.state.people && this.state.people.map((person, i) => {
                 if (person.id == this.state.currentSelection) {
-                  return <ProfileMatchView person={person} />;
+                  return <ProfileMatchView
+                            person={person}
+                            type="person"/>;
                 }
               })
             }
           </div>
+          <h1 className="section-header">Interested Concerts</h1>
           <div className="profile-concerts-content">
+            {
+              !this.state.concerts && <Loader type="Bars" color="#005AA8" />
+            }
             {
               this.state.concerts && this.state.concerts.length == 0 && 
               <EmptyBox
@@ -115,10 +125,9 @@ class ProfileMatchesPage extends Component {
             }
             {
               this.state.concerts && this.state.concerts.length != 0 && 
-              this.state.concerts.map((concert, i) => {
-                console.log('concert', concert)
-                return <div>Concert</div>
-              })
+              <ConcertList
+                concerts={this.state.concerts}
+                numPerRow={4}/>
             }
           </div>
         </div>

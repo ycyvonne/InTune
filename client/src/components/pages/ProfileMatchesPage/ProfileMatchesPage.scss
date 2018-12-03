@@ -2,6 +2,11 @@
 
 $profile-padding: 20px;
 
+.section-header {
+  font-size: 36px;
+  margin-top: 100px;
+}
+
 .profile-matches-wrapper {
   margin: $page-margin;
   background: $profile-background;
@@ -14,7 +19,6 @@ $profile-padding: 20px;
   background: white;
   border: 1px solid $grey-light;
   min-height: 60%;
-  min-width: max-content;
   margin-top: 40px;
 
   .no-people {
@@ -105,4 +109,8 @@ $profile-padding: 20px;
       }
     }
   }
+}
+
+.profile-concerts-content {
+  padding: 0 30px;
 }

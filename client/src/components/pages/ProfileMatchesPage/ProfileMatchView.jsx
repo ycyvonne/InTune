@@ -18,7 +18,7 @@ class ProfileMatchView extends Component {
         <div className="details">
           <div className="detail">
             <p className="name">{this.props.person.name}</p>
-            <p className={typeClass}>{type}</p>
+            {this.props.type == 'artist' && <p className={this.props.type}>{this.props.type}</p>}
             <p>
               <Icon icon={faEnvelope} />
               {this.props.person.email}
