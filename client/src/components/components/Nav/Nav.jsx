@@ -29,11 +29,19 @@ class Nav extends Component {
 
   render() {
     var loginDependentComponents;
+    var userFromSession = sessionStorage.getItem('user');
     if (
-      this.props.user &&
-      this.props.user.spotifyData != null &&
-      this.props.user.spotifyData.isNewUser != null
+      (this.props.user &&
+      this.props.user.spotifyData != null) ||
+      (userFromSession && Object.keys(JSON.parse(userFromSession)).length != 0)
     ) {
+      var image;
+      if (this.props.user && this.props.user.spotifyData) {
+        image = this.props.user.spotifyData.img;
+      }
+      else {
+        image = JSON.parse(userFromSession).img;
+      }
       // logged in, show profile pic
       loginDependentComponents = (
         <span className="nav-profile-button-wrapper">
@@ -43,7 +51,7 @@ class Nav extends Component {
           <div className="navbar-link">
             <ProfilePicture
               hasMenu={true}
-              imageUrl={this.props.user.spotifyData.img}
+              imageUrl={image}
               customSize="nav-picture-size"
               isCircle={true}
             />

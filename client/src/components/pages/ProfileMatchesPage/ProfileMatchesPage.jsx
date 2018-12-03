@@ -4,9 +4,12 @@ import {
   ProfilePicture,
   ProfileDetails,
   FavoriteList,
-  Button
+  Button,
+  Icon
 } from "../../";
 import SelectionItem from "./SelectionItem";
+import ProfileMatchView from "./ProfileMatchView";
+
 import "./ProfileMatchesPage.scss";
 
 class ProfileMatchesPage extends Component {
@@ -14,46 +17,69 @@ class ProfileMatchesPage extends Component {
     super(props);
     this.props = props;
     this.state = {
-      currentSelection: null
+      initPeople: false,
+      currentSelection: null,
+      people: []
     };
+
+    this.initPeople = this.initPeople.bind(this);
+
+    this.selectionClick = this.selectionClick.bind(this);
+    if (!this.props.user.peopleData || !this.props.user.peopleData.fetched) {
+      this.props.getPeople(this.initPeople);
+    }
   }
 
-  selectionClick() {
-    // TODO: set current selection
+  initPeople() {
+    if (!this.props.user.peopleData) {
+      this.setState({ people: [] });
+    } else {
+      var data = Object.values(this.props.user.peopleData);
+      this.setState({
+        initPeople: true,
+        people: data,
+        currentSelection: data[0].id
+      });
+    }
+  }
+
+  selectionClick(id) {
+    this.setState({ currentSelection: id });
   }
 
   render() {
     var isValid = true;
-    if (
-      !this.props.user.spotifyData ||
-      this.props.user.spotifyData.error == "invalid_token"
-    ) {
+    if (!this.props.user.peopleData) {
       isValid = false;
-    } else {
-      console.log(this.props);
-      var spotifyData = this.props.user.spotifyData;
     }
 
     return (
       isValid && (
-        <div className="profile-wrapper">
+        <div className="profile-matches-wrapper">
           <div className="profile-matches-content">
-            <div className="selections">
-              <SelectionItem
-                name="John Doe 0"
-                img="https://robertzalog.com/me.jpg"
-                onClick={this.selectionClick}
-              />
-              <SelectionItem
-                name="John Doe 1"
-                img="https://robertzalog.com/me.jpg"
-                onClick={this.selectionClick}
-              />
-            </div>
-            <div className="profile-main-view">
-              <h1>John Doe xxx</h1>
-              <p>Description</p>
-            </div>
+            {this.state.people.length == 0 && <div className="no-people">
+                <h1>No matches yet to view.</h1>
+                <p>Head on over to our matches page to find other people to match with!</p>
+                <button onClick={() => window.location.href = '/matches'}>Go to Matches</button>
+              </div>}
+            {this.state.people.length != 0 && <div className="selections">
+              {this.state.people.map((person, i) => {
+                return (
+                  <SelectionItem
+                    id={person.id}
+                    name={person.name}
+                    img={person.img}
+                    onClick={this.selectionClick}
+                    currentSelection={this.state.currentSelection}
+                  />
+                );
+              })}
+            </div>}
+            {this.state.people.map((person, i) => {
+              if (person.id == this.state.currentSelection) {
+                return <ProfileMatchView person={person} />;
+              }
+            })}
           </div>
         </div>
       )

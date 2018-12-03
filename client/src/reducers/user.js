@@ -25,17 +25,21 @@ function UserReducer(state = {}, action) {
         });
       }
       return Object.assign({}, state, {
-        spotifyData: spotifyData
+        spotifyData: spotifyData,
+        loggedIn: true
       });
     case "GET_LOGGED_IN_USER":
       // if user is logged in
       if (action.user.id) {
         return Object.assign({}, state, {
-          spotifyData: action.user
+          spotifyData: action.user,
+          loggedIn: true
         });
       }
       // else, don't change anything
-      return state;
+      return Object.assign({}, state, {
+        loggedIn: false
+      });
     case "GET_MATCHES":
       console.log("matches data", action.matches);
       return Object.assign({}, state, {
@@ -45,6 +49,11 @@ function UserReducer(state = {}, action) {
       console.log("action", action.matchResult);
       return Object.assign({}, state, {
         matchResults: action.matchResult
+      });
+    case "GET_PEOPLE":
+      console.log("people data", action.people);
+      return Object.assign({}, state, {
+        peopleData: action.people
       });
     default:
       return state;

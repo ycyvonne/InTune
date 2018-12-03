@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { ConcertList, Header, Loader, Pagination } from "../../";
+import { ConcertList, Header, Loader, Pagination, Icon } from "../../";
 import "./ConcertPage.scss";
-import ConcertTemplate from './ConcertTemplate';
 
 class ConcertPage extends Component {
   constructor(props) {

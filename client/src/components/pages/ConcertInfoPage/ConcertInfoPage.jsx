@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Header, Loader, ImageCard } from "../../";
+import { Loader, Icon, ConcertImage, ConcertPerformanceItem } from "../../";
 import moment from 'moment';
+import { faCalendarAlt, faMap } from "@fortawesome/free-solid-svg-icons";
 
 import './ConcertInfoPage.scss'
 
@@ -36,7 +37,7 @@ class ConcertInfoPage extends Component {
           var concertData = [data.find(obj => obj.id == this.props.concertId) ];
           this.setState({
             initConcerts: true,
-            concert : concertData,
+            concert : concertData[0],
           });
         }
       }
@@ -60,58 +61,39 @@ class ConcertInfoPage extends Component {
         if (this.state.concert.length == 0) {
           isValid = false;
         }
-        
+        console.log(this.state.concert)
         return (
             <div className ="concert-info-wrapper">
                 {!isValid && <Loader type="Bars" color="#005AA8" />}
-                {isValid && (
-                    <div>
-                        <div className = "button-wrapper">
-                            <button className="back-button" onClick={ () => {this.redirectToConcertsPage()}}>
-                                Back
-                            </button>
-                        </div>
-                        <div className = "concert-details-wrapper">
-                            <div id="concert-header"  >{this.state.concert[0].displayName} </div>
-                            <ImageCard
-                                imgUrl="https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/07/28/104618086-6ED1-REQ-TicketScamsAG-072817.1910x1000.jpg"
-                                dimensionClass="concert-image-wrapper"
+                {
+                    isValid && 
+                    <div>  
+                        <div className="concert-main-wrapper">
+                            <ConcertImage
+                                artistId={this.state.concert.performance[0].artist.id}
+                                width='500px'
+                                height='auto'
                             />
-                            <div className = "concert-details">
-                                <div className="section">Date & Time: 
-                                    <div className="section-content">
-                                        {moment(this.state.concert[0].start.datetime).format('hh:mm A')}  
-                                    </div>
-                                    <div className="section-content">
-                                        {moment(this.state.concert[0].start.datetime).format('MMM DD, YYYY')}  
-                                    </div>
-
-                                </div>
-                                <div className="section"> Line Up: 
-                                    {this.state.concert[0].performance.map(performance => 
-                                    <div key={performance.id} className="section-content"> 
-                                    {performance.billing.replace(/^\w/, c => c.toUpperCase())}: <a href={performance.artist.uri}> 
-                                    {performance.displayName} </a></div>
-                                    ) } 
-                                    </div>
-                                <div className="section"> 
-                                    Venue: 
-                                    <div className="section-content">
-                                        {this.state.concert[0].venue.displayName}
-                                    </div>
-                                    <div className="section-content">
-                                        {this.state.concert[0].location.city}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="info-wrapper"> 
-                                        <button className="info-button" onClick = {() => this.redirectToConcertUri(this.state.concert[0].uri)}>
-                                            More Info & Tickets
-                                        </button>
+                            <div className="concert-detail-side">
+                                <h1 className="concert-title">Beach Bums and Bedroom with El Chisme at The Roxy Theatre</h1>
+                                <div className="blurb-icon"><Icon icon={faCalendarAlt}/>{this.getDateString(this.state.concert.start.datetime)}</div>
                             </div>
                         </div>
-                    </div> 
-                )}
+                        <div className="concert-performance-wrapper">
+                            {this.state.concert.performance.map((performanceData, i) => {
+                                return (<ConcertPerformanceItem
+                                    key={i}
+                                    link={performanceData.artist.uri}
+                                    artistId={performanceData.artist.id}
+                                    name={performanceData.artist.displayName}
+                                />)
+                            })}
+                        </div>
+                        <div className="concert-location-wrapper">
+
+                        </div>
+                    </div>
+                }
             </div>
         )
     }

@@ -32,6 +32,10 @@ export function makeMatch(userToMatchWithId) {
   );
 }
 
+export function getPeople() {
+  return get(`${serverBaseURL}/user/me/people`).then(res => res);
+}
+
 export function getConcerts() {
   return get(`${serverBaseURL}/concerts`).then(res => res);
 }
