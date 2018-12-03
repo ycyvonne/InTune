@@ -15,8 +15,10 @@ function checkConcert(id,concertData) {
 }
 
 function getConcerts(req, res) {
+  var data;
   SongkickAdapter.getEventsByMetroArea({})
     .then(function(concertData) {
+      data = concertData;
       var promises = concertData.map(songkickConcert => {
         //check if this concert is in db and add if its not
         var concert = {};
@@ -28,15 +30,17 @@ function getConcerts(req, res) {
         concert.artist = songkickConcert.performance[0].displayName;
         concert.artistId = songkickConcert.performance[0].artist.id;
         concert.date = songkickConcert.start.datetime;
+        concert.data = JSON.stringify(songkickConcert);      
         return checkConcert(concert.id, concert);
       })
-      
-      Promise.all(promises).then(data =>
-      {
-        res.json(concertData);
-      });
+
+      return Promise.all(promises);
+    })
+    .then(_ => {
+      return res.json(data);
     })
     .catch(function(error) {
+      console.log("bad error:", error.message);
       res.send(error);
     });
 }

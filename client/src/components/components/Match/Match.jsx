@@ -37,24 +37,34 @@ class Match extends Component {
         sLoading: true
       });
 
-      this.props.matchUser(this.state.id, () => {
-        this.setState({isLoading: false });
-        if (this.props.matchState.isMatch) {
-          
-          this.makeFade();
-          var name;
-          if (this.props.type == 'user') {
-            name = this.props.name.split(' ')[0]
+      if (this.props.type != 'concert') {
+        this.props.matchUser(this.state.id, () => {
+          this.setState({isLoading: false });
+          if (this.props.matchState.isMatch) {
+            
+            this.makeFade();
+            var name;
+            if (this.props.type == 'user') {
+              name = this.props.name.split(' ')[0]
+            }
+            else {
+              name = this.props.name
+            }
+            this.props.showMatch(name);
           }
-          else if (this.props.type == 'artist'){
-            name = this.props.name
+        });
+      }
+      else {
+        this.props.matchUserWithConcert(this.state.id, () => {
+          this.setState({ isLoading: false });
+          if (this.props.matchState.isMatch) {
+            this.makeFade();
+            var name = this.trimLength(this.props.name, 60)
+            this.props.showMatch(name);
           }
-          else {
-            name = this.trimLength(this.props.name, 60)
-          }
-          this.props.showMatch(name);
-        }
-      });
+        });
+      }
+      
     }
   }
 

@@ -83,6 +83,18 @@ export function matchUser(userToMatchWithId, cb) {
   };
 }
 
+export function matchUserWithConcert(concertToMatchWithId, cb) {
+  return (dispatch, prevState) => {
+    api
+      .makeConcertMatch(concertToMatchWithId)
+      .then(response => dispatch({ matchResult: response, type: "MATCH_CONCERT" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in matchUserWithConcert: " + error));
+  };
+}
+
 export function getPeople(cb) {
   return (dispatch, prevState) => {
     api
@@ -98,7 +110,7 @@ export function getPeople(cb) {
 export function getUserConcerts(cb) {
   return (dispatch, prevState) => {
     api
-      .getConcerts()
+      .getUserConcerts()
       .then(response => dispatch({ concerts: response, type: "GET_USER_CONCERTS" }))
       .then(() => {
         if (cb) cb();
