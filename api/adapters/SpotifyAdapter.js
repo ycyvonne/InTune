@@ -170,7 +170,7 @@ function getUserTopArtists(access_token) {
       link: artist.external_urls.spotify,
       name: artist.name,
       genres: artist.genres,
-      img: artist.images && artist.images[0] ? artist.images[0].url : null
+      img: (artist.images && artist.images[0]) ? artist.images[0].url : null
     })});
 }
 
