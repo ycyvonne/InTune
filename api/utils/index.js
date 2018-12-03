@@ -28,6 +28,11 @@ module.exports = (() => {
       return a;
     },
 
+    /**
+     * Generates a similarity score between two users
+     * @param {*} mp1 
+     * @param {*} mp2 
+     */
     getScore: function(mp1, mp2) {
 
       if (!mp1 || !mp2)  return 0;

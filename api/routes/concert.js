@@ -18,6 +18,8 @@ const express = require("express");
  */
 let concertRouter = express.Router();
 
+const concertController = require("../controllers/ConcertController");
+
 /**
  * Route to get concert events
  * @name /
@@ -27,9 +29,15 @@ let concertRouter = express.Router();
  * @param {string} metro_area - Metro area ID to search by
  * @returns {JSON} - A json object containing a list of concert events
  */
-const concertController = require("../controllers/ConcertController");
-
 concertRouter.get("/", concertController.getConcerts);
+
+/**
+ * Route to delete concerts
+ * @name /all/delete
+ * @function
+ * @memberof module:routes/concert~concertRouter
+ * @inner
+ */
 concertRouter.get("/all/delete", concertController.deleteAll);
 
 module.exports = concertRouter;

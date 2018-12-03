@@ -149,7 +149,7 @@ class MatchList extends Component {
           className="match-list-wrapper"
         >
           {matches.map((match, i) => {
-            if (match.type == 'user' || match.type == 'artist')
+            if (match.type == "user" || match.type == "artist")
               return (
                 <div className="tile" key={i}>
                   <Match
@@ -161,7 +161,9 @@ class MatchList extends Component {
                     type={match.type}
                     name={match.data.name}
                     img={match.data.img}
-                    key={`person-${i}`}
+                    topArtists={match.data.artists}
+                    topTracks={match.data.tracks}
+                    key={i}
                   />
                 </div>
               );
@@ -176,7 +178,9 @@ class MatchList extends Component {
                     id={match.id}
                     type={match.type}
                     name={match.data.name}
-                    img={`http://images.sk-static.com/images/media/profile_images/artists/${match.data.artist_id}/huge_avatar`}
+                    img={`http://images.sk-static.com/images/media/profile_images/artists/${
+                      match.data.artist_id
+                    }/huge_avatar`}
                     artist={match.data.artist}
                     date={match.data.date}
                     key={`concert-${i}`}
