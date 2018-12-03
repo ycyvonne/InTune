@@ -63,12 +63,11 @@
         font-family: Raleway;
       }
       .track-details {
-        display: flex;
-        flex-direction: column;
         line-height: 0px;
+        text-align: left;
       }
       .match-icon-wrapper {
-        font-size: 40px;
+        font-size: 24px;
         color: $theme-color-2;
         margin-right: 10px;
       }
