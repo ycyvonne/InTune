@@ -14,7 +14,6 @@ class ConcertList extends Component {
         'gridTemplateColumns': `repeat(${this.props.numPerRow ? this.props.numPerRow : defaultPerRow}, 1fr)`
       }}>
         {this.props.concerts.map((concert, i) => {
-          console.log('concert obj', concert)
           return (
             <Concert
               key={i}

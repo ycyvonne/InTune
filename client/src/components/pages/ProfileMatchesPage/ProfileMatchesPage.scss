@@ -1,6 +1,5 @@
 @import "../../../styles/vars.scss";
 
-$profile-padding: 20px;
 
 .section-header {
   font-size: 36px;
@@ -69,46 +68,6 @@ $profile-padding: 20px;
       border-right: none;
       background: #f9f9ff;
       border-left: 2px solid $theme-color-1;
-    }
-  }
-  .profile-main-view {
-    width: 100%;
-    padding: $profile-padding;
-    display: flex;
-    flex-direction: column;
-    .match-picture-size {
-      object-fit: cover;
-      width: $match-picture-dimension;
-      height: $match-picture-dimension;
-      max-height: $match-picture-dimension;
-      max-width: 100%;
-    }
-    .details {
-      display: flex;
-      justify-content: space-around;
-      .subtitle {
-        font-size: $medium-font-size;
-      }
-      .name {
-        font-size: $large-font-size;
-        font-family: $subheading-font;
-        font-weight: 600;
-      }
-      .type {
-        font-size: $medium-font-size;
-      }
-      .artist-type {
-        color: $theme-color-1;
-      }
-      .concert-type {
-        color: $theme-color-2;
-      }
-      .detail {
-        p {
-          display: flex;
-          align-items: center;
-        }
-      }
     }
   }
 }
