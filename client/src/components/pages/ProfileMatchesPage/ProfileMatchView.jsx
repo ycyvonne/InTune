@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Icon } from "../../";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import { faMusic, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import './ProfileMatchView.scss'
+import "./ProfileMatchView.scss";
 
 class ProfileMatchView extends Component {
   constructor(props) {
@@ -11,8 +11,6 @@ class ProfileMatchView extends Component {
   }
 
   render() {
-    var type = "Person";
-    var typeClass = "type";
     return (
       <div className="profile-main-view">
         <div className="details">
@@ -35,42 +33,47 @@ class ProfileMatchView extends Component {
         </div>
         <div className="details details-body">
           <div className="detail-section">
-            <h1>{this.props.person.name.split(' ')[0]}'s Top Artists</h1>
+            <h1>{this.props.person.name.split(" ")[0]}'s Top Artists</h1>
             <div className="carousel">
               <div className="carousel-inner">
                 {this.props.person.artists.map((item, i) => {
                   var artist = JSON.parse(item);
-                  return (<div className="carousel-item" key={i}>
-                    <a href="#">
-                      <div
-                        className="carousel-thumbnail"
-                        style={{
-                          background: artist.img ? `url(${artist.img}` : ''
-                        }}/>
-                    </a>
-                    <h3>{artist.name}</h3>
-                  </div>);
+                  return (
+                    <div className="carousel-item" key={i}>
+                      <a href="#">
+                        <div
+                          className="carousel-thumbnail"
+                          style={{
+                            background: artist.img ? `url(${artist.img}` : ""
+                          }}
+                        />
+                      </a>
+                      <h3>{artist.name}</h3>
+                    </div>
+                  );
                 })}
               </div>
             </div>
           </div>
-          <div className="section-divider"/>
+          <div className="section-divider" />
           <div className="detail-section">
-            <h1>{this.props.person.name.split(' ')[0]}'s Top Tracks</h1>
+            <h1>{this.props.person.name.split(" ")[0]}'s Top Tracks</h1>
             <div className="tracks-grid">
               {this.props.person.tracks.map((track, i) => {
                 var track = JSON.parse(track);
-                return <div className="track-item" key={i}>
-                  <div className="track-thumbnail"
-                    style={{background: `url(${track.img[2].url})`}}>
+                return (
+                  <div className="track-item">
+                    <div
+                      className="track-thumbnail"
+                      style={{ background: `url(${track.img[2].url})` }}
+                    />
+                    <div className="track-side">
+                      <h3>{track.name}</h3>
+                      <p>{track.album}</p>
+                    </div>
                   </div>
-                  <div className="track-side">
-                    <h3>{track.name}</h3>
-                    <p>{track.album}</p>
-                  </div>
-                </div>;
-              })
-              }
+                );
+              })}
             </div>
           </div>
         </div>
