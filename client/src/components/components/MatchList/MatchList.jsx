@@ -154,6 +154,7 @@ class MatchList extends Component {
                 <div className="tile" key={i}>
                   <Match
                     matchUser={this.props.matchUser}
+                    matchUserWithConcert={this.props.matchUserWithConcert}
                     matchState={this.props.user.matchResults}
                     showMatch={this.showMatch}
                     id={match.id}
@@ -169,6 +170,7 @@ class MatchList extends Component {
                 <div className="tile" key={i}>
                   <Match
                     matchUser={this.props.matchUser}
+                    matchUserWithConcert={this.props.matchUserWithConcert}
                     matchState={this.props.user.matchResults}
                     showMatch={this.showMatch}
                     id={match.id}

@@ -32,6 +32,12 @@ export function makeMatch(userToMatchWithId) {
   );
 }
 
+export function makeConcertMatch(concertToMatchWithId) {
+  return post(`${serverBaseURL}/user/me/match-concert`, { id: concertToMatchWithId }).then(
+    res => res
+  );
+}
+
 export function getPeople() {
   return get(`${serverBaseURL}/user/me/people`).then(res => res);
 }
