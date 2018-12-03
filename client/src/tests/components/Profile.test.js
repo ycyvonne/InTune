@@ -1,8 +1,8 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import Profile from '../../components/Profile/Profile';
-import Header from '../../components/Header/Header';
+import Profile from '../../components/pages/ProfilePage/ProfilePage';
+import Header from '../../components/components/Header/Header';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -12,7 +12,7 @@ function setupValid() {
     const props = {
         user: {
             spotifyData: {
-                display_name: "User",
+                name: "User",
                 fetched: "true"
             }
         }
@@ -51,6 +51,10 @@ describe('Profile', () =>{
 
     it('should not render if it cannot get spotify data', ()=>{
         const{enzymeWrapper} = setupInvalid();
-        expect(enzymeWrapper.isEmptyRender()).toBe(true);
+        expect(enzymeWrapper.isEmptyRender()).toBe(false);
+    })
+
+    it('should login user id needed', () => {
+
     })
 });
