@@ -6,18 +6,13 @@ const SpotifyAdapter = require("../adapters/SpotifyAdapter");
 const sessions = require("../sessions");
 const util = require("../utils");
 
-function index(req, res) {
-  res.json("/ endpoint hit");
-}
 
 function _createUser(userData, sessionInfo) {
   var musicProfile = {};
   var profile = {};
   var spotId;
-
   return new Promise((resolve, reject) => {
     spotId = userData.id;
-
     // Update profile
     profile.name = userData.display_name;
     profile.email = userData.email;
@@ -59,7 +54,7 @@ function getArtists(req, res) {
 
 function getUser(req, res) {
   User.findById(req.params.id)
-    .then(user => res.send(getUserReturnString))
+    .then(user => res.send(getUserReturnString(user)))
     .catch(err => res.send(err));
 }
 
@@ -149,13 +144,10 @@ function updateProfile(req, res) {
 }
 
 function getMe(req, res) {
-  console.log("cookie", req.cookies.session);
   var lookup = sessions.lookupSession(req.cookies.session);
-  console.log(lookup);
   if (!req.cookies.session || !lookup) {
     return res.status(401).send("User not logged in.");
   }
-
   User.findById(lookup.id)
     .then(user => {
       res.send(getUserReturnString(user));
@@ -218,8 +210,6 @@ function getMatches(req, res) {
     .then(_concerts => {
       concerts = _concerts;
       util.shuffle(concerts);
-
-      var mp = user.musicProfile;
 
       util.shuffle(users);
       users.sort((a, b) => {
@@ -306,11 +296,8 @@ function match(req, res) {
     return res.status(400).send("'otherId' field not supplied in request.");
   }
 
-  console.log("got id " + otherId);
-
   var matcher;
 
-  console.log("trying to match users");
 
   User.match(state.id, otherId)
     .then(newUser => {
@@ -318,10 +305,11 @@ function match(req, res) {
       return User.hasMatch(matcher._id, otherId);
     })
     .then(isMatch => {
-      res.send({
+      var data = {
         isMatch: isMatch,
         data: getUserData(matcher)
-      });
+      }
+      res.send(data);
     })
     .catch(err => {
       console.log("got error: " + err.message);
@@ -334,9 +322,6 @@ function getPeople(req, res) {
   if (!state) {
     return res.status(401).send("User not logged in.");
   }
-  console.log("getPeople");
-  console.log(req);
-  console.log(res);
   User.findById(state.id)
     .then(user => {
       return Promise.all(
@@ -349,50 +334,10 @@ function getPeople(req, res) {
       res.json(users.map(user => getUserData(user)));
     })
     .catch(err => {
-      console.log(err, err.message);
       res.status(500).send(err);
     });
 }
 
-function testMatches(req, res) {
-  var first, second, result;
-  result = {};
-
-  console.log("testing matches");
-
-  User.findBySpotifyId(1)
-    .then(user => {
-      first = user;
-      return User.findBySpotifyId(2);
-    })
-    .then(user => {
-      second = user;
-
-      return User.match(first._id, second._id);
-    })
-    .then(_ => {
-      return User.match(second._id, first._id);
-    })
-    .then(_ => {
-      return User.findById(first._id);
-    })
-    .then(user => {
-      result.first = user;
-      return User.findById(second._id);
-    })
-    .then(user => {
-      result.second = user;
-      return User.hasMatch(first._id, second._id);
-    })
-    .then(isMatch => {
-      result.isMatch = isMatch;
-      res.json(result);
-    })
-    .catch(err => {
-      console.log(err, err.message);
-      res.status(500).send(err);
-    });
-}
 
 function getUserData(user) {
   return {
@@ -429,7 +374,6 @@ function getUserReturnString(user, isNewUser = false) {
 }
 
 module.exports = {
-  index,
   getUsers,
   getArtists,
   getUser,
@@ -444,44 +388,4 @@ module.exports = {
   getSpotifyProfile,
   match,
   getPeople,
-  testMatches
 };
-
-//   // stub getting matches
-//   var profiles = [];
-
-//   for (var i = 0; i < 10; i++) {
-//     profiles.push({
-//       sid: i.toString(),
-//       profile: {
-//         name: "John Smith " + i.toString(),
-//         img: "https://robertzalog.com/me.jpg",
-//         email: "jsmith@gmail.com",
-//         spotifyUrl: "https://robertzalog.com",
-//         isArtist: false
-//       },
-//       music_profile: {
-//         artists: [],
-//         genres: [],
-//         tracks: []
-//       }
-//     });
-//   }
-//   var matches = [];
-//   profiles.forEach((profile, i) => {
-//     var type = "user";
-//     if (i % 5 == 0) {
-//       type = "artist";
-//     } else {
-//       type = "concert";
-//     }
-//     matches.push({
-//       type: type,
-//       id: "" + Math.random(),
-//       data: profile
-//     });
-//   });
-
-//   res.send({
-//     matches: matches
-//   });
