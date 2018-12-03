@@ -1,5 +1,9 @@
 @import "../../../styles/vars.scss";
 
+.profile-loader {
+  margin-top: 100px;
+}
+
 .picture-picture-size {
   object-fit: cover;
   width: $profile-picture-bg-dimension;

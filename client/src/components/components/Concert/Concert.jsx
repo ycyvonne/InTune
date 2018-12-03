@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { ImageCard } from "../../";
-import barcode from '../../../assets/img/barcode.png';
+import { ConcertImage } from "../../";
 import "./Concert.scss";
 
 class Concert extends Component {
@@ -11,12 +10,15 @@ class Concert extends Component {
   render() {
     return (
       <a className="concert-wrapper" href={'/concert/' + this.props.id}>
-        <div className="details-wrapper">
-          <div className="title">{this.props.name}</div>
-          <div className="location">Venue: {this.props.location}</div>
+        <ConcertImage artistId={this.props.artistId} />
+        <div className="concert-inner-wrapper">
+          <div className="details-wrapper">
+            <div className="title">{this.props.name}</div>
+            <div className="location">Venue: {this.props.location}</div>
+          </div>
         </div>
-        <div className="ticket-side">
-          <img src={barcode} />
+        <div className="ticket-bottom">
+            Read More
         </div>
       </a>
     );
