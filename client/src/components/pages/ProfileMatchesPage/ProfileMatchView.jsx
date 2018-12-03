@@ -42,7 +42,11 @@ class ProfileMatchView extends Component {
                   var artist = JSON.parse(item);
                   return (<div className="carousel-item" key={i}>
                     <a href="#">
-                      <div className="thumbnail" style={{background: `url(https://t2.genius.com/unsafe/220x220/https%3A%2F%2Fimages.genius.com%2F2761436d8e81c60c2e2350e0893a2455.600x600x1.jpg)`}}/>
+                      <div
+                        className="carousel-thumbnail"
+                        style={{
+                          background: artist.img ? `url(${artist.img}` : ''
+                        }}/>
                     </a>
                     <h3>{artist.name}</h3>
                   </div>);

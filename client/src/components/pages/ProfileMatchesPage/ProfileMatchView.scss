@@ -68,7 +68,9 @@
             }
         }
 
-        .thumbnail {
+        .carousel-thumbnail {
+            background: black;
+            background-size: cover !important;
             height: 150px;
             width: 150px;
             border-radius: 8px;

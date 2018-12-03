@@ -86,7 +86,6 @@ class ProfileMatchesPage extends Component {
               <div className="selections">
               {
                 this.state.people.map((person, i) => {
-                  console.log('people', person)
                   return (
                     <SelectionItem
                       key={i}
