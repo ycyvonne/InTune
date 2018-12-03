@@ -81,4 +81,12 @@ describe('user reducer', () => {
         })
         ).toEqual({matchResults: []})
     })
+
+    it('should handle GET_PEOPLE', () => {
+        expect(UserReducer({},{
+            type: 'GET_PEOPLE',
+            people: []
+        })
+        ).toEqual({people: []})
+    })
 });
