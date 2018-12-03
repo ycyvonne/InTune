@@ -88,6 +88,7 @@ class ProfileMatchesPage extends Component {
                 this.state.people.map((person, i) => {
                   return (
                     <SelectionItem
+                      key={i}
                       id={person.id}
                       name={person.name}
                       img={person.img}
@@ -103,6 +104,7 @@ class ProfileMatchesPage extends Component {
               this.state.people && this.state.people.map((person, i) => {
                 if (person.id == this.state.currentSelection) {
                   return <ProfileMatchView
+                            key={i}
                             person={person}
                             type="person"/>;
                 }

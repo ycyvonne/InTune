@@ -19,14 +19,14 @@ class ProfileMatchView extends Component {
           <div className="detail">
             <p className="name">{this.props.person.name}</p>
             {this.props.type == 'artist' && <p className={this.props.type}>{this.props.type}</p>}
-            <p>
+            <div>
               <Icon icon={faEnvelope} />
               {this.props.person.email}
-            </p>
-            <p>
+            </div>
+            <div>
               <Icon icon={faMusic} />
               {this.props.person.spotifyUrl}
-            </p>
+            </div>
           </div>
           <ProfilePicture
             imageUrl={this.props.person.img}
@@ -37,14 +37,14 @@ class ProfileMatchView extends Component {
         <div className="details">
           <div className="match-artists">
             <div className="subtitle">Top Artists</div>
-            {this.props.person.artists.map(artist => {
-              return <div>{JSON.parse(artist).name}</div>;
+            {this.props.person.artists.map((artist, i) => {
+              return <div key={i}>{JSON.parse(artist).name}</div>;
             })}
           </div>
           <div className="match-tracks">
             <div className="subtitle">Top Tracks</div>
-            {this.props.person.tracks.map(track => {
-              return <div>{JSON.parse(track).name}</div>;
+            {this.props.person.tracks.map((track, i) => {
+              return <div key={i}>{JSON.parse(track).name}</div>;
             })}
           </div>
         </div>

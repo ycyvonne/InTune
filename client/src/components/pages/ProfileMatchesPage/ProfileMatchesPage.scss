@@ -67,6 +67,8 @@ $profile-padding: 20px;
       border-bottom: 1px solid $grey-light;
       font-weight: bold;
       border-right: none;
+      background: #f9f9ff;
+      border-left: 2px solid $theme-color-1;
     }
   }
   .profile-main-view {
