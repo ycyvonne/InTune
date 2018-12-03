@@ -19,11 +19,13 @@ class Match extends Component {
     console.log(this.props);
     var artists = [];
     var tracks = [];
-    for (var i = 0; i < this.props.topArtists.length; i++) {
-      artists.push(JSON.parse(this.props.topArtists[i]));
-    }
-    for (var i = 0; i < this.props.topTracks.length; i++) {
-      tracks.push(JSON.parse(this.props.topTracks[i]));
+    if (this.props.topArtists || this.props.topTracks) {
+      for (var i = 0; i < this.props.topArtists.length; i++) {
+        artists.push(JSON.parse(this.props.topArtists[i]));
+      }
+      for (var i = 0; i < this.props.topTracks.length; i++) {
+        tracks.push(JSON.parse(this.props.topTracks[i]));
+      }
     }
     this.state = {
       id: this.props.id,
