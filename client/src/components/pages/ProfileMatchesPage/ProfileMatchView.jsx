@@ -60,7 +60,7 @@ class ProfileMatchView extends Component {
             <div className="tracks-grid">
               {this.props.person.tracks.map((track, i) => {
                 var track = JSON.parse(track);
-                return <div className="track-item">
+                return <div className="track-item" key={i}>
                   <div className="track-thumbnail"
                     style={{background: `url(${track.img[2].url})`}}>
                   </div>
