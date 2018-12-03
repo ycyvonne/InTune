@@ -16,9 +16,13 @@ class ProfileMatchView extends Component {
     return (
       <div className="profile-main-view">
         <div className="details">
+          <ProfilePicture
+            imageUrl={this.props.person.img}
+            customSize="match-picture-size"
+            isCircle={true}
+          />
           <div className="detail">
-            <p className="name">{this.props.person.name}</p>
-            {this.props.type == 'artist' && <p className={this.props.type}>{this.props.type}</p>}
+            <h1 className="name">{this.props.person.name}</h1>
             <div>
               <Icon icon={faEnvelope} />
               {this.props.person.email}
@@ -28,15 +32,10 @@ class ProfileMatchView extends Component {
               {this.props.person.spotifyUrl}
             </div>
           </div>
-          <ProfilePicture
-            imageUrl={this.props.person.img}
-            customSize="match-picture-size"
-            isCircle={true}
-          />
         </div>
         <div className="details details-body">
           <div className="detail-section">
-            <h1>Top Artists</h1>
+            <h1>{this.props.person.name.split(' ')[0]}'s Top Artists</h1>
             <div className="carousel">
               <div className="carousel-inner">
                 {this.props.person.artists.map((item, i) => {
@@ -53,11 +52,10 @@ class ProfileMatchView extends Component {
           </div>
           <div className="section-divider"/>
           <div className="detail-section">
-            <h1>Top Tracks</h1>
+            <h1>{this.props.person.name.split(' ')[0]}'s Top Tracks</h1>
             <div className="tracks-grid">
               {this.props.person.tracks.map((track, i) => {
                 var track = JSON.parse(track);
-                console.log('track', track)
                 return <div className="track-item">
                   <div className="track-thumbnail"
                     style={{background: `url(${track.img[2].url})`}}>
