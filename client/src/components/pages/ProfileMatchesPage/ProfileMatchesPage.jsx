@@ -30,7 +30,7 @@ class ProfileMatchesPage extends Component {
   }
 
   initPeople() {
-    if (!this.props.user.peopleData) {
+    if (!this.props.user.peopleData || this.props.user.peopleData.length == 0) {
       this.setState({ people: [] });
     } else {
       var data = Object.values(this.props.user.peopleData);
@@ -86,6 +86,7 @@ class ProfileMatchesPage extends Component {
               <div className="selections">
               {
                 this.state.people.map((person, i) => {
+                  console.log('people', person)
                   return (
                     <SelectionItem
                       key={i}
