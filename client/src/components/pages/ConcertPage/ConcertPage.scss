@@ -9,16 +9,6 @@
   justify-content: center;
 }
 
-.concert-list-wrapper {
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(5, 1fr);
-}
-
-.concert-list-wrapper > div {
-  margin: 20px;
-}
-
 .header > div {
   color: $theme-color-2;
   font-family: $body-font;

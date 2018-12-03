@@ -514,6 +514,12 @@ function getConcertData(concert) {
   };
 }
 
+const mockConcerts = require('../mock-concert')
+function (req, res) {
+  console.log('mock concerts', mockConcerts.concerts[0])
+  res.send(mockConcerts.concerts);
+}
+
 /**
  * Get user return string to send back to client.
  * @param {*} user 
@@ -544,6 +550,7 @@ module.exports = {
   getPeople,
   matchConcert,
   getConcerts,
+  getUserConcerts,
   testMatches
 };
 

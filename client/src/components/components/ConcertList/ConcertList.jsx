@@ -8,10 +8,12 @@ class ConcertList extends Component {
   }
 
   render() {
+    var defaultPerRow = 5;
     return (
-      <div className="concert-list-wrapper">
+      <div className="concert-list-wrapper" style={{
+        'gridTemplateColumns': `repeat(${this.props.numPerRow ? this.props.numPerRow : defaultPerRow}, 1fr)`
+      }}>
         {this.props.concerts.map((concert, i) => {
-          console.log('concert obj', concert)
           return (
             <Concert
               key={i}
