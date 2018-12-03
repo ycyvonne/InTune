@@ -16,7 +16,8 @@ describe('user reducer', () => {
             spotifyData: {
                 error: null,
                 fetched: true
-            }
+            },
+            loggedIn: true
         })
     })
 
@@ -28,7 +29,8 @@ describe('user reducer', () => {
             }
         })
         ).toEqual({
-            spotifyData:{}
+            spotifyData:{},
+            loggedIn: true
         })
     })
 
@@ -52,7 +54,8 @@ describe('user reducer', () => {
         ).toEqual({
             spotifyData:{
                 id:'test'
-            }
+            },
+            loggedIn: true
         })
     })
 
@@ -61,7 +64,7 @@ describe('user reducer', () => {
             type: 'GET_LOGGED_IN_USER',
             user:{}
         })
-        ).toEqual({})
+        ).toEqual({loggedIn: false})
     })
 
     it('should handle GET_MATCHES', () => {
@@ -87,6 +90,6 @@ describe('user reducer', () => {
             type: 'GET_PEOPLE',
             people: []
         })
-        ).toEqual({people: []})
+        ).toEqual({peopleData: []})
     })
 });
