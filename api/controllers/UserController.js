@@ -509,7 +509,8 @@ function getConcertData(concert) {
     location: concert.location,
     artist: concert.artist,
     artist_id: concert.artistId,
-    date: concert.date
+    date: concert.date,
+    data: concert.data
   };
 }
 
