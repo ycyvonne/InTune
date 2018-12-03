@@ -26,7 +26,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import * as api from '../api';
+            <pre class="prettyprint source linenums"><code>import * as api from "../api";
 
 /** Actions
  * @module actions
@@ -34,18 +34,117 @@
  * @description Client side action dispatcher for global state/store changes
  */
 
+export function getUsername(cb) {
+  return (dispatch, prevState) => {
+    api
+      .getUsername()
+      .then(response => dispatch({ name: response, type: "GET_USER_NAME" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.error("Error in getUsername: " + error));
+  };
+}
+
 /**
- * Action dispatcher for authorization
- * @name authorize
+ * Action dispatcher to create/login user
+ * @name loginUser
  * @function
  * @memberof module:actions
  */
-export function authorize(code) {
-      return (dispatch, prevState) => {
-            api.authorize(code)
-                  .then(response => dispatch({ authorize: response, type: "AUTHORIZE" }))
-                  .catch(error => console.error("Error in authorize: " + error));
-            };
+export function loginUser(code) {
+  return (dispatch, prevState) => {
+    api
+      .authorize(code)
+      .then(response => dispatch({ user: response, type: "LOGIN" }))
+      .catch(error => console.error("Error in loginUser: " + error));
+  };
+}
+
+export function getLoggedInUser(cb) {
+  return (dispatch, prevState) => {
+    api
+      .authorize()
+      .then(response =>
+        dispatch({ user: response, type: "GET_LOGGED_IN_USER" })
+      )
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.error("Error in getLoggedInUser: " + error));
+  };
+}
+
+export function getConcerts(cb) {
+  return (dispatch, prevState) => {
+    api
+      .getConcerts()
+      .then(response => dispatch({ concerts: response, type: "GET_CONCERTS" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in getConcerts: " + error));
+  };
+}
+
+export function getMatches(cb) {
+  return (dispatch, prevState) => {
+    api
+      .getMatches()
+      .then(response => dispatch({ matches: response, type: "GET_MATCHES" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in getMatches: " + error));
+  };
+}
+
+export function matchUser(userToMatchWithId, cb) {
+  return (dispatch, prevState) => {
+    api
+      .makeMatch(userToMatchWithId)
+      .then(response => dispatch({ matchResult: response, type: "MATCH" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in matchUser: " + error));
+  };
+}
+
+export function matchUserWithConcert(concertToMatchWithId, cb) {
+  return (dispatch, prevState) => {
+    api
+      .makeConcertMatch(concertToMatchWithId)
+      .then(response => dispatch({ matchResult: response, type: "MATCH_CONCERT" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in matchUserWithConcert: " + error));
+  };
+}
+
+export function getPeople(cb) {
+  return (dispatch, prevState) => {
+    api
+      .getPeople()
+      .then(response => dispatch({ people: response, type: "GET_PEOPLE" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in getPeople: " + error));
+  };
+}
+
+export function getUserConcerts(cb) {
+  return (dispatch, prevState) => {
+    api
+      .getUserConcerts()
+      .then(response => dispatch({ concerts: response, type: "GET_USER_CONCERTS" }))
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in getUserConcerts: " + error));
+  };
 }</code></pre>
         </article>
     </section>
@@ -56,13 +155,13 @@ export function authorize(code) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-actions.html">actions</a></li><li><a href="module-adapters_songkick.html">adapters/songkick</a></li><li><a href="module-adapters_spotify.html">adapters/spotify</a></li><li><a href="module-api.html">api</a></li><li><a href="module-reducers.html">reducers</a></li><li><a href="module-routes_concert.html">routes/concert</a></li><li><a href="module-routes_user.html">routes/user</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routes_concert-concertRouter.html">concertRouter</a></li><li><a href="module-routes_user-userRouter.html">userRouter</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-actions.html">actions</a></li><li><a href="module-adapters_songkick.html">adapters/songkick</a></li><li><a href="module-adapters_spotify.html">adapters/spotify</a></li><li><a href="module-api.html">api</a></li><li><a href="module-ConcertController.html">ConcertController</a></li><li><a href="module-reducers.html">reducers</a></li><li><a href="module-routes_concert.html">routes/concert</a></li><li><a href="module-routes_user.html">routes/user</a></li><li><a href="module-UserController.html">UserController</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routes_concert-concertRouter.html">concertRouter</a></li><li><a href="module-routes_user-userRouter.html">userRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 13:08:45 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Dec 02 2018 23:17:04 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
