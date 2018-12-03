@@ -32,33 +32,40 @@ mongoose.connection.on('error', (err) => {
 });
 
 function loadMockData() {
-	mock.users.forEach(user => {
-		User.findBySpotifyId(user.spotifyId)
+	var deletePromises = mock.users.map(user => {
+		return User.findBySpotifyId(user.spotifyId)
 			.then(obj => {
 				if (obj) {
 					User.deleteById(obj._id);
 				}
+				return null;
 			})
 			.catch(err => {
 				console.log("err writing obj: ", err, err.message);
-			})
-	})
+			});
+	});
 
-	mock.users.forEach(profile => {
-		var id;
+	Promise.all(deletePromises)
+		.then(_ => {
+			var creationPromises = mock.users.map(profile => {
+				var id;
+				return User.create(profile.spotifyId)
+					.then(user => {
+						id = user._id;
+						return User.updateProfile(id, profile);
+					})
+					.then(user => {
+						return User.updateMusicProfile(id, profile);
+					})
+					.catch(err => console.log("got error " + err));
+			});
 
-		User.create(profile.spotifyId)
-			.then(user => {
-				id = user._id;
-				return User.updateProfile(id, profile);
-			})
-			.then(user => {
-				return User.updateMusicProfile(id, profile);
-			})
-			.catch(err => {
-				console.log("got error " + err);
-			})
-	})
+			return Promise.all(creationPromises);
+		})
+		.then(_ => {
+			console.log("Successfully loaded in mock users.");
+		})
+		.catch(err => console.log("err writing obj: ", err, err.message));
 }
 
 module.exports = {
