@@ -225,6 +225,11 @@ userSchema.statics.hasMatch = function(matcherId, targetId) {
 		})
 }
 
+/**
+ * Adds a concert to the user objects
+ * @param {string} uid The user id
+ * @param {string} cid The concert id
+ */
 userSchema.statics.addConcert = function(uid, cid) {
 	return this.findById(uid)
 		.then(user => {

@@ -1,6 +1,11 @@
 const SongkickAdapter = require("../adapters/SongkickAdapter");
 const Concert = require('../models/Concert');
 
+/**
+ * Checks if concert exists and persists if it does not
+ * @param {*} id 
+ * @param {*} concertData 
+ */
 function checkConcert(id,concertData) {
   return Concert.findByConcertId(id)
     .then(concert => {
@@ -14,6 +19,11 @@ function checkConcert(id,concertData) {
     })
 }
 
+/**
+ * Calls Songkick API and returns information for multiple concerts
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getConcerts(req, res) {
   var data;
   SongkickAdapter.getEventsByMetroArea({})
@@ -45,21 +55,27 @@ function getConcerts(req, res) {
     });
 }
 
+/**
+ * Deletes all concerts from DB
+ * @param {*} req 
+ * @param {*} res 
+ */
 function deleteAll(req,res){
   Concert.deleteAll()
     .then(concerts => res.send(JSON.stringify(concerts)))
     .catch(error => res.send(error))
 }
 
+/**
+ * Gets all concerts from DB
+ * @param {*} req 
+ * @param {*} res 
+ */
 function getAllConcerts(req, res) {
   Concert.findAll()
     .then(concerts => res.send(JSON.stringify(concerts)))
     .catch(err => res.send(err));
 }
-
-
-
-
 
 module.exports = {
   getConcerts,
