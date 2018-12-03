@@ -19,6 +19,7 @@ var concertSchema = new mongoose.Schema({
  * Creates a concert object
  * @param {string} id
  * @param {string} concert
+ * @returns {Promise} Promise which resolves to a Concert object or null
  */
 concertSchema.statics.create = function(id, concert) {
     var concert  = new this ({
@@ -48,6 +49,7 @@ concertSchema.statics.create = function(id, concert) {
 /**
  * Finds a concert object by id
  * @param {string} id
+ * @returns {Promise} Promise which resolves to a Concert object or null
  */
 concertSchema.statics.findByConcertId = function(id) {
     return new Promise((resolve, reject) => {
@@ -67,6 +69,7 @@ concertSchema.statics.findByConcertId = function(id) {
 
 /**
  * Gets all concert objects
+ * @returns {Promise} Promise which resolves to a Concert object or null
  */
 concertSchema.statics.findAll= function() {
     return new Promise((resolve, reject) => {
@@ -82,6 +85,7 @@ concertSchema.statics.findAll= function() {
 /**
  * Deletes a concert object
  * @param {string} id
+ * @returns {Promise} Promise which resolves to a Concert object or null
  */
 concertSchema.statics.deleteByConcertId = function(id) {
     return new Promise((resolve, reject) => {
@@ -94,6 +98,7 @@ concertSchema.statics.deleteByConcertId = function(id) {
 
 /**
  * Deletes all concert objects
+ * @returns {Promise} Promise which resolves to a Concert object or null
  */
 concertSchema.statics.deleteAll = function() {
     return new Promise((resolve, reject) => {

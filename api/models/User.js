@@ -27,7 +27,8 @@ var userSchema = new mongoose.Schema({
 /**
  * Return an appended array (needed for Mongoose).
  * @param {*} arr 
- * @param {*} val 
+ * @param {*} val
+ * @return {[*]} New array
  */
 function app(arr, val) {
 	var tmp = arr.slice();
@@ -67,6 +68,7 @@ userSchema.statics.create = function(sid) {
  * Updates a user's profile to the DB.
  * @param {string} spotifyId
  * @param {*} profile
+ * @returns {Promise} Promise which resolves to a User object or null
  */
 userSchema.statics.updateMusicProfile = function(id, profile) {
 	return this.findById(id)
@@ -88,6 +90,7 @@ userSchema.statics.updateMusicProfile = function(id, profile) {
  * Updates a user's music profile to the DB.
  * @param {string} spotifyId
  * @param {*} profile
+ * @returns {Promise} Promise which resolves to a User object or null
  */
 userSchema.statics.updateProfile = function(id, profile) {
 	return this.findById(id)
@@ -160,6 +163,7 @@ userSchema.statics.findBySpotifyId = function(spotId) {
  * Puts a "match" request from one user to another user.
  * @param {string} matcherId
  * @param {string} targetId
+ * @returns {Promise} Promise which resolves to a User object or null
  */
 userSchema.statics.match = function(matcherId, targetId) {
 	var matcher, target;
@@ -209,6 +213,7 @@ userSchema.statics.match = function(matcherId, targetId) {
  * Checks if a user is matched with another.
  * @param {string} matcherId
  * @param {string} targetId
+ * @returns {Promise} Promise which resolves to a User object or null
  */
 userSchema.statics.hasMatch = function(matcherId, targetId) {
 	var matcher, target;
@@ -229,6 +234,7 @@ userSchema.statics.hasMatch = function(matcherId, targetId) {
  * Adds a concert to the user objects
  * @param {string} uid The user id
  * @param {string} cid The concert id
+ * @returns {Promise} Promise which resolves to a User object or null
  */
 userSchema.statics.addConcert = function(uid, cid) {
 	return this.findById(uid)
@@ -265,6 +271,7 @@ userSchema.statics.findAll = function(isArtist=false) {
 /**
  * Deletes a single User object in the database
  * @param {string} User id
+ * @returns {Promise} Promise which resolves to a User object or null
  * @example
  * User.deleteById(... id ...)
  *     .then(user => console.log(user))
@@ -281,6 +288,7 @@ userSchema.statics.deleteById = function(id) {
 
 /**
  * Deletes all users from the database
+ * @returns {Promise} Promise which resolves to a User object or null
  * @example
  * User.deleteById(... id ...)
  *     .then(user => console.log(user))
