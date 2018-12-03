@@ -109,6 +109,13 @@ function getUserInfo(access_token) {
   });
 }
 
+/**
+ * Gets top items from Spotify API
+ * @param {*} access_token Access token for Spotify accountn
+ * @param {*} endpoint Where to get "top items" from
+ * @param {*} stringify How to return the output form the endpoint
+ * @returns {Promise} Resolves to top items
+ */
 function getTop(access_token, endpoint, stringify) {
   var apiUrl = config.spotify.url.web_api + endpoint;
   var options = {
@@ -170,7 +177,7 @@ function getUserTopArtists(access_token) {
       link: artist.external_urls.spotify,
       name: artist.name,
       genres: artist.genres,
-      img: artist.images && artist.images[0] ? artist.images[0].url : null
+      img: (artist.images && artist.images[0]) ? artist.images[0].url : null
     })});
 }
 

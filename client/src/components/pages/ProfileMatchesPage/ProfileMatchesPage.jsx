@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import SelectionItem from "./SelectionItem";
 import EmptyBox from "./EmptyBox";
-import ProfileMatchView from "./ProfileMatchView";
-import { ConcertList, Loader } from "../../";
+// import ProfileMatchView from "./ProfileMatchView";
+import { ProfileMainView, ConcertList, Loader } from "../../";
 
 import "./ProfileMatchesPage.scss";
 
@@ -37,7 +37,7 @@ class ProfileMatchesPage extends Component {
       this.setState({
         initPeople: true,
         people: data,
-        currentSelection: data[0].id
+        currentSelection: data ? data[0].id : null
       });
     }
   }
@@ -103,7 +103,8 @@ class ProfileMatchesPage extends Component {
             {
               this.state.people && this.state.people.map((person, i) => {
                 if (person.id == this.state.currentSelection) {
-                  return <ProfileMatchView
+                  console.log('erson', person)
+                  return <ProfileMainView
                             key={i}
                             person={person}
                             type="person"/>;
@@ -129,7 +130,8 @@ class ProfileMatchesPage extends Component {
               this.state.concerts && this.state.concerts.length != 0 && 
               <ConcertList
                 concerts={this.state.concerts}
-                numPerRow={4}/>
+                numPerRow={4}
+                format={true}/>
             }
           </div>
         </div>

@@ -45,6 +45,28 @@ export function makeMatch(userToMatchWithId) {
 }
 
 /**
+ * @description Makes concert match
+ * @name makeConcertMatch
+ * @function
+ * @memberof module:api
+ */
+export function makeConcertMatch(concertToMatchWithId) {
+  return post(`${serverBaseURL}/user/me/match-concert`, {
+    id: concertToMatchWithId
+  }).then(res => res);
+}
+
+/**
+ * @description Gets user concerts
+ * @name getUserConcerts
+ * @function
+ * @memberof module:api
+ */
+export function getUserConcerts() {
+  return get(`${serverBaseURL}/user/me/concerts`).then(res => res);
+}
+
+/**
  * @description Gets people
  * @name getPeople
  * @function

@@ -50,6 +50,11 @@ function UserReducer(state = {}, action) {
       return Object.assign({}, state, {
         matchResults: action.matchResult
       });
+    case "MATCH_CONCERT":
+      console.log("action", action.matchResult);
+      return Object.assign({}, state, {
+        matchResults: action.matchResult
+      });
     case "GET_PEOPLE":
       console.log("people data", action.people);
       return Object.assign({}, state, {

@@ -90,7 +90,7 @@ class ConcertInfoPage extends Component {
                             })}
                         </div>
                         <div className="concert-location-wrapper">
-
+                            
                         </div>
                     </div>
                 }

@@ -12,6 +12,12 @@
 const request = require("request");
 const config = require("../config");
 
+/**
+ * Get concert from Songkick API
+ * @param {*} options 
+ * @param {*} cb
+ * @returns {JSON} Songkick JSON data
+ */
 function getFromSongkick(options, cb) {
   request.get(options, function(error, response, body) {
     if (body) {

@@ -114,6 +114,26 @@ export function matchUser(userToMatchWithId, cb) {
 }
 
 /**
+ * @description Action dispatcher to match user with concert
+ * @name matchUserWithConcert
+ * @function
+ * @memberof module:actions
+ */
+export function matchUserWithConcert(concertToMatchWithId, cb) {
+  return (dispatch, prevState) => {
+    api
+      .makeConcertMatch(concertToMatchWithId)
+      .then(response =>
+        dispatch({ matchResult: response, type: "MATCH_CONCERT" })
+      )
+      .then(() => {
+        if (cb) cb();
+      })
+      .catch(error => console.log("Error in matchUserWithConcert: " + error));
+  };
+}
+
+/**
  * @description Action dispatcher to get people
  * @name getPeople
  * @function
@@ -140,7 +160,7 @@ export function getPeople(cb) {
 export function getUserConcerts(cb) {
   return (dispatch, prevState) => {
     api
-      .getConcerts()
+      .getUserConcerts()
       .then(response =>
         dispatch({ concerts: response, type: "GET_USER_CONCERTS" })
       )

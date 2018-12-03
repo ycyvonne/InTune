@@ -5,7 +5,8 @@ import {
   ProfileDetails,
   FavoriteList,
   Button,
-  Loader
+  Loader,
+  ProfileMainView
 } from "../../";
 import "./ProfilePage.scss";
 
@@ -40,32 +41,18 @@ class Profile extends Component {
       var spotifyData = this.props.user.spotifyData;
       var subheading = "Hi " + spotifyData.name.split(" ")[0] + "!";
     }
-
+    console.log('meeee', this.props.user)
     return (
       <div>
         {!isValid && <div className="profile-loader"><Loader type="Bars" color="#005AA8" /></div>}
         {isValid && 
           <div className="profile-wrapper">
-            <Header subtitle="INTUNE" heading="" subheading={subheading} />
-            <div className="profile-content-wrapper">
-              <ProfilePicture
-                heading="PROFILE PICTURE"
-                imageUrl={this.props.user.spotifyData.img}
-                customSize="profile-picture-size"
-                isInput={true}
-              />
-              <ProfileDetails {...this.props} />
-              <FavoriteList
-                topic="ARTISTS"
-                data={this.props.user.spotifyData.artists}
-              />
-              <FavoriteList
-                topic="TRACKS"
-                data={this.props.user.spotifyData.tracks}
-              />
-            </div>
-            <Button customClass="save-button" text="SAVE" />
-          </div>}
+            <ProfileMainView 
+              person={this.props.user.spotifyData}
+              type="person"
+              isMe={true}/>
+          </div>
+          }
         </div>
     );
   }

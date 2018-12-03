@@ -22,25 +22,6 @@ let router = express.Router();
 const userController = require("../controllers/UserController");
 
 /**
- * Route serving root index
- * @name /
- * @function
- * @memberof module:routes/user~userRouter
- */
-router.get("/", userController.index);
-
-// /**
-//  * Route for user creation
-//  * @name /create
-//  * @function
-//  * @memberof module:routes/user~userRouter
-//  * @inner
-//  * @param {string} req.body.code - Code provided to generate access token
-//  * @returns {JSON} - A json object containing user info
-//  */
-// router.post('/create', userController.create);
-
-/**
  * Route to get all normal users
  * @name /all
  * @function
@@ -125,7 +106,7 @@ router.post("/me/match", userController.match);
 
 /**
  * Route to get all matched users
- * @name /me
+ * @name /me/people
  * @function
  * @memberof module:routes/user~userRouter
  * @inner
@@ -133,6 +114,14 @@ router.post("/me/match", userController.match);
  */
 router.get("/me/people", userController.getPeople);
 
+/**
+ * Route to test matching
+ * @name /test-matching
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @returns {JSON} - A json object containing the user info
+ */
 router.get("/test-matches", userController.testMatches);
 
 /**
@@ -168,6 +157,27 @@ router.get("/me/top-artists", userController.getTopArtists);
 router.get("/me/matches", userController.getMatches);
 
 /**
+ * Route to get matched concerts
+ * @name /me/concerts
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @returns {JSON} - A json object containing an array of concerts
+ */
+router.get("/me/concerts", userController.getConcerts);
+
+/**
+ * Route to get a specific user's Spotify profile
+ * @name /me/match-concert
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @param {string} req.body.id - The id of the concert ot match with
+ * @returns {JSON} - A json object containing the current user's info
+ */
+router.post("/me/match-concert", userController.matchConcert);
+
+/**
  * Route to get a specific user's Spotify profile
  * @name /get-spotify-profile
  * @function
@@ -188,7 +198,5 @@ router.post("/get-spotify-profile", userController.getSpotifyProfile);
  * @returns {JSON} - A json object containing a queried user's info
  */
 router.get("/:id", userController.getUser);
-
-router.get("/concerts", userController.getUserConcerts);
 
 module.exports = router;

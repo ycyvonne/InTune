@@ -19,6 +19,7 @@ module.exports = (() => {
     /**
      * Shuffles array in place. ES6 version
      * @param {Array} a items An array containing the items.
+     * @returns {Array} Shuffled array
      */
     shuffle: function(a) {
       for (let i = a.length - 1; i > 0; i--) {
@@ -28,6 +29,12 @@ module.exports = (() => {
       return a;
     },
 
+    /**
+     * Generates a similarity score between two users
+     * @param {*} mp1 
+     * @param {*} mp2
+     * @returns {Number} The similarity score
+     */
     getScore: function(mp1, mp2) {
 
       if (!mp1 || !mp2)  return 0;

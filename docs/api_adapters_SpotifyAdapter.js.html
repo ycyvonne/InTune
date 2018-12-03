@@ -26,7 +26,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
+            <pre class="prettyprint source linenums"><code>"use strict";
 
 /** Server side Spotify adapter providing interface to interact with external spotify API
  * @module adapters/spotify
@@ -37,9 +37,9 @@
  * request module
  * @const
  */
-const request = require('request');
-const config = require('../config');
-const sessions = require('../sessions');
+const request = require("request");
+const config = require("../config");
+const sessions = require("../sessions");
 
 /**
  * Query Spotify's authentication API to retrieve a user's access token to make additional requests to Spotify's Web API
@@ -51,55 +51,60 @@ const sessions = require('../sessions');
  * @returns {Promise} - A promise which resolves to a JSON object containing relevant tokens
  */
 function getAccessToken(code, session) {
-    var lookup = sessions.lookupSession(session);
-    if (session &amp;&amp; lookup &amp;&amp; lookup.access_token &amp;&amp; lookup.refresh_token) {
-        // Check the cache first
-        return new Promise((resolve, reject) => {
-                resolve({
-                    access_token: lookup.access_token,
-                    refresh_token: lookup.refresh_token,
-                    session: session
-                });
-        });
-    }
-    else {
-        // Get new token, update cache
-        var authOptions = {
-            method: 'POST',
-            url: config.spotify.url.request_token,
-            form: {
-                code: code,
-                redirect_uri: config.spotify.redirect_uri,
-                grant_type: 'authorization_code'
-            },
-            headers: {
-                'Authorization': 'Basic ' + (new Buffer(config.spotify.client_id + ':' + config.spotify.client_secret).toString('base64'))
-            },
-            json: true
-        };
-        
-        return new Promise(function(resolve, reject) {
-            request.post(authOptions, function(error, response, body) {
-                if (!error &amp;&amp; response.statusCode === 200) {
-                    var access_token = body.access_token,
-                        refresh_token = body.refresh_token;
-                    
-                    // Update cache
-                    const id = sessions.generateID();
-                    sessions.setSessionStateById(id, {access_token: access_token, refresh_token: refresh_token});
+  var lookup = sessions.lookupSession(session);
+  if (session &amp;&amp; lookup &amp;&amp; lookup.access_token &amp;&amp; lookup.refresh_token) {
+    // Check the cache first
+    return new Promise((resolve, reject) => {
+      resolve({
+        access_token: lookup.access_token,
+        refresh_token: lookup.refresh_token,
+        session: session
+      });
+    });
+  } else {
+    // Get new token, update cache
+    var authOptions = {
+      method: "POST",
+      url: config.spotify.url.request_token,
+      form: {
+        code: code,
+        redirect_uri: config.spotify.redirect_uri,
+        grant_type: "authorization_code"
+      },
+      headers: {
+        Authorization:
+          "Basic " +
+          new Buffer(
+            config.spotify.client_id + ":" + config.spotify.client_secret
+          ).toString("base64")
+      },
+      json: true
+    };
 
-                    resolve({
-                        access_token: access_token,
-                        refresh_token: refresh_token,
-                        session: id
-                    });
-                }
-                else {
-                    reject('Could not fetch access token: ' + JSON.stringify(response));
-                }
-            });
-        });
-    }
+    return new Promise(function(resolve, reject) {
+      request.post(authOptions, function(error, response, body) {
+        if (!error &amp;&amp; response.statusCode === 200) {
+          var access_token = body.access_token,
+            refresh_token = body.refresh_token;
+
+          // Update cache
+          const id = sessions.generateID();
+          sessions.setSessionStateById(id, {
+            access_token: access_token,
+            refresh_token: refresh_token
+          });
+
+          resolve({
+            access_token: access_token,
+            refresh_token: refresh_token,
+            session: id
+          });
+        } else {
+          reject("Could not fetch access token: " + JSON.stringify(response));
+        }
+      });
+    });
+  }
 }
 
 /**
@@ -111,51 +116,60 @@ function getAccessToken(code, session) {
  * @returns {Promise} - A promise which resolves to a JSON object containing user info
  */
 function getUserInfo(access_token) {
-    var options = {
-        url: config.spotify.url.web_api,
-        headers: { 'Authorization': 'Bearer ' + access_token },
-        json: true
-    };
+  var options = {
+    url: config.spotify.url.web_api,
+    headers: { Authorization: "Bearer " + access_token },
+    json: true
+  };
 
-    // use the access token to access the Spotify Web API
-    return new Promise(function(resolve, reject) {
-        request.get(options, function(error, response, body) {
-            if (!error) {
-                resolve(body);
-            }
-            else {
-                reject("Could not fetch user data: " + response.statusCode + ", " + JSON.stringify(response));
-            }
-        });
+  // use the access token to access the Spotify Web API
+  return new Promise(function(resolve, reject) {
+    request.get(options, function(error, response, body) {
+      if (!error) {
+        resolve(body);
+      } else {
+        reject(
+          "Could not fetch user data: " +
+            JSON.stringify(response)
+        );
+      }
     });
+  });
 }
 
-function getTop(access_token, endpoint) {
-    var apiUrl = config.spotify.url.web_api + endpoint;
-    var options = {
-        url: apiUrl,
-        headers: {'Authorization': 'Bearer ' + access_token},
-        json: true
-    }
+/**
+ * Gets top items from Spotify API
+ * @param {*} access_token Access token for Spotify accountn
+ * @param {*} endpoint Where to get "top items" from
+ * @param {*} stringify How to return the output form the endpoint
+ * @returns {Promise} Resolves to top items
+ */
+function getTop(access_token, endpoint, stringify) {
+  var apiUrl = config.spotify.url.web_api + endpoint;
+  var options = {
+    url: apiUrl,
+    headers: { Authorization: "Bearer " + access_token },
+    json: true
+  };
 
-    console.log('hitting spotify endpoint ' + apiUrl);
-
-    // use the access token to access the Spotify Web API
-    return new Promise(function(resolve, reject) {
-        request.get(options, function(error, response, body) {
-            if (!error &amp;&amp; response.statusCode == 200) {
-                var values = [];
-                body.items.forEach(value => {
-                    values.push(value.id);
-                });
-
-                resolve(values);
-            }
-            else {
-                reject('Could not fetch top items: ' + response.statusCode + ', ' + JSON.stringify(response));
-            }
+  // use the access token to access the Spotify Web API
+  return new Promise(function(resolve, reject) {
+    request.get(options, function(error, response, body) {
+      if (!error &amp;&amp; response.statusCode == 200) {
+        var values = [];
+        body.items.forEach(value => {
+          values.push(stringify(value));
         });
+
+        resolve(values);
+      } else {
+        reject(
+          "Could not fetch top items: " +
+            JSON.stringify(response)
+        );
+      }
     });
+  });
 }
 
 /**
@@ -167,7 +181,14 @@ function getTop(access_token, endpoint) {
  * @returns {Promise} - A promise which resolves to a JSON object containing Spotify Track objects
  */
 function getUserTopTracks(access_token) {
-    return getTop(access_token, config.spotify.url.topTracks);
+  return getTop(access_token, config.spotify.url.topTracks, function(track) {
+    return JSON.stringify({
+      album: track.album.name,
+      img: track.album.images,
+      artist: track.artists[0].name,
+      name: track.name
+    })
+  });
 }
 
 /**
@@ -179,15 +200,22 @@ function getUserTopTracks(access_token) {
  * @returns {Promise} - A promise which resolves to a JSON object containing Spotify Artist objects
  */
 function getUserTopArtists(access_token) {
-    return getTop(access_token, config.spotify.url.topArtists);
+  return getTop(access_token, config.spotify.url.topArtists, function(artist) {
+    return JSON.stringify({
+      link: artist.external_urls.spotify,
+      name: artist.name,
+      genres: artist.genres,
+      img: (artist.images &amp;&amp; artist.images[0]) ? artist.images[0].url : null
+    })});
 }
 
 module.exports = {
-    getAccessToken,
-    getUserInfo,
-    getUserTopTracks,
-    getUserTopArtists
-};</code></pre>
+  getAccessToken,
+  getUserInfo,
+  getUserTopTracks,
+  getUserTopArtists
+};
+</code></pre>
         </article>
     </section>
 
@@ -197,13 +225,13 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-actions.html">actions</a></li><li><a href="module-adapters_songkick.html">adapters/songkick</a></li><li><a href="module-adapters_spotify.html">adapters/spotify</a></li><li><a href="module-api.html">api</a></li><li><a href="module-reducers.html">reducers</a></li><li><a href="module-routes_concert.html">routes/concert</a></li><li><a href="module-routes_user.html">routes/user</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routes_concert-concertRouter.html">concertRouter</a></li><li><a href="module-routes_user-userRouter.html">userRouter</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-actions.html">actions</a></li><li><a href="module-adapters_songkick.html">adapters/songkick</a></li><li><a href="module-adapters_spotify.html">adapters/spotify</a></li><li><a href="module-api.html">api</a></li><li><a href="module-ConcertController.html">ConcertController</a></li><li><a href="module-reducers.html">reducers</a></li><li><a href="module-routes_concert.html">routes/concert</a></li><li><a href="module-routes_user.html">routes/user</a></li><li><a href="module-UserController.html">UserController</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routes_concert-concertRouter.html">concertRouter</a></li><li><a href="module-routes_user-userRouter.html">userRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 13:08:45 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Dec 02 2018 23:17:04 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

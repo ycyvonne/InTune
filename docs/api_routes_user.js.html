@@ -26,18 +26,18 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
+            <pre class="prettyprint source linenums"><code>"use strict";
 
 /** Server side Express router providing user related routes
  * @module routes/user
  * @requires express
  */
 
- /**
+/**
  * express module
  * @const
  */
-const express = require('express');
+const express = require("express");
 
 /**
  * Express router to mount user related functions on.
@@ -47,7 +47,7 @@ const express = require('express');
  */
 let router = express.Router();
 
-const userController = require('../controllers/UserController');
+const userController = require("../controllers/UserController");
 
 /**
  * Route serving root index
@@ -55,27 +55,25 @@ const userController = require('../controllers/UserController');
  * @function
  * @memberof module:routes/user~userRouter
  */
-router.get('/', userController.index);
+router.get("/", userController.index);
 
 /**
- * Route for user creation
- * @name /create
- * @function
- * @memberof module:routes/user~userRouter
- * @inner
- * @param {string} req.body.code - Code provided to generate access token
- * @returns {JSON} - A json object containing user info
- */
-router.post('/create', userController.create);
-
-/**
- * Route to get all users
+ * Route to get all normal users
  * @name /all
  * @function
  * @memberof module:routes/user~userRouter
  * @returns {JSON} - A json object containing an array of users
  */
-router.get('/all', userController.getUsers);
+router.get("/all", userController.getUsers);
+
+/**
+ * Route to get all artists
+ * @name /artists
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @returns {JSON} - A json object containing an array of users
+ */
+router.get("/artists", userController.getArtists);
 
 /**
  * Route for user deletion
@@ -83,10 +81,10 @@ router.get('/all', userController.getUsers);
  * @function
  * @memberof module:routes/user~userRouter
  * @inner
- * @param {string} req.body.id - user specific id 
+ * @param {string} req.body.id - user specific id
  * @returns {JSON} - A json object containing deleted user
  */
-router.post('/delete', userController.deleteUser);
+router.post("/delete", userController.deleteUser);
 
 /**
  * Route for all user deletion
@@ -95,7 +93,7 @@ router.post('/delete', userController.deleteUser);
  * @memberof module:routes/user~userRouter
  * @returns {JSON} - A json object containing an array of deleted users
  */
-router.get('/all/delete', userController.deleteAll);
+router.get("/all/delete", userController.deleteAll);
 
 /**
  * Route for user login
@@ -107,7 +105,7 @@ router.get('/all/delete', userController.deleteAll);
  * @param {string} req.body.session - The client session ID
  * @returns {string} - A string with success code 'User successfully logged in.'
  */
-router.post('/login', userController.login);
+router.post("/login", userController.login);
 
 /**
  * Route to get user info
@@ -118,7 +116,49 @@ router.post('/login', userController.login);
  * @param {string} req.body.session - The client session ID
  * @returns {JSON} - A json object containing the user info
  */
-router.get('/me', userController.getMe);
+router.get("/me", userController.getMe);
+
+/**
+ * Route to get user info
+ * @name /me/update
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @param {*} req.body.profile - The new profile information
+ * @returns {JSON} - A json object containing the user info
+ */
+router.post("/me/update", userController.updateProfile);
+
+/**
+ * Route to match request another user
+ * @name /me/match
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @param {string} req.body.id - The id of the other user to match with.
+ * @returns {JSON} - A json object containing the user info
+ */
+router.post("/me/match", userController.match);
+
+/**
+ * Route to get all matched users
+ * @name /me/people
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @returns {JSON} - A json object containing the user info
+ */
+router.get("/me/people", userController.getPeople);
+
+/**
+ * Route to test matching
+ * @name /test-matching
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @returns {JSON} - A json object containing the user info
+ */
+router.get("/test-matches", userController.testMatches);
 
 /**
  * Route to get user's top-tracks
@@ -129,7 +169,7 @@ router.get('/me', userController.getMe);
  * @param {string} req.body.session - The client session ID
  * @returns {JSON} - A json object containing a list of a user's top tracks
  */
-router.get('/me/top-tracks', userController.getTopTracks);
+router.get("/me/top-tracks", userController.getTopTracks);
 
 /**
  * Route to get user's top-artists
@@ -140,7 +180,7 @@ router.get('/me/top-tracks', userController.getTopTracks);
  * @param {string} req.body.session - The client session ID
  * @returns {JSON} - A json object containing a list of a user's top artists
  */
-router.get('/me/top-artists', userController.getTopArtists);
+router.get("/me/top-artists", userController.getTopArtists);
 
 /**
  * Route to get matches for this user
@@ -150,7 +190,39 @@ router.get('/me/top-artists', userController.getTopArtists);
  * @inner
  * @returns {JSON} - A json object containing a list of matches sorted by similarity
  */
-router.get('/me/matches', userController.getMatches);
+router.get("/me/matches", userController.getMatches);
+
+/**
+ * Route to get matched concerts
+ * @name /me/concerts
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @returns {JSON} - A json object containing an array of concerts
+ */
+router.get("/me/concerts", userController.getConcerts);
+
+/**
+ * Route to get a specific user's Spotify profile
+ * @name /me/match-concert
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @param {string} req.body.id - The id of the concert ot match with
+ * @returns {JSON} - A json object containing the current user's info
+ */
+router.post("/me/match-concert", userController.matchConcert);
+
+/**
+ * Route to get a specific user's Spotify profile
+ * @name /get-spotify-profile
+ * @function
+ * @memberof module:routes/user~userRouter
+ * @inner
+ * @param {string} req.body.code - The Spotify code of the user's profile to get
+ * @returns {JSON} - A json object containing a queried user's info
+ */
+router.post("/get-spotify-profile", userController.getSpotifyProfile);
 
 /**
  * Route to get a specific user
@@ -161,10 +233,10 @@ router.get('/me/matches', userController.getMatches);
  * @param {string} req.params.id - The ID of the user to get
  * @returns {JSON} - A json object containing a queried user's info
  */
-router.get('/:id', userController.getUser);
+router.get("/:id", userController.getUser);
 
-
-module.exports = router;</code></pre>
+module.exports = router;
+</code></pre>
         </article>
     </section>
 
@@ -174,13 +246,13 @@ module.exports = router;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-actions.html">actions</a></li><li><a href="module-adapters_songkick.html">adapters/songkick</a></li><li><a href="module-adapters_spotify.html">adapters/spotify</a></li><li><a href="module-api.html">api</a></li><li><a href="module-reducers.html">reducers</a></li><li><a href="module-routes_concert.html">routes/concert</a></li><li><a href="module-routes_user.html">routes/user</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routes_concert-concertRouter.html">concertRouter</a></li><li><a href="module-routes_user-userRouter.html">userRouter</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-actions.html">actions</a></li><li><a href="module-adapters_songkick.html">adapters/songkick</a></li><li><a href="module-adapters_spotify.html">adapters/spotify</a></li><li><a href="module-api.html">api</a></li><li><a href="module-ConcertController.html">ConcertController</a></li><li><a href="module-reducers.html">reducers</a></li><li><a href="module-routes_concert.html">routes/concert</a></li><li><a href="module-routes_user.html">routes/user</a></li><li><a href="module-UserController.html">UserController</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routes_concert-concertRouter.html">concertRouter</a></li><li><a href="module-routes_user-userRouter.html">userRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 13:08:45 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Dec 02 2018 23:17:04 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

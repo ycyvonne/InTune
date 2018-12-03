@@ -495,7 +495,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_adapters_SpotifyAdapter.js.html">api/adapters/SpotifyAdapter.js</a>, <a href="api_adapters_SpotifyAdapter.js.html#line77">line 77</a>
+        <a href="api_adapters_SpotifyAdapter.js.html">api/adapters/SpotifyAdapter.js</a>, <a href="api_adapters_SpotifyAdapter.js.html#line82">line 82</a>
     </li></ul></dd>
     
 
@@ -652,7 +652,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_adapters_SpotifyAdapter.js.html">api/adapters/SpotifyAdapter.js</a>, <a href="api_adapters_SpotifyAdapter.js.html#line133">line 133</a>
+        <a href="api_adapters_SpotifyAdapter.js.html">api/adapters/SpotifyAdapter.js</a>, <a href="api_adapters_SpotifyAdapter.js.html#line147">line 147</a>
     </li></ul></dd>
     
 
@@ -809,7 +809,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_adapters_SpotifyAdapter.js.html">api/adapters/SpotifyAdapter.js</a>, <a href="api_adapters_SpotifyAdapter.js.html#line145">line 145</a>
+        <a href="api_adapters_SpotifyAdapter.js.html">api/adapters/SpotifyAdapter.js</a>, <a href="api_adapters_SpotifyAdapter.js.html#line166">line 166</a>
     </li></ul></dd>
     
 
@@ -860,6 +860,209 @@
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="~getTop"><span class="type-signature">(inner) </span>getTop<span class="signature">(access_token, endpoint, stringify)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Gets top items from Spotify API
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>access_token</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Access token for Spotify accountn</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endpoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Where to get "top items" from</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stringify</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">How to return the output form the endpoint</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_adapters_SpotifyAdapter.js.html">api/adapters/SpotifyAdapter.js</a>, <a href="api_adapters_SpotifyAdapter.js.html#line119">line 119</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Resolves to top items
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
     
 
     
@@ -875,13 +1078,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-actions.html">actions</a></li><li><a href="module-adapters_songkick.html">adapters/songkick</a></li><li><a href="module-adapters_spotify.html">adapters/spotify</a></li><li><a href="module-api.html">api</a></li><li><a href="module-reducers.html">reducers</a></li><li><a href="module-routes_concert.html">routes/concert</a></li><li><a href="module-routes_user.html">routes/user</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routes_concert-concertRouter.html">concertRouter</a></li><li><a href="module-routes_user-userRouter.html">userRouter</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-actions.html">actions</a></li><li><a href="module-adapters_songkick.html">adapters/songkick</a></li><li><a href="module-adapters_spotify.html">adapters/spotify</a></li><li><a href="module-api.html">api</a></li><li><a href="module-ConcertController.html">ConcertController</a></li><li><a href="module-reducers.html">reducers</a></li><li><a href="module-routes_concert.html">routes/concert</a></li><li><a href="module-routes_user.html">routes/user</a></li><li><a href="module-UserController.html">UserController</a></li></ul><h3>Namespaces</h3><ul><li><a href="module-routes_concert-concertRouter.html">concertRouter</a></li><li><a href="module-routes_user-userRouter.html">userRouter</a></li></ul><h3>Global</h3><ul><li><a href="global.html#app">app</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 15 2018 13:08:45 GMT-0800 (Pacific Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Dec 02 2018 23:17:04 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
