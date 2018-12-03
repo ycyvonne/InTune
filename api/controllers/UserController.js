@@ -412,7 +412,11 @@ function matchConcert(req, res) {
             return User.addConcert(user._id, cid);
         })
         .then(user => {
-            return res.json(getUserData(user));
+            return res.json({
+                isMatch: true,
+                id: user._id,
+                data: getUserData(user)
+            });
         })
         .catch(err => {
             console.log(err, err.message);
@@ -515,7 +519,7 @@ function getConcertData(concert) {
 }
 
 const mockConcerts = require('../mock-concert')
-function (req, res) {
+function getUserConcerts(req, res) {
   console.log('mock concerts', mockConcerts.concerts[0])
   res.send(mockConcerts.concerts);
 }
