@@ -185,7 +185,7 @@ class Match extends Component {
                         <Icon icon={faMusic} />
                       </div>
                       <div className="track-details">
-                        <h3>"{track.name}"</h3>
+                        <h3>{track.name}</h3>
                         <p>{track.artist}</p>
                       </div>
                     </a>
