@@ -10,7 +10,7 @@ class ConcertPage extends Component {
       initConcerts: false,
       pageNumber: 0,
       maxPages: 0,
-      CONCERTS_PER_PAGE: 9,
+      CONCERTS_PER_PAGE: 10,
       concerts: []
     };
 

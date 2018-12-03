@@ -6,9 +6,6 @@ const SpotifyAdapter = require("../adapters/SpotifyAdapter");
 const sessions = require("../sessions");
 const util = require("../utils");
 
-function index(req, res) {
-  res.json("/ endpoint hit");
-}
 
 /**
  * Creates a new user and saves it to the DB.
@@ -20,10 +17,8 @@ function _createUser(userData, sessionInfo) {
   var musicProfile = {};
   var profile = {};
   var spotId;
-
   return new Promise((resolve, reject) => {
     spotId = userData.id;
-
     // Update profile
     profile.name = userData.display_name;
     profile.email = userData.email;
@@ -83,7 +78,7 @@ function getArtists(req, res) {
  */
 function getUser(req, res) {
   User.findById(req.params.id)
-    .then(user => res.send(getUserReturnString))
+    .then(user => res.send(getUserReturnString(user)))
     .catch(err => res.send(err));
 }
 
@@ -203,13 +198,10 @@ function updateProfile(req, res) {
  * @return {void}
  */
 function getMe(req, res) {
-  console.log("cookie", req.cookies.session);
   var lookup = sessions.lookupSession(req.cookies.session);
-  console.log(lookup);
   if (!req.cookies.session || !lookup) {
     return res.status(401).send("User not logged in.");
   }
-
   User.findById(lookup.id)
     .then(user => {
       res.send(getUserReturnString(user));
@@ -291,8 +283,6 @@ function getMatches(req, res) {
       concerts = _concerts;
       util.shuffle(concerts);
 
-      var mp = user.musicProfile;
-
       util.shuffle(users);
       users.sort((a, b) => {
         return util.getScore(user, b) - util.getScore(user, a);
@@ -315,7 +305,7 @@ function getMatches(req, res) {
           });
         }
         idx_user++;
-        if (idx_user % 5 == 0 && idx_artist < artists.length) {
+        if (idx_user % 3 == 0 && idx_artist < artists.length) {
           var data = artists[idx_artist];
           matches.push({
             type: "artist",
@@ -325,7 +315,7 @@ function getMatches(req, res) {
           idx_artist++;
         } else if (
           idx_user != 0 &&
-          idx_user % 7 == 0 &&
+          idx_user % 5 == 0 &&
           idx_concert < concerts.length
         ) {
           var data = concerts[idx_concert];
@@ -390,11 +380,8 @@ function match(req, res) {
     return res.status(400).send("'otherId' field not supplied in request.");
   }
 
-  console.log("got id " + otherId);
-
   var matcher;
 
-  console.log("trying to match users");
 
   User.match(state.id, otherId)
     .then(newUser => {
@@ -402,10 +389,11 @@ function match(req, res) {
       return User.hasMatch(matcher._id, otherId);
     })
     .then(isMatch => {
-      res.send({
+      var data = {
         isMatch: isMatch,
         data: getUserData(matcher)
-      });
+      }
+      res.send(data);
     })
     .catch(err => {
       console.log("got error: " + err.message);
@@ -424,9 +412,6 @@ function getPeople(req, res) {
   if (!state) {
     return res.status(401).send("User not logged in.");
   }
-  console.log("getPeople");
-  console.log(req);
-  console.log(res);
   User.findById(state.id)
     .then(user => {
       return Promise.all(
@@ -439,7 +424,6 @@ function getPeople(req, res) {
       res.json(users.map(user => getUserData(user)));
     })
     .catch(err => {
-      console.log(err, err.message);
       res.status(500).send(err);
     });
 }
@@ -637,7 +621,6 @@ function getUserReturnString(user, isNewUser = false) {
 }
 
 module.exports = {
-  index,
   getUsers,
   getArtists,
   getUser,

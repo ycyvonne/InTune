@@ -1,6 +1,5 @@
 @import "../../../styles/vars.scss";
 
-
 .section-header {
   font-size: 36px;
   margin-top: 100px;
@@ -13,11 +12,13 @@
   color: $body-font-color;
 }
 
-.profile-matches-content, .profile-concerts-content {
+.profile-matches-content,
+.profile-concerts-content {
   display: flex;
   background: white;
   border: 1px solid $grey-light;
   min-height: 60%;
+  min-width: max-content;
   margin-top: 40px;
 
   .no-people {
